@@ -1,8 +1,7 @@
 from ..types import Chain, load_abi, ContractSpec, ContractAbi
-from ..tokens import Abis as TokenAbis
 
 
-class Abis(TokenAbis):
+class AllAbis:
     BaseRewardPool = ContractAbi(abi=load_abi('base_reward_pool.json'), name='base_reward_pool')
 
 
@@ -24,6 +23,6 @@ ContractSpecs = {
 }
 
 Abis = {
-    Chain.ETHEREUM: Abis,
-    Chain.GNOSIS: Abis
+    Chain.ETHEREUM: AllAbis,
+    Chain.GNOSIS: AllAbis
 }

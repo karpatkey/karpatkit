@@ -1,5 +1,4 @@
 from defabipedia.types import Chain, load_abi, ContractSpec, ContractAbi
-from defabipedia.tokens import Abis as TokenAbis
 
 
 class EthereumContractSpecs:
@@ -32,7 +31,7 @@ class EthereumContractSpecs:
                        name='pot')
 
 
-class EthereumAbis(TokenAbis):
+class EthereumAbis:
     GemJoin = ContractAbi(abi=load_abi('gem_join.json'), name='GemJoin')
 
 

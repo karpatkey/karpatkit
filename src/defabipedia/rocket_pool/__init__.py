@@ -1,5 +1,4 @@
 from defabipedia.types import Chain, load_abi, ContractSpec, ContractAbi
-from defabipedia.tokens import Abis as TokenAbis
 
 
 class EthereumContractSpecs:
@@ -14,7 +13,7 @@ class EthereumContractSpecs:
                         name='rETH')
 
 
-class EthereumAbis(TokenAbis):
+class EthereumAbis:
     DepositPool = ContractAbi(abi=load_abi('deposit_pool.json'),
                               name='DepositPool')
     ProtocolSettingsDeposit = ContractAbi(abi=load_abi('protocol_settings_deposit.json'),

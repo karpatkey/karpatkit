@@ -1,8 +1,7 @@
 from ..types import Chain, load_abi, ContractSpec, ContractAbi
-from ..tokens import Abis as TokenAbis
 
 
-class Abis(TokenAbis):  # The inheritance with TokenAbis adds the ERC20 abi
+class AllAbis:
     ComposableStablePool = ContractAbi(abi=load_abi('composable_stable_pool.json'), name='composable_stable_pool')
     WeightedPool = ContractAbi(abi=load_abi('weighted_pool.json'), name='weighted_pool')
     MetaStablePool = ContractAbi(abi=load_abi('meta_stable_pool.json'), name='meta_stable_pool')
@@ -36,6 +35,6 @@ ContractSpecs = {
 }
 
 Abis = {
-    Chain.ETHEREUM: Abis,
-    Chain.GNOSIS: Abis
+    Chain.ETHEREUM: AllAbis,
+    Chain.GNOSIS: AllAbis
 }
