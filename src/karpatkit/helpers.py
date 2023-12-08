@@ -11,6 +11,17 @@ suppressed_error_codes = {-32000, -32015}
 class ConfigError(Exception):
     pass
 
+def get_config():
+    config_path = os.environ.get("KKIT_CFG") or os.environ.get("CONFIG_PATH") or "kkit_config.json"
+
+    if config_path and os.path.exists(config_path):
+        with open(config_path) as json_file:
+            config = json.load(json_file)
+    else:
+        raise ConfigError("Config file is missing. Use KKIT_CFG env variable to specify a config file.")
+    return config
+
+
 @contextmanager
 def suppress_error_codes():
     try:
@@ -44,13 +55,3 @@ def listify(func):
         return list(func(*args, **kwargs))
 
     return wrapper
-
-def get_config():
-    config_path = os.environ.get("KKIT_CFG") or os.environ.get("CONFIG_PATH") or "kkit_config.json"
-
-    if config_path and os.path.exists(config_path):
-        with open(config_path) as json_file:
-            config = json.load(json_file)
-    else:
-        raise ConfigError("Config file is missing. Use KKIT_CFG env variable to specify a config file.")
-    return config

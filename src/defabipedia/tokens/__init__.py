@@ -1,4 +1,3 @@
-
 from ..types import Chain, load_abi, ContractAbi, StrEnum
 
 
@@ -6,7 +5,7 @@ class Abis:
     ERC20 = ContractAbi(abi=load_abi('erc20.json'), name='erc20')
 
 
-class EthereumAddresses(StrEnum):
+class EthereumTokenAddr(StrEnum):
     AAVE = "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
     ABPT = "0x41A08648C3766F9F9d85598fF102a08f4ef84F84"
     AURA = "0xC0c293ce456fF0ED870ADd98a0828Dd4d2903DBF"
@@ -96,8 +95,13 @@ class PolygonTokenAddr(StrEnum):
     X3CRV = "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171"
 
 
+class ArbitrumTokenAddr(StrEnum):
+    BAL = "0x040d1EdC9569d4Bab2D15287Dc5A4F10F56a56B8"
+
+
 Addresses = {
-    Chain.ETHEREUM: EthereumAddresses,
+    Chain.ETHEREUM: EthereumTokenAddr,
     Chain.GNOSIS: GnosisTokenAddr,
-    Chain.POLYGON: PolygonTokenAddr
+    Chain.POLYGON: PolygonTokenAddr,
+    Chain.ARBITRUM: ArbitrumTokenAddr,
 }

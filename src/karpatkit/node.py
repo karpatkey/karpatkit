@@ -93,7 +93,7 @@ def get_web3_call_count(web3):
     return web3.middleware_onion["call_counter"].call_count
 
 
-def get_node(blockchain: Blockchain, block=None):
+def get_node(blockchain: Blockchain | str, block=None):
     """
     Return a node that does tries with multiple providers.
 
