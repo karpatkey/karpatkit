@@ -1,4 +1,4 @@
-from ..types import Chain, ContractAbi, StrEnum, current_dir
+from ..types import Chain, ContractAbi, ContractSpec, StrEnum, current_dir
 
 
 class Abis:
@@ -98,6 +98,14 @@ class PolygonTokenAddr(StrEnum):
 class ArbitrumTokenAddr(StrEnum):
     BAL = "0x040d1EdC9569d4Bab2D15287Dc5A4F10F56a56B8"
 
+
+class EthereumContractSpecs:
+    pass
+
+# TODO: search for a better way, maybe remove EthereumTokenAddr
+for token in EthereumTokenAddr:
+    contract_spec = ContractSpec(address=token.value, abi_path=current_dir() / 'erc20.json', name=token.name)
+    setattr(EthereumContractSpecs, token.name, contract_spec)
 
 Addresses = {
     Chain.ETHEREUM: EthereumTokenAddr,
