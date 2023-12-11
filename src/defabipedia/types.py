@@ -2,11 +2,12 @@ from enum import Enum
 import inspect
 import json
 import os
+from pathlib import Path
 from dataclasses import dataclass
 
 from web3 import Web3
 
-__all__ = ['Blockchain', 'Chain', 'load_abi', 'load_local_abi', 'ContractSpec',
+__all__ = ['Blockchain', 'Chain', 'current_dir', 'ContractSpec',
            'ContractAbi', 'ContractAddress', 'StrEnum']
 
 
@@ -72,30 +73,32 @@ class Chain:
         return cls.get_blockchain_by_chain_id(w3.eth.chain_id)
 
 
-@dataclass
-class ContractSpec:
-    address: str
-    name: str
-    abi: str
-
-    def __post_init__(self):
-        if self.address is not None:
-            self.address = Web3.to_checksum_address(self.address)
+class ContractAbi:
+    def __init__(self, name: str, abi: str | None = None, abi_path: Path | None = None):
+        self.name = name
+        self._abi = abi  # if no abi is provided the abi_path will be used lazily
+        self.abi_path = abi_path
+        if abi is None and abi_path is None:
+            raise ValueError("Missing argument: abi or abi_path must me provided")
 
     def __str__(self):
         return self.name
+
+    @property
+    def abi(self):
+        if self._abi is None:
+            with open(self.abi_path) as f:
+                self._abi = json.load(f)
+        return self._abi
+
+
+class ContractSpec(ContractAbi):
+    def __init__(self, address: str, name: str, abi: str | None = None, abi_path: Path | None = None):
+        super().__init__(name, abi, abi_path)
+        self.address = Web3.to_checksum_address(address)
 
     def contract(self, w3: Web3):
         return w3.eth.contract(address=self.address, abi=self.abi)
-
-
-@dataclass
-class ContractAbi:
-    name: str
-    abi: str
-
-    def __str__(self):
-        return self.name
 
 
 @dataclass
@@ -107,22 +110,8 @@ class ContractAddress:
         return self.name
 
 
-# TODO: refactor this so that the loading of the json is lazy
-def load_abi(abi_filename):
-    """Loads an ABI from a file placed in the same directory the call is made"""
+def current_dir() -> Path:
+    """Return the directory path of the caller"""
     caller_frame = inspect.stack()[1]
     caller_filename = caller_frame[1]
-    caller_file_directory = os.path.dirname(caller_filename)
-    file_path = os.path.join(caller_file_directory, abi_filename)
-    with open(file_path) as f:
-        return json.load(f)
-
-
-def load_local_abi(abi_filename):
-    """Loads an ABI from the local abi directory placed in the same directory the call is made."""
-    caller_frame = inspect.stack()[1]
-    caller_filename = caller_frame[1]
-    caller_file_directory = os.path.dirname(caller_filename)
-    file_path = os.path.join(caller_file_directory, './abis', abi_filename)
-    with open(file_path) as f:
-        return json.load(f)
+    return Path(caller_frame.filename).parent

@@ -1,19 +1,19 @@
-from ..types import Chain, load_abi, ContractSpec, ContractAbi
+from ..types import Chain, current_dir, ContractSpec, ContractAbi
 
 
 class AllAbis:
-    BaseRewardPool = ContractAbi(abi=load_abi('base_reward_pool.json'), name='base_reward_pool')
+    BaseRewardPool = ContractAbi(abi_path=current_dir() / 'base_reward_pool.json', name='base_reward_pool')
 
 
 class EthereumContractSpecs:
     Booster = ContractSpec(address='0xA57b8d98dAE62B26Ec3bcC4a365338157060B234',
-                           abi=load_abi('booster.json'),
+                           abi_path=current_dir() / 'booster.json',
                            name='booster')
 
 
 class GnosisContractSpecs:
     Booster = ContractSpec(address='0x98Ef32edd24e2c92525E59afc4475C1242a30184',
-                           abi=load_abi('booster.json'),
+                           abi_path=current_dir() / 'booster.json',
                            name='booster')
 
 

@@ -1,8 +1,8 @@
-from ..types import Chain, load_abi, ContractAbi, StrEnum
+from ..types import Chain, ContractAbi, StrEnum, current_dir
 
 
 class Abis:
-    ERC20 = ContractAbi(abi=load_abi('erc20.json'), name='erc20')
+    ERC20 = ContractAbi(abi_path=current_dir() / 'erc20.json', name='erc20')
 
 
 class EthereumTokenAddr(StrEnum):
