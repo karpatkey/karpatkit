@@ -1,8 +1,19 @@
+import json
+from web3 import Web3, contract
+from eth_typing import AnyAddress
 from ..types import Chain, ContractAbi, ContractSpec, StrEnum, current_dir
+
+with open(current_dir() / 'erc20.json') as f:
+    ERC20_ABI = json.load(f)
+
+
+def erc20_contract(w3: Web3, address: AnyAddress) -> contract.Contract:
+    """Construct a generic ERC-20 token contract instance from the address."""
+    return w3.eth.contract(address=address, abi=ERC20_ABI)
 
 
 class Abis:
-    ERC20 = ContractAbi(abi_path=current_dir() / 'erc20.json', name='erc20')
+    ERC20 = ContractAbi(abi=ERC20_ABI, name='erc20')
 
 
 class EthereumTokenAddr(StrEnum):
@@ -101,6 +112,7 @@ class ArbitrumTokenAddr(StrEnum):
 
 class EthereumContractSpecs:
     pass
+
 
 # TODO: search for a better way, maybe remove EthereumTokenAddr
 for token in EthereumTokenAddr:
