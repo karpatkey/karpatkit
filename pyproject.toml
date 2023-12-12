@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "karpatkit"
+version = "0.0.1"
+description = 'A broad kit with useful DeFi tools'
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "karpatkey", email = "info@karpatkey.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+dependencies = [
+    "safe-eth-py>=5.3.1",
+    "web3>=6.12,<7.0",
+    "requests>=2.31.0,<3.0",
+]
+
+[project.urls]
+Issues = "https://github.com/karpatkey/karpatkit/issues"
+Source = "https://github.com/karpatkey/karpatkit"
+Homepage = "https://github.com/karpatkey/karpatkit"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/karpatkit", "src/defabipedia"]
+exclude = [
+  "src/karpatkit/tests",
+  "src/defabipedia/tests",
+]
