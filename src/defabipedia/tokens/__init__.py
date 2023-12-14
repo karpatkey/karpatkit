@@ -115,9 +115,9 @@ class EthereumContractSpecs:
 
 
 # TODO: search for a better way, maybe remove EthereumTokenAddr
-for token in EthereumTokenAddr:
-    contract_spec = ContractSpec(address=token.value, abi_path=current_dir() / 'erc20.json', name=token.name)
-    setattr(EthereumContractSpecs, token.name, contract_spec)
+#for token in EthereumTokenAddr:
+#    contract_spec = ContractSpec(address=token, abi_path=current_dir() / 'erc20.json', name=token.name)
+#    setattr(EthereumContractSpecs, token.name, contract_spec)
 
 Addresses = {
     Chain.ETHEREUM: EthereumTokenAddr,
