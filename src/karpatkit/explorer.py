@@ -3,14 +3,14 @@ import time
 import requests
 from web3 import Web3
 
+from defabipedia import Chain, Blockchain
 from .cache import cache_call
-from .constants import TESTNET_CHAINS, Address, APIKey, APIUrl, Chain
+from .constants import TESTNET_CHAINS, Address, APIKey, APIUrl
 from .node import get_node
 
 TESTNET_HEADER = {
     "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36"
 }
-
 EXPLORERS = {
     Chain.ETHEREUM: (APIUrl.ETHERSCAN, APIKey.ETHERSCAN),
     Chain.POLYGON: (APIUrl.POLSCAN, APIKey.POLSCAN),
@@ -65,7 +65,7 @@ def get_implemented_contract(blockchain, proxy_address):
 
 
 class ChainExplorer(requests.Session):
-    def __init__(self, blockchain: str = None) -> None:
+    def __init__(self, blockchain: Blockchain):
         super().__init__()
         self.chain = blockchain
         if blockchain in TESTNET_CHAINS:
@@ -84,7 +84,7 @@ class ChainExplorer(requests.Session):
         filter=lambda args: "latest" not in args,
         include_attrs=[
             lambda self: self.__class__.__name__,
-            lambda self: self.chain,
+            lambda self: self.chain.name,
         ],
     )
 

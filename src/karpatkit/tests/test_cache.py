@@ -45,7 +45,7 @@ def test_const_call(temporary_cache):
 
 def test_const_cache_disabled():
     web3_contract_function, centinel = build_web3_contract_mock()
-    with mock.patch("defyes.cache.is_enabled", wraps=lambda: False):
+    with mock.patch("karpatkit.cache.is_enabled", wraps=lambda: False):
         const_call(web3_contract_function)
         const_call(web3_contract_function)
         assert centinel.call_count == 2
