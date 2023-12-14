@@ -16,7 +16,7 @@ class Abis:
     ERC20 = ContractAbi(abi=ERC20_ABI, name='erc20')
 
 
-class EthereumTokenAddr(StrEnum):
+class EthereumTokenAddr:
     AAVE = "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
     ABPT = "0x41A08648C3766F9F9d85598fF102a08f4ef84F84"
     AURA = "0xC0c293ce456fF0ED870ADd98a0828Dd4d2903DBF"
