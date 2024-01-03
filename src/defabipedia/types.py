@@ -22,25 +22,15 @@ class StrEnum(str, Enum):
         return member
 
 
-@dataclass(frozen=True)
-class Blockchain:
-    name: str
-    chain_id: int
+class Blockchain(str):
+    def __new__(cls, name: str, chain_id: int):
+        instance = super().__new__(cls, name)
+        instance.chain_id = chain_id
+        return instance
 
-    def __str__(self):
-        return self.name
-
-    def __hash__(self):
-        return hash(self.name)
-
-    def __eq__(self, other):
-        if isinstance(other, Blockchain):
-            other_name = other.name
-        elif isinstance(other, str):
-            other_name = other
-        else:
-            raise NotImplemented
-        return self.name == other_name
+    @property
+    def name(self):
+        return str(self)
 
 
 class Chain:
