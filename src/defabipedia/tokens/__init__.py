@@ -73,7 +73,7 @@ class EthereumTokenAddr:
     ZRX = "0xE41d2489571d322189246DaFA5ebDe1F4699F498"
 
 
-class GnosisTokenAddr(StrEnum):
+class GnosisTokenAddr:
     AGVE = "0x3a97704a1b25F08aa230ae53B352e2e72ef52843"
     AURA = "0x1509706a6c66CA549ff0cB464de88231DDBe213B"
     BAL = "0x7eF541E2a22058048904fE5744f9c7E4C57AF717"
@@ -97,7 +97,7 @@ class GnosisTokenAddr(StrEnum):
     XGT = "0xC25AF3123d2420054c8fcd144c21113aa2853F39"
 
 
-class PolygonTokenAddr(StrEnum):
+class PolygonTokenAddr:
     BAL = "0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3"
     ELK = "0xeEeEEb57642040bE42185f49C52F7E9B38f8eeeE"
     MAI = "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1"
@@ -106,7 +106,7 @@ class PolygonTokenAddr(StrEnum):
     X3CRV = "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171"
 
 
-class ArbitrumTokenAddr(StrEnum):
+class ArbitrumTokenAddr:
     BAL = "0x040d1EdC9569d4Bab2D15287Dc5A4F10F56a56B8"
 
 
