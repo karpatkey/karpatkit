@@ -119,5 +119,4 @@ def get_node(blockchain: Blockchain | str, block=None):
 
     web3 = get_web3_provider(providers)
     web3._network_name = str(blockchain)  # TODO: remove this. Use Chains.get_blockchain_from_web3()
-    web3._called_with_block = block
     return web3
