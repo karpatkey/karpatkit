@@ -15,11 +15,13 @@ EXPLORERS = {
     Chain.ETHEREUM: (APIUrl.ETHERSCAN, APIKey.ETHERSCAN),
     Chain.POLYGON: (APIUrl.POLSCAN, APIKey.POLSCAN),
     Chain.GNOSIS: (APIUrl.GNOSISSCAN, APIKey.GNOSISSCAN),
-    Chain.BINANCE: (APIUrl.BINANCE, APIKey.BINANCE),
-    Chain.AVALANCHE: (APIUrl.AVALANCHE, APIKey.AVALANCHE),
-    Chain.FANTOM: (APIUrl.FANTOM, APIKey.FANTOM),
-    Chain.ARBITRUM: (APIUrl.ARBITRUM, APIKey.ARBITRUM),
-    Chain.OPTIMISM: (APIUrl.OPTIMISM, APIKey.OPTIMISM),
+    Chain.BINANCE: (APIUrl.BSCSCAN, APIKey.BSCSCAN),
+    Chain.AVALANCHE: (APIUrl.SNOWTRACE, APIKey.SNOWTRACE),
+    Chain.FANTOM: (APIUrl.FTMSCAN, APIKey.FTMSCAN),
+    Chain.ARBITRUM: (APIUrl.ARBISCAN, APIKey.ARBISCAN),
+    Chain.OPTIMISM: (APIUrl.OPTIMISTICETHERSCAN, APIKey.OPTIMISTICETHERSCAN),
+    Chain.BASE: (APIUrl.BASESCAN, APIKey.BASESCAN),
+    Chain.METIS: (APIUrl.METISEXPLORER, APIKey.METISEXPLORER),
     Chain.ROPSTEN: (APIUrl.ROPSTEN, APIKey.ETHERSCAN),
     Chain.KOVAN: (APIUrl.KOVAN, APIKey.ETHERSCAN),
     Chain.GOERLI: (APIUrl.GOERLI, APIKey.ETHERSCAN),
@@ -111,8 +113,12 @@ class ChainExplorer(requests.Session):
             if block == "latest":
                 return int(time.time())
 
-        response = self._get(module="block", action="getblockreward", blockno=block)
-        timestamp = response.json()["result"]["timeStamp"]
+        if self.chain == Chain.AVALANCHE:
+            block_obj = get_node(Chain.AVALANCHE).eth.get_block(block)
+            timestamp = block_obj["timestamp"]
+        else:
+            response = self._get(module="block", action="getblockreward", blockno=block)
+            timestamp = response.json()["result"]["timeStamp"]
         try:
             return int(timestamp)
         except (TypeError, ValueError):

@@ -4,8 +4,9 @@ import warnings
 import requests
 from web3 import Web3
 from web3.providers import HTTPProvider, JSONBaseProvider
+from web3.middleware import geth_poa_middleware
 
-from defabipedia.types import Blockchain
+from defabipedia.types import Blockchain, Chain
 from . import cache
 from .helpers import get_config
 
@@ -119,4 +120,8 @@ def get_node(blockchain: Blockchain | str, block=None):
 
     web3 = get_web3_provider(providers)
     web3._network_name = str(blockchain)  # TODO: remove this. Use Chains.get_blockchain_from_web3()
+
+    if blockchain == Chain.AVALANCHE:
+        web3.middleware_onion.inject(geth_poa_middleware, layer=0)
+        # https://web3py.readthedocs.io/en/stable/middleware.html#proof-of-authority
     return web3

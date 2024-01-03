@@ -45,6 +45,8 @@ class Chain:
     ROPSTEN = Blockchain("ropsten", 0x3)
     GOERLI = Blockchain("goerli", 0x5)
     KOVAN = Blockchain("kovan", 0x45)
+    BASE = Blockchain("base", 0x2105)
+    METIS = Blockchain("metis", 0x440)
 
     _by_id = {}
     for attr_name, attr_value in locals().copy().items():
