@@ -54,7 +54,8 @@ def disk_cache_middleware(make_request, web3):
     It also do not caches if block='latest'.
     """
 
-    RPC_WHITELIST = {"eth_chainId", "eth_call", "eth_getTransactionReceipt", "eth_getLogs", "eth_getTransactionByHash"}
+    RPC_WHITELIST = {"eth_chainId", "eth_call", "eth_getTransactionReceipt", "eth_getLogs",
+                     "eth_getTransactionByHash", "eth_getCode", "eth_getStorageAt"}
 
     def middleware(method, params):
         if not is_enabled():
@@ -64,7 +65,7 @@ def disk_cache_middleware(make_request, web3):
         do_cache = False
         if method in RPC_WHITELIST and "latest" not in params:
             do_cache = True
-        if method == "eth_chainId":
+        if method in {"eth_chainId", "eth_getCode"}:
             do_cache = True
 
         if do_cache:
