@@ -1,21 +1,19 @@
-from enum import Enum
 import inspect
 import json
-import os
-from pathlib import Path
 from dataclasses import dataclass
+from enum import Enum
+from pathlib import Path
 
 from web3 import Web3
 
-__all__ = ['Blockchain', 'Chain', 'current_dir', 'ContractSpec',
-           'ContractAbi', 'ContractAddress', 'StrEnum']
+__all__ = ["Blockchain", "Chain", "current_dir", "ContractSpec", "ContractAbi", "ContractAddress", "StrEnum"]
 
 
 class StrEnum(str, Enum):
     def __new__(cls, value):
         # values must already be of type `str`
         if not isinstance(value, str):
-            raise TypeError('%r is not a string' % (value,))
+            raise TypeError("%r is not a string" % (value,))
         value = str(value)
         member = str.__new__(cls, value)
         member._value_ = value
@@ -105,5 +103,4 @@ class ContractAddress:
 def current_dir() -> Path:
     """Return the directory path of the caller"""
     caller_frame = inspect.stack()[1]
-    caller_filename = caller_frame[1]
     return Path(caller_frame.filename).parent

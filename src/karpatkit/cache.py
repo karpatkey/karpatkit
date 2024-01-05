@@ -54,8 +54,15 @@ def disk_cache_middleware(make_request, web3):
     It also do not caches if block='latest'.
     """
 
-    RPC_WHITELIST = {"eth_chainId", "eth_call", "eth_getTransactionReceipt", "eth_getLogs",
-                     "eth_getTransactionByHash", "eth_getCode", "eth_getStorageAt"}
+    RPC_WHITELIST = {
+        "eth_chainId",
+        "eth_call",
+        "eth_getTransactionReceipt",
+        "eth_getLogs",
+        "eth_getTransactionByHash",
+        "eth_getCode",
+        "eth_getStorageAt",
+    }
 
     def middleware(method, params):
         if not is_enabled():
@@ -184,4 +191,3 @@ def const_call(f):
     else:
         result = _cache[cache_key]
     return result
-

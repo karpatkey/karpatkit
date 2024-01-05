@@ -1,2 +1,2 @@
-from .types import *
-from . import aura, balancer, cowswap_signer, lido, maker, spark, tokens, rocket_pool
+from . import aura, balancer, cowswap_signer, lido, maker, rocket_pool, spark, tokens  # noqa
+from .types import *  # noqa

@@ -3,10 +3,11 @@ import warnings
 
 import requests
 from web3 import Web3
-from web3.providers import HTTPProvider, JSONBaseProvider
 from web3.middleware import geth_poa_middleware
+from web3.providers import HTTPProvider, JSONBaseProvider
 
 from defabipedia.types import Blockchain, Chain
+
 from . import cache
 from .helpers import get_config
 
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 class AllProvidersDownError(Exception):
     pass
+
 
 # store latest and archival ProviderManagers as they are used
 _nodes_providers = dict()

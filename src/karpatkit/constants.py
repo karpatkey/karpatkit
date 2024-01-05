@@ -1,5 +1,6 @@
-from .helpers import get_config
 from defabipedia import Chain
+
+from .helpers import get_config
 
 
 class ConstantsMeta(type):
