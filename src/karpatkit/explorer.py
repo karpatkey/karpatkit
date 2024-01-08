@@ -3,7 +3,8 @@ import time
 import requests
 from web3 import Web3
 
-from defabipedia import Chain, Blockchain
+from defabipedia import Blockchain, Chain
+
 from .cache import cache_call
 from .constants import TESTNET_CHAINS, Address, APIKey, APIUrl
 from .node import get_node

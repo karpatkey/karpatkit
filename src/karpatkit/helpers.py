@@ -1,15 +1,17 @@
-from contextlib import contextmanager, suppress
-from functools import wraps
 import json
 import os
+from contextlib import contextmanager, suppress
+from functools import wraps
 from typing import Any
 
 from web3.exceptions import BadFunctionCallOutput, ContractLogicError
 
 suppressed_error_codes = {-32000, -32015}
 
+
 class ConfigError(Exception):
     pass
+
 
 def get_config():
     config_path = os.environ.get("KKIT_CFG") or os.environ.get("CONFIG_PATH") or "kkit_config.json"

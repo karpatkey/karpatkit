@@ -1,6 +1,19 @@
 from unittest import mock
 
+import diskcache
+import pytest
+
 from karpatkit.cache import cache_call, cache_contract_method, const_call, disk_cache_middleware
+
+
+@pytest.fixture
+def temporary_cache(monkeypatch):
+    monkeypatch.setattr("karpatkit.cache._cache", diskcache.Cache())
+
+
+@pytest.fixture
+def disable_cache(monkeypatch):
+    monkeypatch.setattr("karpatkit.cache._cache", None)
 
 
 def build_web3_contract_mock():
