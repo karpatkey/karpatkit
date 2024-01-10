@@ -10,7 +10,7 @@ from .helpers import suppressed_error_codes
 
 logger = logging.getLogger(__name__)
 
-VERSION = 6
+VERSION = 7
 VERSION_CACHE_KEY = "VERSION"
 
 _cache = None
@@ -24,8 +24,8 @@ def check_version():
         logger.info(f"Old cache version! Creating new cache with version: {VERSION}")
 
 
-if not os.environ.get("DEFI_PROTO_CACHE_DISABLE"):
-    cache_dir = os.environ.get("DEFI_PROTO_CACHE_DIR", "/tmp/defyes/")
+if not os.environ.get("KKIT_CACHE_DISABLE"):
+    cache_dir = os.environ.get("KKIT_CACHE_DIR", "/tmp/kkit/")
     logger.debug(f"Cache enabled. Storage is at '{cache_dir}'.")
 
     # If a value serialized size is great than disk_min_file_size then it will be
@@ -33,7 +33,7 @@ if not os.environ.get("DEFI_PROTO_CACHE_DISABLE"):
     MIN_FILE_SIZE_BYTES = 250 * 1024 * 1024
     _cache = diskcache.Cache(directory=cache_dir, disk_min_file_size=MIN_FILE_SIZE_BYTES)
     check_version()
-    if os.environ.get("DEFI_PROTO_CACHE_CLEAR"):
+    if os.environ.get("KKIT_CACHE_CLEAR"):
         _cache.clear()
 else:
     logger.debug("Cache is disabled")
