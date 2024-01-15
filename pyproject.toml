@@ -25,7 +25,6 @@ classifiers = [
 
 dependencies = [
     "diskcache>=5.4.0,<6.0",
-    "safe-eth-py>=5.3.1",
     "web3>=6.12,<7.0",
     "requests>=2.31.0,<3.0",
 ]
