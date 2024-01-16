@@ -87,7 +87,7 @@ class ChainExplorer(requests.Session):
         filter=lambda args: "latest" not in args,
         include_attrs=[
             lambda self: self.__class__.__name__,
-            lambda self: self.chain.name,
+            lambda self: str(self.chain),
         ],
     )
 
