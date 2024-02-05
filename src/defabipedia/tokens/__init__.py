@@ -3,7 +3,7 @@ import json
 from eth_typing import AnyAddress
 from web3 import Web3, contract
 
-from ..types import Chain, ContractAbi, current_dir, ContractSpec
+from ..types import Chain, ContractAbi, ContractSpec, current_dir
 
 with open(current_dir() / "erc20.json") as f:
     ERC20_ABI = json.load(f)
@@ -115,7 +115,8 @@ class ArbitrumTokenAddr:
 
 
 class EthereumContractSpecs:
-    DAI = ContractSpec(address=EthereumTokenAddr.DAI, abi_path=current_dir() / 'erc20.json', name='DAI')
+    DAI = ContractSpec(address=EthereumTokenAddr.DAI, abi_path=current_dir() / "erc20.json", name="DAI")
+
 
 # TODO: search for a better way, maybe remove EthereumTokenAddr
 # for token in EthereumTokenAddr:
