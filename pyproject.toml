@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "karpatkit"
-version = "0.0.1"
+version = "0.0.8"
 description = 'A broad kit with useful DeFi tools'
 readme = "README.md"
 requires-python = ">=3.10"
