@@ -8,9 +8,10 @@ class EthereumContractSpecs:
         name="cowswap_signer",
     )
     CowswapRelayer = ContractSpec(
-        address='0xC92E8bdf79f0507f65a392b0ab4667716BFE0110',
+        address="0xC92E8bdf79f0507f65a392b0ab4667716BFE0110",
         abi_path=current_dir() / "cowswap_relayer.json",
-        name='cowswap_relayer')
+        name="cowswap_relayer",
+    )
 
 
 class GnosisContractSpecs:

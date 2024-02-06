@@ -21,7 +21,10 @@ class EthereumContractSpecs:
         address="0xE39B5e3B6D74016b2F6A9673D7d7493B6DF549d5", abi_path=current_dir() / "queries.json", name="queries"
     )
     LiquidityGaugeFactory = ContractSpec(
-        address="0x4E7bBd911cf1EFa442BC1b2e9Ea01ffE785412EC", abi_path=current_dir() / 'gauge_factory.json', name='gauge_factory')
+        address="0x4E7bBd911cf1EFa442BC1b2e9Ea01ffE785412EC",
+        abi_path=current_dir() / "gauge_factory.json",
+        name="gauge_factory",
+    )
 
 
 class GnosisContractSpecs:
