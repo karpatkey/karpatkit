@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "karpatkit"
-version = "0.0.10"
+dynamic = ["version"]
 description = 'A broad kit with useful DeFi tools'
 readme = "README.md"
 requires-python = ">=3.10"
@@ -33,6 +33,12 @@ dependencies = [
 Issues = "https://github.com/karpatkey/karpatkit/issues"
 Source = "https://github.com/karpatkey/karpatkit"
 Homepage = "https://github.com/karpatkey/karpatkit"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/karpatkit", "src/defabipedia"]
