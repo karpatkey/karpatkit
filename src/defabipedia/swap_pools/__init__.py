@@ -101,6 +101,13 @@ class GnosisSwapPools:
         tokens=["USDT", "USDC", "WXDAI"],
         protocol="Balancer"
     )
+    bal_stable_wstETH_pool = SwapPools(
+        address="0xEb30C85CC528537f5350CF5684Ce6a4538e13394",
+        abi_path=current_dir() / "bal_stabal_wstETH_pool.json",
+        name="bal_stabal_wstETH_pool",
+        tokens=["wstETH", "StaBAL3"],
+        protocol="Balancer"
+    )
 
 
 SwapPools = {Chain.ETHEREUM: EthereumSwapPools, Chain.GNOSIS: GnosisSwapPools}
