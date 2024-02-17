@@ -48,7 +48,8 @@ class EthereumSwapPools:
         abi_path=current_dir() / "DAI_USDC_pool_2.json",
         name="DAI_USDC_pool_2",
         tokens=["DAI", "USDC"],
-        protocol="UniswapV3"
+        protocol="UniswapV3",
+        uni_fee=500
     )
     bal_rETH_WETH = SwapPools(
         address="0x1E19CF2D73a72Ef1332C882F20534B6519Be0276",

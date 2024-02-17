@@ -92,10 +92,12 @@ class ContractSpec(ContractAbi):
 
 class SwapPools(ContractSpec):
     def __init__(self, address: str, name: str, abi: str | None = None, 
-                 abi_path: Path | None = None, tokens: list[str] = [], protocol: str = None):
+                 abi_path: Path | None = None, tokens: list[str] = [], protocol: str = None,
+                 uni_fee: int = 100):
         super().__init__(address, name, abi, abi_path)
         self.tokens = tokens    
         self.protocol = protocol
+        self.uni_fee = uni_fee
         
 
 @dataclass
