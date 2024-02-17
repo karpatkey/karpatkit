@@ -90,6 +90,13 @@ class ContractSpec(ContractAbi):
     def contract(self, w3: Web3):
         return w3.eth.contract(address=self.address, abi=self.abi)
 
+class SwapPools(ContractSpec):
+    def __init__(self, address: str, name: str, abi: str | None = None, 
+                 abi_path: Path | None = None, tokens: list[str] = [], protocol: str = None):
+        super().__init__(address, name, abi, abi_path)
+        self.tokens = tokens    
+        self.protocol = protocol
+        
 
 @dataclass
 class ContractAddress:

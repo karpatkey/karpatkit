@@ -7,6 +7,11 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "positions_nft.json",
         name="positions_nft",
     )
+    UniV3_Quoter = ContractSpec(
+        address="0x61fFE014bA17989E743c5F6cB21bF9697530B21e",
+        abi_path=current_dir() / "quoter_v3.json",
+        name="quoter_v3",
+    )
 
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs}
