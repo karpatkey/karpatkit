@@ -12,6 +12,11 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "quoter_v3.json",
         name="quoter_v3",
     )
+    UniV3_SwapRouter = ContractSpec(
+        address="0xE592427A0AEce92De3Edee1F18E0157C05861564",
+        abi_path=current_dir() / "swap_router_v3.json",
+        name="swap_router_v3",
+    )
 
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs}
