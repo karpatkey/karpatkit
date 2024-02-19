@@ -5,9 +5,9 @@ from web3 import Web3
 
 from defabipedia import Blockchain, Chain
 
+from .api_services import APIKey, APIUrl
 from .cache import cache_call
 from .constants import TESTNET_CHAINS, Address
-from .api_services import APIKey, APIUrl
 from .node import get_node
 
 TESTNET_HEADER = {

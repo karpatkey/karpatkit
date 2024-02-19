@@ -1,5 +1,6 @@
 from defabipedia import Chain
 
+
 class ConstantsMeta(type):
     def __setattr__(cls, name, value):
         raise AttributeError("Read only")
@@ -18,5 +19,3 @@ ABI_TOKEN_SIMPLIFIED = '[{"constant":true,"inputs":[],"name":"name","outputs":[{
 class Address(Constants):
     ZERO = "0x0000000000000000000000000000000000000000"
     E = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
-
-
