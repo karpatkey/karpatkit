@@ -29,11 +29,11 @@ build-if-no-image:
 
 .PHONY: shell
 shell: build-if-no-image
-	@$(docker_run) -t $(image) bash
+	@$(docker_run) -t -v $(PWD)/src/karpatkit:/usr/local/lib/python3.10/site-packages/karpatkit -v $(PWD)/src/defabipedia:/usr/local/lib/python3.10/site-packages/defabipedia $(image) bash
 
 .PHONY: test
 test: build-if-no-image
-	@$(docker_run) $(image) pytest -v src/karpatkit/tests
+	@$(docker_run) $(image) pytest -vs src/karpatkit/tests
 
 
 .PHONY: lint-black
