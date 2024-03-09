@@ -1,3 +1,3 @@
-# Karpatkit
+# karpatkit
 
 Work in progress
