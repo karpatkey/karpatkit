@@ -134,4 +134,4 @@ class GnosisSwapPools:
     )
 
 
-SwapPools = {Chain.ETHEREUM: EthereumSwapPools, Chain.GNOSIS: GnosisSwapPools}
+SwapPoolInstances = {Chain.ETHEREUM: EthereumSwapPools, Chain.GNOSIS: GnosisSwapPools}

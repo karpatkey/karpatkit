@@ -24,6 +24,11 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "swap_router_v3.json",
         name="swap_router_v3",
     )
+    ApprovePermit2 = ContractSpec(
+        address="0x000000000022D473030F116dDEE9F6B43aC78BA3",
+        abi_path=current_dir() / "approve_permit2.json",
+        name="approve_permit2",
+    )
 
 class PolygonContractSpecs:
     PositionsNFT = ContractSpec(
