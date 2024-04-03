@@ -20,9 +20,9 @@ class EthereumContractSpecs:
         name="quoter_v3",
     )
     UniV3_SwapRouter = ContractSpec(
-        address="0xE592427A0AEce92De3Edee1F18E0157C05861564",
-        abi_path=current_dir() / "swap_router_v3.json",
-        name="swap_router_v3",
+        address="0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45",
+        abi_path=current_dir() / "swap_router_v2.json",
+        name="swap_router_v2",
     )
     ApprovePermit2 = ContractSpec(
         address="0x000000000022D473030F116dDEE9F6B43aC78BA3",
