@@ -27,6 +27,38 @@ class EthereumSwapPools:
         tokens=["0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"],
         protocol="Curve",
     )
+    UniV3_USDC_ETH = SwapPools(
+        address="0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
+        abi_path=current_dir() / "USDC_ETH_pool.json",
+        name="USDC_ETH_pool",
+        tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
+        protocol="UniswapV3",
+        uni_fee=500
+    )
+    UniV3_USDC_ETH2 = SwapPools(
+        address="0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        abi_path=current_dir() / "USDC_ETH_pool_2.json",
+        name="USDC_ETH_pool_2",
+        tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
+        protocol="UniswapV3",
+        uni_fee=3000
+    )
+    UniV3_USDT_ETH = SwapPools(
+        address="0x4e68Ccd3E89f51C3074ca5072bbAC773960dFa36",
+        abi_path=current_dir() / "USDT_ETH_pool.json",
+        name="USDT_ETH_pool",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
+        protocol="UniswapV3",
+        uni_fee=3000
+    )
+    UniV3_USDT_ETH2 = SwapPools(
+        address="0x7aF4D4d3cD5BfCfD9dCf4cEe8d7f7aA1b7e2bC0A",
+        abi_path=current_dir() / "USDT_ETH_pool_2.json",
+        name="USDT_ETH_pool_2",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
+        protocol="UniswapV3",
+        uni_fee=500
+    )
     UniV3_USDC_USDT = SwapPools(
         address="0x3416cF6C708Da44DB2624D63ea0AAef7113527C6",
         abi_path=current_dir() / "USDC_USDT_pool.json",
