@@ -77,7 +77,7 @@ class EthereumSwapPools:
         address="0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa",
         abi_path=current_dir() / "wstETH_ETH_pool.json",
         name="wstETH_ETH_pool",
-        tokens=["0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"],
+        tokens=["0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
         protocol="UniswapV3",
     )
     UniV3_DAI_USDC2 = SwapPools(
