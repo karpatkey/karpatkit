@@ -17,14 +17,14 @@ class EthereumSwapPools:
         address="0xDC24316b9AE028F1497c275EB9192a3Ea0f67022",
         abi_path=current_dir() / "stETH_ETH_pool_curve.json",
         name="stETH_ETH_pool_curve",
-        tokens=["0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"],
+        tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"],
         protocol="Curve",
     )
     Curve_stETH_ETH2 = SwapPools(
         address="0x21E27a5E5513D6e65C4f830167390997aA84843a",
         abi_path=current_dir() / "stETH_ETH_poo2_curve.json",
         name="stETH_ETH_pool2_curve",
-        tokens=["0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84", "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"],
+        tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"],
         protocol="Curve",
     )
     UniV3_USDC_ETH = SwapPools(
