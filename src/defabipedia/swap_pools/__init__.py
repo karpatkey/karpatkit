@@ -122,9 +122,7 @@ class GnosisSwapPools:
         name="EURe_tripool_pool_curve",
         tokens=[
             "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
-            "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
-            "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
-            "0x4ECaBa5870353805a9F068101A40E0f32ed605C6",
+            "0x1337BedC9D22ecbe766dF105c9623922A27963EC",
         ],
         protocol="Curve",
     )
