@@ -4,10 +4,11 @@ It dosn't use explorers/scanners.
 
 Them return blocks, no block numbers. But you have block.number or block.timestamp available.
 """
+import time
+from datetime import datetime
+
 from defabipedia import Chain
 from karpatkit.node import get_node
-from datetime import datetime
-import time
 
 max_iterations = 30
 
@@ -38,7 +39,7 @@ def blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: in
 
     def pivot_block(block, block_rate):
         time_error = timestamp - block.timestamp
-        estimated_block_number = int(round(block.number + 2*time_error*block_rate))
+        estimated_block_number = int(round(block.number + 2 * time_error * block_rate))
         return node.eth.get_block(estimated_block_number)
 
     for it in range(iterations or max_iterations):
