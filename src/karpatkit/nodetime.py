@@ -22,9 +22,9 @@ def block_for_number(blockchain: Chain, block_number: int):
 
 def blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: int = None, precise=True):
     """
-    Return two blocks, the closest previous and the closest before (or exact) blocks around a given timestamp.
-    This is an iterative algorith which implements an improved binary search with a linear estimator.
-    The iteration are limited by defaut to `max_iterations` of the the user defined `iterations`.
+    Return two blocks, the closest previous and the closest before blocks around a given timestamp.
+    This is an iterative algorith which implements a linear estimator plus a pivot estimator.
+    The iteration are limited by defaut to `max_iterations` or the user defined `iterations`.
     """
     node = get_node(blockchain)
 
@@ -59,11 +59,11 @@ def blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: in
 
     if precise:
         raise RuntimeError("Result has more than 1 block of distance.")
+    else:
+        return left_block, right_block
 
-    return left_block, right_block
 
-
-def linear_estimation(n0, n1, t0, t1, t) -> float:
+def linear_estimation(n0, n1, t0, t1, t) -> tuple[float, float]:
     r = (n1 - n0) / (t1 - t0)
     n = r * (t - t0) + n0
     return n, r
