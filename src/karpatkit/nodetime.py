@@ -21,6 +21,7 @@ def block_for_number(blockchain: Chain, block_number: int):
 def newton_mauro(f, iterations, n_min, n_max):
     """
     Improved Newton-Raphson method for monotonic and discret functions. Search n for f(n)=0.
+    The null derivative is managed better than in newton_raphson.
     """
     n_left = n_prev = n_min
     n_right = n = n_max
@@ -43,7 +44,7 @@ def newton_mauro(f, iterations, n_min, n_max):
 
         dfn = (fn - fn_prev) / (n - n_prev)
 
-        print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
+        # print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
 
         n_prev = n
         if dfn == 0:
@@ -80,7 +81,7 @@ def newton_raphson(f, iterations, n_min, n_max):
         if dfn == 0:
             break
 
-        print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
+        # print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
         n_prev = n
         n = int(round(n - fn / dfn))
         if n < n_min:
@@ -97,7 +98,7 @@ def blocks_around_time(
 ):
     """
     Return two blocks, the closest previous and the closest before blocks around a given timestamp.
-    This is an iterative algorith which implements the linear estimator plus a pivot estimator.
+    This is an iterative algorithm which use the `search_algorithm` estimator defined by the user.
     The iteration are limited by defaut to `max_iterations` or the user defined `iterations`.
     """
     from functools import cache
