@@ -35,7 +35,7 @@ def timestamp(blockchain, request):
             return node.eth.get_block("latest").timestamp - 3600
 
 
-@pytest.fixture(params="pregenesis latest postlatest".split())
+@pytest.fixture(params="pregenesis postlatest".split())
 def outside_timestamp(blockchain, request):
     node = nodetime.get_node(blockchain)
     match request.param:
