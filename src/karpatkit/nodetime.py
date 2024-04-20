@@ -4,9 +4,6 @@ It dosn't use explorers/scanners.
 
 Them return blocks, no block numbers. But you have block.number or block.timestamp available.
 """
-import time
-from datetime import datetime
-
 from defabipedia import Chain
 from karpatkit.node import get_node
 
@@ -21,7 +18,7 @@ def block_for_number(blockchain: Chain, block_number: int):
     return node.eth.get_block(block_number)
 
 
-def blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: int = None, precise=True):
+def depretated_blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: int = None, precise=True):
     """
     Return two blocks, the closest previous and the closest before blocks around a given timestamp.
     This is an iterative algorith which implements a linear estimator plus a pivot estimator.
@@ -121,7 +118,10 @@ def blocks_around_time(blockchain: Chain, timestamp: float | int, iterations: in
 
     node = get_node(blockchain)
     get_block = cache(node.eth.get_block)
-    f = lambda n: get_block(n).timestamp - timestamp
+
+    def f(n):
+        return get_block(n).timestamp - timestamp
+
     n = newton_mauro(f, iterations or max_iterations, n_min=1, n_max=get_block("latest").number - 1)
     b = get_block(n)
     return (b, get_block(n + 1)) if f(n) < timestamp else (get_block(n - 1), b)
