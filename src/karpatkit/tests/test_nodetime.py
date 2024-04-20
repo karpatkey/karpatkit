@@ -16,10 +16,14 @@ latest = dict(
     ]
 )
 
+msgs = set()
 
-def _test_latest():
+
+def test_latest():
     a, c = "{ }".split()
     for name, chain in Chain._by_name.items():
+        if chain in latest:
+            continue
         try:
             block = nodetime.get_node(chain).eth.get_block("latest")
         except Exception:
@@ -34,7 +38,13 @@ def blockchain(request):
     try:
         nodetime.get_node(chain).eth.get_block(1)
     except Exception as e:
-        pytest.skip(str(e))
+        msg = str(e)
+        if msg not in msgs:
+            msgs.add(msg)
+            pytest.skip(f"{hash(msg)}: {msg}")
+        else:
+            pytest.skip(f"{hash(msg)}: Idem")
+
     else:
         return chain
 
