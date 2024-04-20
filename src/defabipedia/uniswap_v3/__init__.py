@@ -30,6 +30,7 @@ class EthereumContractSpecs:
         name="approve_permit2",
     )
 
+
 class PolygonContractSpecs:
     PositionsNFT = ContractSpec(
         address="0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
