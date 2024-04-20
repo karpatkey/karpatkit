@@ -90,7 +90,6 @@ def newton_mauro(f, iterations, n_min, n_max):
             raise IndexError("No solution: f(n) for n in [n_min, n_max] isn't expected to have a cross with zero.")
 
         if n == n_prev or abs(n - n_prev) == 1 and (fn * fn_prev) <= 0:
-            print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
             break
 
         if fn > 0:
@@ -98,10 +97,12 @@ def newton_mauro(f, iterations, n_min, n_max):
         elif fn < 0:
             n_left = n
         else:
-            print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
             break
 
         dfn = (fn - fn_prev) / (n - n_prev)
+
+        if dfn == 0:
+            break
 
         print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
         n_prev = n
