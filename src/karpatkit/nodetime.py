@@ -31,31 +31,32 @@ def newton_mauro(f, iterations, n_min, n_max):
         if it == 0 and fn * fn_prev > 0:
             raise IndexError("No solution: f(n) for n in [n_min, n_max] isn't expected to have a cross with zero.")
 
-        if n == n_prev or abs(n - n_prev) == 1 and (fn * fn_prev) <= 0:
+        if fn >= 0:
+            n_right = n
+        if fn <= 0:
+            n_left = n
+        if fn == 0:
             break
 
-        if fn > 0:
-            n_right = n
-        elif fn < 0:
-            n_left = n
-        else:
+        if n == n_prev or abs(n - n_prev) == 1 and (fn * fn_prev) <= 0:
             break
 
         dfn = (fn - fn_prev) / (n - n_prev)
 
-        if dfn == 0:
-            break
-
         print(f"\n{it=:3d}|{n=:10_d}|{fn=:14.1f}|{dfn=:4.1f}|", end="")
+
         n_prev = n
-        n = int(round(n - fn / dfn))
-        if n <= n_left:
-            n = n_left + 1
-        if n >= n_right:
-            n = n_right - 1
+        if dfn == 0:
+            n = int(round((n_left + n_right) / 2))
+        else:
+            n = int(round(n - fn / dfn))
+            if n <= n_left:
+                n = n_left + 1
+            if n >= n_right:
+                n = n_right - 1
         fn_prev = fn
 
-    return n
+    return n_left, n_right
 
 
 def newton_raphson(f, iterations, n_min, n_max):
@@ -88,10 +89,12 @@ def newton_raphson(f, iterations, n_min, n_max):
             n = n_max
         fn_prev = fn
 
-    return n
+    return tuple(sorted([n_prev, n]))
 
 
-def blocks_around_time(blockchain: Chain, timestamp: float, iterations: int = None, search_algorithm=newton_mauro):
+def blocks_around_time(
+    blockchain: Chain, timestamp: float, iterations: int = None, search_algorithm=newton_mauro, n_max=None
+):
     """
     Return two blocks, the closest previous and the closest before blocks around a given timestamp.
     This is an iterative algorith which implements the linear estimator plus a pivot estimator.
@@ -105,6 +108,5 @@ def blocks_around_time(blockchain: Chain, timestamp: float, iterations: int = No
     def f(n):
         return get_block(n).timestamp - timestamp
 
-    n = search_algorithm(f, iterations or max_iterations, n_min=1, n_max=get_block("latest").number - 1)
-    b = get_block(n)
-    return (b, get_block(n + 1)) if f(n) < timestamp else (get_block(n - 1), b)
+    nl, nr = search_algorithm(f, iterations or max_iterations, n_min=1, n_max=n_max or get_block("latest").number - 1)
+    return get_block(nl), get_block(nr)
