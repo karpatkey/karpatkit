@@ -4,6 +4,8 @@ It dosn't use explorers/scanners.
 
 Them return blocks, no block numbers. But you have block.number or block.timestamp available.
 """
+import asyncio
+
 from defabipedia import Chain
 from karpatkit.node import get_node
 
@@ -111,3 +113,50 @@ def blocks_around_time(
 
     nl, nr = search_algorithm(f, iterations or max_iterations, n_min=1, n_max=n_max or get_block("latest").number - 1)
     return get_block(nl), get_block(nr)
+
+
+async def parallel_blocks_around_time(
+    timestamp: float, iterations: int = None, search_algorithm=newton_mauro, n_max=None
+):
+    """
+    Call this coroutine with `await` from within another coroutine
+
+        blocks_dict = await parallet_blocks_around_time(...)
+
+    of just from a regular funtion like
+
+        blocks_dict = asyncio.run(parallel_blocks_around_time(...))
+    """
+    chains = Chain._by_name.values()
+    results = await asyncio.gather(
+        *(
+            asyncio.to_thread(
+                blocks_around_time,
+                blockchain,
+                timestamp,
+                iterations,
+                search_algorithm,
+                n_max,
+            )
+            for blockchain in chains
+        ),
+        return_exceptions=True,
+    )
+    return FilteredDict(zip(chains, results))
+
+
+class FilteredDict(dict):
+    def drop_exceptions(self, exceptions=Exception):
+        return FilteredDict((chain, result) for chain, result in self.items() if not isinstance(result, exceptions))
+
+    @property
+    def simple(self):
+        """
+        Return just chain: block number for each chain
+        """
+        return {chain: left.number for chain, (left, _) in self.items()}
+
+
+def create_blocks_time_dict(timestamp):
+    blocks_dict = asyncio.run(parallel_blocks_around_time(timestamp=timestamp))
+    return blocks_dict.drop_exceptions().simple

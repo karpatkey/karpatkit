@@ -1,18 +1,20 @@
+from contextlib import suppress
+
 import pytest
 
 from defabipedia import Chain
 from karpatkit import nodetime
-from karpatkit.nodetime import blocks_around_time
+from karpatkit.nodetime import blocks_around_time, create_blocks_time_dict, parallel_blocks_around_time
 
 latest = dict(
     [
-        (Chain.ETHEREUM, {"number": 19693336, "timestamp": 1713576335}),
-        (Chain.AVALANCHE, {"number": 44421503, "timestamp": 1713576337}),
-        (Chain.FANTOM, {"number": 79676149, "timestamp": 1713576336}),
-        (Chain.GNOSIS, {"number": 33531685, "timestamp": 1713576325}),
-        (Chain.ARBITRUM, {"number": 202813437, "timestamp": 1713576341}),
-        (Chain.OPTIMISM, {"number": 118988778, "timestamp": 1713576333}),
-        (Chain.BASE, {"number": 13393498, "timestamp": 1713576343}),
+        (Chain.ETHEREUM, {"number": 19_693_336, "timestamp": 1_713_576_335}),
+        (Chain.AVALANCHE, {"number": 44_421_503, "timestamp": 1_713_576_337}),
+        (Chain.FANTOM, {"number": 79_676_149, "timestamp": 1_713_576_336}),
+        (Chain.GNOSIS, {"number": 33_531_685, "timestamp": 1_713_576_325}),
+        (Chain.ARBITRUM, {"number": 202_813_437, "timestamp": 1_713_576_341}),
+        (Chain.OPTIMISM, {"number": 118_988_778, "timestamp": 1_713_576_333}),
+        (Chain.BASE, {"number": 13_393_498, "timestamp": 1_713_576_343}),
     ]
 )
 
@@ -98,3 +100,50 @@ def test_blocks_around_time_ok(blockchain, timestamp, block_latest):
 def test_blocks_around_time_outside(blockchain, outside_timestamp, block_latest):
     with pytest.raises(IndexError):
         blocks_around_time(blockchain, outside_timestamp, n_max=block_latest.number - 1)
+
+
+ts = 1_713_576_335
+
+expected_simple_dict = {
+    Chain.ETHEREUM: 19_693_336,
+    Chain.AVALANCHE: 44_421_502,
+    Chain.FANTOM: 79_676_148,
+    Chain.GNOSIS: 33_531_686,
+    Chain.ARBITRUM: pytest.approx(202_813_415, abs=4),
+    Chain.BASE: 13_393_494,
+}
+
+
+@pytest.mark.asyncio
+async def test_parallel_blocks_around_time():
+    blocks_dict = await parallel_blocks_around_time(timestamp=ts)
+    print()
+    for chain, result in blocks_dict.items():
+        try:
+            left, right = result
+        except TypeError:
+            print(chain, type(result))
+        else:
+            print(chain, left.number, right.number, left.timestamp - ts, right.timestamp - ts)
+
+    print("\nException skipped")
+    tolerance_s = 60
+    for chain, (left, right) in blocks_dict.drop_exceptions().items():
+        print(chain, left.number, right.number, left.timestamp - ts, right.timestamp - ts)
+
+        assert -tolerance_s <= (left.timestamp - ts) <= 0
+        assert 0 <= (right.timestamp - ts) <= tolerance_s
+
+        assert 0 <= (right.number - left.number) <= 1
+
+    simple_dict = blocks_dict.drop_exceptions().simple
+    for chain in expected_simple_dict:
+        with suppress(KeyError):
+            assert simple_dict[chain] == expected_simple_dict[chain]
+
+
+def test_create_blocks_time_dict():
+    simple_dict = create_blocks_time_dict(ts)
+    for chain in expected_simple_dict:
+        with suppress(KeyError):
+            assert simple_dict[chain] == expected_simple_dict[chain]
