@@ -119,11 +119,10 @@ async def test_parallel_blocks_around_time():
     blocks_dict = await parallel_blocks_around_time(timestamp=ts)
     print()
     for chain, result in blocks_dict.items():
-        try:
-            left, right = result
-        except TypeError:
+        if isinstance(result, Exception):
             print(chain, type(result))
         else:
+            left, right = result
             print(chain, left.number, right.number, left.timestamp - ts, right.timestamp - ts)
 
     print("\nException skipped")
@@ -147,3 +146,12 @@ def test_create_blocks_time_dict():
     for chain in expected_simple_dict:
         with suppress(KeyError):
             assert simple_dict[chain] == expected_simple_dict[chain]
+
+
+def test_create_blocks_time_dict_latest():
+    simple_dict = create_blocks_time_dict()
+    for chain in expected_simple_dict:
+        if chain == Chain.ARBITRUM:
+            continue
+        with suppress(KeyError):
+            assert simple_dict[chain] > expected_simple_dict[chain]

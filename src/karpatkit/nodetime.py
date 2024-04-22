@@ -12,12 +12,12 @@ from karpatkit.node import get_node
 max_iterations = 30
 
 
-def block_for_number(blockchain: Chain, block_number: int):
+def get_block(blockchain: Chain, block_identifier: int | str):
     """
-    Return just the block for a given blockchain and block_number, using the default node for that blockchain.
+    Return just the block for a given blockchain and block_identifier, using the default node for that blockchain.
     """
     node = get_node(blockchain)
-    return node.eth.get_block(block_number)
+    return node.eth.get_block(block_identifier)
 
 
 def newton_mauro(f, iterations, n_min, n_max):
@@ -142,21 +142,42 @@ async def parallel_blocks_around_time(
         ),
         return_exceptions=True,
     )
-    return FilteredDict(zip(chains, results))
+    return ChainDict(zip(chains, results))
 
 
-class FilteredDict(dict):
+class ChainDict(dict):
     def drop_exceptions(self, exceptions=Exception):
-        return FilteredDict((chain, result) for chain, result in self.items() if not isinstance(result, exceptions))
+        return ChainDict((chain, result) for chain, result in self.items() if not isinstance(result, exceptions))
 
     @property
     def simple(self):
         """
-        Return just chain: block number for each chain
+        Return just {chain: block number} for each chain
         """
-        return {chain: left.number for chain, (left, _) in self.items()}
+
+        def first(obj):
+            try:
+                (f, _) = obj
+            except ValueError:
+                return obj
+            else:
+                return f
+
+        return {chain: first(result).number for chain, result in self.items()}
 
 
-def create_blocks_time_dict(timestamp):
-    blocks_dict = asyncio.run(parallel_blocks_around_time(timestamp=timestamp))
+async def parallel_get_block(block_identifier: int | str):
+    chains = Chain._by_name.values()
+    results = await asyncio.gather(
+        *(asyncio.to_thread(get_block, blockchain, block_identifier) for blockchain in chains),
+        return_exceptions=True,
+    )
+    return ChainDict(zip(chains, results))
+
+
+def create_blocks_time_dict(timestamp=None):
+    if timestamp is None:
+        blocks_dict = asyncio.run(parallel_get_block("latest"))
+    else:
+        blocks_dict = asyncio.run(parallel_blocks_around_time(timestamp=timestamp))
     return blocks_dict.drop_exceptions().simple
