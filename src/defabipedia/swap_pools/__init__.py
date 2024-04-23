@@ -33,7 +33,7 @@ class EthereumSwapPools:
         name="USDC_ETH_pool",
         tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
         protocol="UniswapV3",
-        uni_fee=500
+        uni_fee=500,
     )
     UniV3_USDC_ETH2 = SwapPools(
         address="0x5FbDB2315678afecb367f032d93F642f64180aa3",
@@ -41,7 +41,7 @@ class EthereumSwapPools:
         name="USDC_ETH_pool_2",
         tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
         protocol="UniswapV3",
-        uni_fee=3000
+        uni_fee=3000,
     )
     UniV3_USDT_ETH = SwapPools(
         address="0x4e68Ccd3E89f51C3074ca5072bbAC773960dFa36",
@@ -49,7 +49,7 @@ class EthereumSwapPools:
         name="USDT_ETH_pool",
         tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
         protocol="UniswapV3",
-        uni_fee=3000
+        uni_fee=3000,
     )
     UniV3_USDT_ETH2 = SwapPools(
         address="0x7aF4D4d3cD5BfCfD9dCf4cEe8d7f7aA1b7e2bC0A",
@@ -57,7 +57,7 @@ class EthereumSwapPools:
         name="USDT_ETH_pool_2",
         tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
         protocol="UniswapV3",
-        uni_fee=500
+        uni_fee=500,
     )
     UniV3_USDC_USDT = SwapPools(
         address="0x3416cF6C708Da44DB2624D63ea0AAef7113527C6",

@@ -1,4 +1,4 @@
-from ..types import Chain, ContractAbi, ContractSpec, current_dir
+from ..types import Chain, ContractAbi, current_dir
 
 
 class AllAbis:
