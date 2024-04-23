@@ -51,6 +51,7 @@ class PolygonContractSpecs:
         name="swap_router_v3",
     )
 
+
 class GnosisContractSpecs:
     PositionsNFT = ContractSpec(
         address="0xAE8fbE656a77519a7490054274910129c9244FA3",
@@ -71,6 +72,11 @@ class GnosisContractSpecs:
         name="swap_router_v2",
     )
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.POLYGON: PolygonContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.POLYGON: PolygonContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+}
 
 Abis = {Chain.ETHEREUM: AllAbis, Chain.POLYGON: AllAbis, Chain.GNOSIS: AllAbis}
