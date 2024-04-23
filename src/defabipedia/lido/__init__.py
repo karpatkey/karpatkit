@@ -12,6 +12,7 @@ class EthereumContractSpecs:
         address="0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1", abi_path=current_dir() / "unsteth.json", name="unsteth"
     )
 
+
 class GnosisContractSpecs:
     # TODO not available at this point in gc
     # stETH = ContractSpec(address='0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',

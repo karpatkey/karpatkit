@@ -168,7 +168,8 @@ class GnosisSwapPools:
         name="Uni_USDC_WETH_pool",
         tokens=["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1", "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"],
         protocol="UniswapV3",
-        uni_fee=3000
+        uni_fee=3000,
     )
+
 
 SwapPoolInstances = {Chain.ETHEREUM: EthereumSwapPools, Chain.GNOSIS: GnosisSwapPools}
