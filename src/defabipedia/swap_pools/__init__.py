@@ -162,6 +162,13 @@ class GnosisSwapPools:
         tokens=["0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6", "0x2086f52651837600180dE173B09470F54EF74910"],
         protocol="Balancer",
     )
-
+    Uni_USDC_WETH_pool = SwapPools(
+        address="0x9ac75f5E0e3388Da18D9Ea214Ed9f3AAcfa66A1D",
+        abi_path=current_dir() / "Uni_USDC_WETH_pool.json",
+        name="Uni_USDC_WETH_pool",
+        tokens=["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1", "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"],
+        protocol="UniswapV3",
+        uni_fee=3000
+    )
 
 SwapPoolInstances = {Chain.ETHEREUM: EthereumSwapPools, Chain.GNOSIS: GnosisSwapPools}
