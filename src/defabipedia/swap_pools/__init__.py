@@ -118,8 +118,8 @@ class GnosisSwapPools:
     )
     Curve_EURe_tripool = SwapPools(
         address="0x056c6c5e684cec248635ed86033378cc444459b0",
-        abi_path=current_dir() / "EURe_tripool_pool_curve.json",
-        name="EURe_tripool_pool_curve",
+        abi_path=current_dir() / "EURe_tripool_pool.json",
+        name="EURe_tripool_pool",
         tokens=[
             "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
             "0x1337BedC9D22ecbe766dF105c9623922A27963EC",
