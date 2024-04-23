@@ -127,7 +127,7 @@ async def parallel_blocks_around_time(
 
         blocks_dict = asyncio.run(parallel_blocks_around_time(...))
     """
-    chains = Chain._by_name.values()
+    chains = Chain.all()
     results = await asyncio.gather(
         *(
             asyncio.to_thread(
@@ -167,7 +167,7 @@ class ChainDict(dict):
 
 
 async def parallel_get_block(block_identifier: int | str):
-    chains = Chain._by_name.values()
+    chains = Chain.all()
     results = await asyncio.gather(
         *(asyncio.to_thread(get_block, blockchain, block_identifier) for blockchain in chains),
         return_exceptions=True,

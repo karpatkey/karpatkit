@@ -23,7 +23,7 @@ msgs = set()
 
 def test_latest():
     a, c = "{ }".split()
-    for name, chain in Chain._by_name.items():
+    for chain in Chain.all():
         if chain in latest:
             continue
         try:
@@ -31,7 +31,7 @@ def test_latest():
         except Exception:
             pass
         else:
-            print(f'\n({name}, {a}"number": {block.number}, "timestamp": {block.timestamp}{c}),')
+            print(f'\n({chain}, {a}"number": {block.number}, "timestamp": {block.timestamp}{c}),')
 
 
 @pytest.fixture(params=Chain._by_name.values())

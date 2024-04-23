@@ -46,15 +46,17 @@ class Chain:
     BASE = Blockchain("base", 0x2105)
     METIS = Blockchain("metis", 0x440)
 
+    # Look up indexes
     _by_id = {}
-    for attr_name, attr_value in locals().copy().items():
-        if isinstance(attr_value, Blockchain):
-            _by_id[attr_value.chain_id] = attr_value
-
     _by_name = {}
     for attr_name, attr_value in locals().copy().items():
         if isinstance(attr_value, Blockchain):
+            _by_id[attr_value.chain_id] = attr_value
             _by_name[attr_value.name] = attr_value
+
+    @classmethod
+    def all(cls):
+        return list(cls._by_name.values())
 
     @classmethod
     def get_blockchain_by_chain_id(cls, chain_id) -> Blockchain:
@@ -92,6 +94,10 @@ class ContractAbi:
 
 
 class ContractSpec(ContractAbi):
+    """
+    It refers to a contract's deployment, adding a specific address.
+    """
+
     def __init__(self, address: str, name: str, abi: str | None = None, abi_path: Path | None = None):
         super().__init__(name, abi, abi_path)
         self.address = Web3.to_checksum_address(address)
