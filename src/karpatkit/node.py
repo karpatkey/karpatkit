@@ -1,4 +1,5 @@
 import logging
+import os
 import warnings
 
 import requests
@@ -12,6 +13,13 @@ from . import cache
 from .helpers import get_config
 
 logger = logging.getLogger(__name__)
+
+DEFAULT_TIMEOUT = float(os.environ.get("KKIT_NODE_TIMEOUT", 30))
+
+
+def reset_providers():
+    global _nodes_providers
+    _nodes_providers = dict()
 
 
 class AllProvidersDownError(Exception):
@@ -34,7 +42,7 @@ class ProviderManager(JSONBaseProvider):
             if "://" not in url:
                 logger.warning(f"Skipping invalid endpoint URI '{url}'.")
                 continue
-            provider = HTTPProvider(url)
+            provider = HTTPProvider(url, request_kwargs={"timeout": DEFAULT_TIMEOUT})
             errors = []
             self.providers.append((provider, errors))
 
