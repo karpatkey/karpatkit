@@ -111,7 +111,7 @@ def blocks_around_time(
     def f(n):
         return get_block(n).timestamp - timestamp
 
-    nl, nr = search_algorithm(f, iterations or max_iterations, n_min=1, n_max=n_max or get_block("latest").number - 1)
+    nl, nr = search_algorithm(f, iterations or max_iterations, n_min=1, n_max=n_max or get_block("safe").number - 1)
     return get_block(nl), get_block(nr)
 
 
@@ -175,9 +175,9 @@ async def parallel_get_block(block_identifier: int | str):
     return ChainDict(zip(chains, results))
 
 
-def create_blocks_time_dict(timestamp=None):
+def create_blocks_time_dict(timestamp=None, block_identifier="safe"):
     if timestamp is None:
-        blocks_dict = asyncio.run(parallel_get_block("latest"))
+        blocks_dict = asyncio.run(parallel_get_block(block_identifier))
     else:
         blocks_dict = asyncio.run(parallel_blocks_around_time(timestamp=timestamp))
     return blocks_dict.drop_exceptions().simple
