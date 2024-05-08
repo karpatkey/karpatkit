@@ -1,11 +1,10 @@
-import time
-
 import pytest
 
 from defabipedia import Chain
 from karpatkit import nodetime
 from karpatkit.nodetime import Block
 
+now = 1_715_191_991
 requested_time = 1_713_576_344
 
 expected_block_for = {
@@ -17,6 +16,32 @@ expected_block_for = {
     Chain.OPTIMISM: Block(number=118_988_778, timestamp=1_713_576_333),
     Chain.BASE: Block(number=13_393_498, timestamp=1_713_576_343),
 }
+
+latest_block_numbers = {
+    Chain.ETHEREUM: 19_827_051,
+    Chain.AVALANCHE: 45_192_061,
+    Chain.FANTOM: 80_620_273,
+    Chain.GNOSIS: 33_844_062,
+    Chain.ARBITRUM: 209_205_524,
+    Chain.OPTIMISM: 119_796_916,
+    Chain.BASE: 14_201_635,
+}
+
+
+original_get_latest_block_number = nodetime.get_latest_block_number
+
+
+def mocked_get_latest_block_number(blockchain):
+    try:
+        block_number = latest_block_numbers[blockchain]
+    except KeyError:
+        block_number = latest_block_numbers[blockchain] = original_get_latest_block_number(blockchain)
+    return block_number
+
+
+@pytest.fixture(autouse=True)
+def fixed_latest(monkeypatch):
+    monkeypatch.setattr(nodetime, "get_latest_block_number", mocked_get_latest_block_number)
 
 
 def test_all_chains_block_before_time():
@@ -33,14 +58,13 @@ def test_all_chains_block_before_time():
 
 
 def test_all_chains_block_before_time_latest():
-    now = time.time()
-    last_minute = now - 60
+    last_7_minutes = now - 7 * 60
     r = nodetime.all_chains_block_before_time()
     available_chains = set(expected_block_for).intersection(r)
     assert len(available_chains) > 0
     for chain in available_chains:
         assert r[chain].number > expected_block_for[chain].number
-        assert r[chain].timestamp > last_minute
+        assert r[chain].timestamp > last_7_minutes
 
 
 @pytest.mark.asyncio
@@ -66,7 +90,7 @@ msgs = set()
 def blockchain(request):
     chain = request.param
     try:
-        nodetime.get_node(chain).eth.get_block(1)
+        nodetime.get_block(chain, 1)
     except Exception as e:
         msg = str(e)
         if msg not in msgs:
@@ -81,29 +105,27 @@ def blockchain(request):
 
 @pytest.fixture
 def latest_block(blockchain):
-    return nodetime.cached_get_block(blockchain, "latest")
+    return nodetime.get_latest_block(blockchain)
 
 
 @pytest.fixture(params="genesis early middle late".split())
 def timestamp(blockchain, request, latest_block):
-    node = nodetime.get_node(blockchain)
     match request.param:
         case "genesis":
-            return node.eth.get_block(1).timestamp
+            return nodetime.get_block(blockchain, 1).timestamp
         case "early":
-            return node.eth.get_block(1).timestamp + 3600
+            return nodetime.get_block(blockchain, 1).timestamp + 3600
         case "middle":
-            return (node.eth.get_block(1).timestamp + latest_block.timestamp) / 2
+            return (nodetime.get_block(blockchain, 1).timestamp + latest_block.timestamp) / 2
         case "late":
             return latest_block.timestamp - 3600
 
 
 @pytest.fixture(params="pregenesis postlatest".split())
 def outside_timestamp(blockchain, request, latest_block):
-    node = nodetime.get_node(blockchain)
     match request.param:
         case "pregenesis":
-            return node.eth.get_block(1).timestamp - 3600
+            return nodetime.get_block(blockchain, 1).timestamp - 3600
         case "postlatest":
             return latest_block.timestamp + 3600
 

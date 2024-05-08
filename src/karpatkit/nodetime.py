@@ -17,7 +17,8 @@ from karpatkit.node import get_node
 
 logger = logging.getLogger(__name__)
 
-max_iterations = 30
+max_iterations = 30  # times
+latest_block_number_margin = 30  # backward blocks from the latest block
 
 
 @dataclass(frozen=True)
@@ -55,7 +56,7 @@ async def async_all_chains_block_before_time(timestamp: float) -> dict[Blockchai
 
 
 async def async_all_chains_get_latest_block() -> dict[Blockchain, Block | Exception]:
-    return await async_all_chains(get_block, block_identifier="latest")
+    return await async_all_chains(get_latest_block)
 
 
 async def async_all_chains(func, **kwargs) -> dict[Blockchain, Block | Exception]:
@@ -82,23 +83,31 @@ def blocks_around_time(blockchain: Blockchain, timestamp: float) -> tuple[Block,
     """
 
     def f(n):
-        return cached_get_block(blockchain, n).timestamp - timestamp
+        return get_block(blockchain, n).timestamp - timestamp
 
     block_before, block_after = discret_newton_raphson(
-        f, max_iterations, n_min=1, n_max=get_block(blockchain, "latest").number - 100
+        f, max_iterations, n_min=1, n_max=get_latest_block_number(blockchain)
     )
-    return cached_get_block(blockchain, block_before), cached_get_block(blockchain, block_after)
+    return get_block(blockchain, block_before), get_block(blockchain, block_after)
 
 
-def get_block(blockchain: Blockchain, block_identifier: int | str) -> Block:
+@cache
+def get_block(blockchain: Blockchain, block_number: int) -> Block:
     """
-    Return just the block for a given blockchain and block_identifier, using the default node for that blockchain.
+    Return just the block for a given blockchain and block_number, using the default node for that blockchain.
     """
+    assert isinstance(block_number, int)
     node = get_node(blockchain)
-    return Block.from_web3(node.eth.get_block(block_identifier))
+    return Block.from_web3(node.eth.get_block(block_number))
 
 
-cached_get_block = cache(get_block)
+def get_latest_block_number(blockchain: Blockchain) -> int:
+    node = get_node(blockchain)
+    return node.eth.get_block("latest").number - latest_block_number_margin
+
+
+def get_latest_block(blockchain: Blockchain) -> Block:
+    return get_block(blockchain, get_latest_block_number(blockchain))
 
 
 def discret_newton_raphson(f, max_iterations, n_min, n_max):
