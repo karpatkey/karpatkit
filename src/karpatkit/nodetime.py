@@ -7,6 +7,7 @@ in seconds from the Unix/POSIX epoch.
 The main user function is `all_chains_block_before_time`. It search all chains block in parallel. But, if you want
 to search a block just for one blockchain, you can use `block_before_time`.
 """
+
 import asyncio
 import logging
 from dataclasses import dataclass
