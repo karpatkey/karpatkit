@@ -22,6 +22,11 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "lending_pool.json",
         name="LendingPoolV3",
     )
+    sDAI = ContractSpec(
+        address="0x83F20F44975D03b1b09e64809B757c47f942BEeA",
+        abi_path=current_dir() / "sdai.json",
+        name="sdai",
+    )
 
 
 class GnosisContractSpecs:
@@ -34,6 +39,11 @@ class GnosisContractSpecs:
         address="0xA98DaCB3fC964A6A0d2ce3B77294241585EAbA6d",
         abi_path=current_dir() / "pool_addresses_provider.json",
         name="pool_addresses_provider",
+    )
+    sDAI = ContractSpec(
+        address="0xaf204776c7245bF4147c2612BF6e5972Ee483701",
+        abi_path=current_dir() / "sdai.json",
+        name="sdai",
     )
 
 
