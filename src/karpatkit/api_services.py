@@ -16,6 +16,7 @@ class APIKey(Constants):
     BASESCAN = apikeys_cfg.get("basescan", None)
     METISEXPLORER = apikeys_cfg.get("metisexplorer", None)
     ZAPPER = apikeys_cfg.get("zapper", None)
+    COINGECKO = apikeys_cfg.get("coingecko", None)
     ETHPLORER = apikeys_cfg.get("ethplorer", None)
     ROPSTEN = apikeys_cfg.get("etherscan", None)
     KOVAN = apikeys_cfg.get("etherscan", None)
