@@ -14,6 +14,9 @@ def erc20_contract(w3: Web3, address: AnyAddress) -> contract.Contract:
     return w3.eth.contract(address=address, abi=ERC20_ABI)
 
 
+NATIVE = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"  # Native asset convention for every chain (EIP-7528)
+
+
 class Abis:
     ERC20 = ContractAbi(abi=ERC20_ABI, name="erc20")
 
