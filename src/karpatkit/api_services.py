@@ -20,6 +20,7 @@ class APIKey(Constants):
     ROPSTEN = apikeys_cfg.get("etherscan", None)
     KOVAN = apikeys_cfg.get("etherscan", None)
     GOERLI = apikeys_cfg.get("etherscan", None)
+    THEGRAPH = apikeys_cfg.get("thegraph", None)
 
 
 class APIUrl(Constants):
