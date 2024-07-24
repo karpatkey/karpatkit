@@ -36,6 +36,7 @@ class SimpleSafe(Safe):
 
     def send(self, txs) -> TxResult:
         from roles_royce.utils import multi_or_one  # TODO: refactor out from here
+
         tx = multi_or_one(txs, Chain.get_blockchain_from_web3(self.w3))
         safe_tx = self.build_multisig_tx(
             to=tx.contract_address,
