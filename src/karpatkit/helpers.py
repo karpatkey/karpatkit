@@ -6,7 +6,7 @@ from typing import Any
 
 from web3.exceptions import BadFunctionCallOutput, ContractLogicError
 
-from defabipedia.tokens import erc20_contract, NATIVE, EthereumTokenAddr
+from defabipedia.tokens import NATIVE, EthereumTokenAddr, erc20_contract
 
 suppressed_error_codes = {-32000, -32015}
 
