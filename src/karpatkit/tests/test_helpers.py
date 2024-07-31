@@ -31,7 +31,7 @@ def test_call_contract_method():
     block = 3
     ret_value = helpers.call_contract_method(method, block)
     assert ret_value == 1
-    assert method.call.called_with(black_identifier=block)
+    method.call.assert_called_with(block_identifier=block)
 
 
 @pytest.mark.parametrize(
@@ -48,7 +48,7 @@ def test_call_contract_method_suppress(exception):
     block = 3
     ret_value = helpers.call_contract_method(method, block)
     assert ret_value is None
-    assert method.call.called_with(black_identifier=block)
+    method.call.assert_called_with(block_identifier=block)
 
 
 def test_call_contract_method_raise(not_suppressed_code):
@@ -57,7 +57,7 @@ def test_call_contract_method_raise(not_suppressed_code):
     block = 3
     with pytest.raises(ValueError):
         helpers.call_contract_method(method, block)
-    assert method.call.called_with(black_identifier=block)
+    method.call.assert_called_with(block_identifier=block)
 
 
 def test_listify():
