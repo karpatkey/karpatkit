@@ -19,6 +19,14 @@ class EthereumContractSpecs:
     )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs}
+class GnosisContractSpecs:
+    OsVaultController = ContractSpec(
+        address="0x60B2053d7f2a0bBa70fe6CDd88FB47b579B9179a",
+        abi_path=current_dir() / "os_token_vault_controller.json",
+        name="os_token_vault_controller",
+    )
+
+
+ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
 
 Abis = {Chain.GNOSIS: GnosisAbis, Chain.ETHEREUM: EthereumAbis}
