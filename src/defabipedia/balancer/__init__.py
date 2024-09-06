@@ -31,6 +31,12 @@ class EthereumContractSpecs:
         name="gauge_factory2",
     )
 
+    BCowFactory = ContractSpec(
+        address="0xf76c421bAb7df8548604E60deCCcE50477C10462",
+        abi_path=current_dir() / "bcow_factory.json",
+        name="bcow_factory",
+    )
+
 
 class GnosisContractSpecs:
     Vault = ContractSpec(
@@ -48,6 +54,12 @@ class GnosisContractSpecs:
         address="0x83E443EF4f9963C77bd860f94500075556668cb8",
         abi_path=current_dir() / "gauge_factory2.json",
         name="gauge_factory2",
+    )
+
+    BCowFactory = ContractSpec(
+        address="0x703Bd8115E6F21a37BB5Df97f78614ca72Ad7624",
+        abi_path=current_dir() / "bcow_factory.json",
+        name="bcow_factory",
     )
 
 
