@@ -66,6 +66,11 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "governance_v2.json",
         name="GovernanceV2",
     )
+    GHO = ContractSpec(
+        address="0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f", 
+        abi_path=current_dir() / "GHO.json", 
+        name="GHO"
+    )
 
 class GnosisContractSpecs:
     ProtocolDataProvider = ContractSpec(
