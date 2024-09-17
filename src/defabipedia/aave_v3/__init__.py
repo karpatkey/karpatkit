@@ -66,8 +66,34 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "governance_v2.json",
         name="GovernanceV2",
     )
+    GHO = ContractSpec(
+        address="0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f", abi_path=current_dir() / "GHO.json", name="GHO"
+    )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs}
+class GnosisContractSpecs:
+    ProtocolDataProvider = ContractSpec(
+        address="0x501B4c19dd9C2e06E94dA7b6D5Ed4ddA013EC741",
+        abi_path=current_dir() / "protocol_data_provider.json",
+        name="ProtocolDataProvider",
+    )
+    PoolAddressesProvider = ContractSpec(
+        address="0x36616cf17557639614c1cdDb356b1B83fc0B2132",
+        abi_path=current_dir() / "protocol_address_provider.json",
+        name="PoolAddressesProvider",
+    )
+    LendingPoolV3 = ContractSpec(
+        address="0xb50201558B00496A145fE76f7424749556E326D8",
+        abi_path=current_dir() / "lending_pool_v3.json",
+        name="LendingPoolV3",
+    )
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0xfE76366A986B72c3f2923e05E6ba07b7de5401e4",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
 
-Abis = {Chain.ETHEREUM: AllAbis}
+
+ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+
+Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
