@@ -21,6 +21,7 @@ class APIKey(Constants):
     KOVAN = apikeys_cfg.get("etherscan", None)
     GOERLI = apikeys_cfg.get("etherscan", None)
     THEGRAPH = apikeys_cfg.get("thegraph", None)
+    COINGECKO = apikeys_cfg.get("coingecko", None)
 
 
 class APIUrl(Constants):
