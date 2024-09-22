@@ -127,10 +127,19 @@ class ArbitrumTokenAddr:
     BAL = "0x040d1EdC9569d4Bab2D15287Dc5A4F10F56a56B8"
     DAI = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
     weETH = "0x35751007a407ca6FEFfE80b3cB397736D2cf4dbe"
+    USDC = "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8"
+    USDCe = "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+
+
+class OptimismTokenAddr:
+    DAI = "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
+    USDC = "0x7F5c764cBc14f9669B88837ca1490cCa17c31607"
+    USDCe = "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85"
 
 
 class BaseTokenAddr:
     weETH = "0x04C0599Ae5A44757c0af6F9eC3b93da8976c150A"
+    USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 
 
 class EthereumContractSpecs:
@@ -148,5 +157,6 @@ Addresses = {
     Chain.GNOSIS: GnosisTokenAddr,
     Chain.POLYGON: PolygonTokenAddr,
     Chain.ARBITRUM: ArbitrumTokenAddr,
+    Chain.OPTIMISM: OptimismTokenAddr,
     Chain.BASE: BaseTokenAddr,
 }
