@@ -25,10 +25,10 @@ class EthereumContractSpecs:
         address="0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8", abi_path=current_dir() / "aEthWETH.json", name="aEthWETH"
     )
     aUSDC = ContractSpec(
-        address="0xBcca60bB61934080951369a648Fb03DF4F96263C", abi_path=current_dir() / "atoken.json", name="aUSDC"
+        address="0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c", abi_path=current_dir() / "atoken.json", name="aUSDC"
     )
     aDAI = ContractSpec(
-        address="0x028171bCA77440897B824Ca71D1c56caC55b68A3", abi_path=current_dir() / "atoken.json", name="aDAI"
+        address=" 0x018008bfb33d285247A21d44E50697654f754e63", abi_path=current_dir() / "atoken.json", name="aDAI"
     )
     asDAI = ContractSpec(
         address="0x4C612E3B15b96Ff9A6faED838F8d07d479a8dD4c", abi_path=current_dir() / "atoken.json", name="asDAI"
@@ -61,12 +61,12 @@ class EthereumContractSpecs:
         name="stableDebtWETH",
     )
     variableDebtUSDC = ContractSpec(
-        address="0x619beb58998eD2278e08620f97007e1116D5D25b",
+        address="0x72E95b8931767C79bA4EeE721354d6E99a61D004",
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtUSDC",
     )
     variableDebtDAI = ContractSpec(
-        address="0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d",
+        address="0xcF8d0c70c850859266f5C338b38F9D663181C314",
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtDAI",
     )
