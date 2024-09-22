@@ -133,7 +133,7 @@ class GnosisContractSpecs:
         address="0xd0Dd6cEF72143E22cCED4867eb0d5F2328715533", abi_path=current_dir() / "atoken.json", name="aGnoWXDai"
     )
     asDAI = ContractSpec(
-        address=" 0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC", abi_path=current_dir() / "atoken.json", name="aGnosDAI"
+        address="0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC", abi_path=current_dir() / "atoken.json", name="aGnosDAI"
     )
 
 
