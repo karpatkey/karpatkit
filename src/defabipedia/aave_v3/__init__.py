@@ -60,7 +60,7 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "stableDebtWETH.json",
         name="stableDebtWETH",
     )
-    variableDebtUSDC =  ContractSpec(
+    variableDebtUSDC = ContractSpec(
         address="0x619beb58998eD2278e08620f97007e1116D5D25b",
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtUSDC",
@@ -111,7 +111,7 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "wrapped_token_gateway_v3.json",
         name="WrappedTokenGatewayV3",
     )
-    variableDebtUSDC =  ContractSpec(
+    variableDebtUSDC = ContractSpec(
         address="0x5F6f7B0a87CA3CF3d0b431Ae03EF3305180BFf4d",
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtUSDC",
@@ -135,6 +135,7 @@ class GnosisContractSpecs:
     asDAI = ContractSpec(
         address=" 0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC", abi_path=current_dir() / "atoken.json", name="aGnosDAI"
     )
+
 
 class OptimismContractSpecs:
     ProtocolDataProvider = ContractSpec(
@@ -167,6 +168,7 @@ class OptimismContractSpecs:
         address="0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE", abi_path=current_dir() / "atoken.json", name="aDAI"
     )
 
+
 class ArbitrumContractSpecs:
     ProtocolDataProvider = ContractSpec(
         address="0x69FA688f1Dc47d4B5d8029D5a35FB7a548310654",
@@ -198,6 +200,7 @@ class ArbitrumContractSpecs:
         address="0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE", abi_path=current_dir() / "atoken.json", name="aDAI"
     )
 
+
 class BaseContractSpecs:
     ProtocolDataProvider = ContractSpec(
         address="0x2d8A3C5677189723C4cB8873CfC9C8976FDF38Ac",
@@ -224,6 +227,18 @@ class BaseContractSpecs:
     )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs, Chain.OPTIMISM: OptimismContractSpecs, Chain.ARBITRUM: ArbitrumContractSpecs, Chain.BASE: BaseContractSpecs}
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+    Chain.OPTIMISM: OptimismContractSpecs,
+    Chain.ARBITRUM: ArbitrumContractSpecs,
+    Chain.BASE: BaseContractSpecs,
+}
 
-Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis, Chain.OPTIMISM: AllAbis, Chain.ARBITRUM: AllAbis, Chain.BASE: AllAbis}
+Abis = {
+    Chain.ETHEREUM: AllAbis,
+    Chain.GNOSIS: AllAbis,
+    Chain.OPTIMISM: AllAbis,
+    Chain.ARBITRUM: AllAbis,
+    Chain.BASE: AllAbis,
+}
