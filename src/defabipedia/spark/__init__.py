@@ -27,6 +27,26 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "sdai.json",
         name="sdai",
     )
+    spDAI = ContractSpec(
+        address="0x4DEDf26112B3Ec8eC46e7E31EA5e123490B05B8B",
+        abi_path=current_dir() / "sptoken.json",
+        name="spDAI",
+    )
+    variableDebtDAI = ContractSpec(
+        address="0xf705d2B7e92B3F38e6ae7afaDAA2fEE110fE5914",
+        abi_path=current_dir() / "variable_debt_token.json",
+        name="variableDebtDAI",
+    )
+    spUSDC = ContractSpec(
+        address="0x377C3bd93f2a2984E1E7bE6A5C22c525eD4A4815",
+        abi_path=current_dir() / "sptoken.json",
+        name="spUSDC",
+    )
+    variableDebtUSDC = ContractSpec(
+        address="0x7B70D04099CB9cfb1Db7B6820baDAfB4C5C70A67",
+        abi_path=current_dir() / "variable_debt_token.json",
+        name="variableDebtUSDC",
+    )
 
 
 class GnosisContractSpecs:
@@ -40,10 +60,30 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "pool_addresses_provider.json",
         name="pool_addresses_provider",
     )
+    LendingPoolV3 = ContractSpec(
+        address="0x2Dae5307c5E3FD1CF5A72Cb6F698f915860607e0",
+        abi_path=current_dir() / "lending_pool.json",
+        name="LendingPoolV3",
+    )
     sDAI = ContractSpec(
         address="0xaf204776c7245bF4147c2612BF6e5972Ee483701",
         abi_path=current_dir() / "sdai.json",
         name="sdai",
+    )
+    spsDAI = ContractSpec(
+        address="0xE877b96caf9f180916bF2B5Ce7Ea8069e0123182",
+        abi_path=current_dir() / "sptoken.json",
+        name="spsDAI",
+    )
+    variableDebtwxDAI = ContractSpec(
+        address="0x868ADfDf12A86422524EaB6978beAE08A0008F37",
+        abi_path=current_dir() / "variable_debt_token.json",
+        name="variableDebtDAI",
+    )
+    variableDebtUSDC = ContractSpec(
+        address="0xBC4f20DAf4E05c17E93676D2CeC39769506b8219",
+        abi_path=current_dir() / "variable_debt_token.json",
+        name="variableDebtUSDC",
     )
 
 
