@@ -28,7 +28,7 @@ class EthereumContractSpecs:
         address="0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c", abi_path=current_dir() / "atoken.json", name="aUSDC"
     )
     aDAI = ContractSpec(
-        address=" 0x018008bfb33d285247A21d44E50697654f754e63", abi_path=current_dir() / "atoken.json", name="aDAI"
+        address="0x018008bfb33d285247A21d44E50697654f754e63", abi_path=current_dir() / "atoken.json", name="aDAI"
     )
     asDAI = ContractSpec(
         address="0x4C612E3B15b96Ff9A6faED838F8d07d479a8dD4c", abi_path=current_dir() / "atoken.json", name="asDAI"
