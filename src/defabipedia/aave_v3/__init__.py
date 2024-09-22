@@ -24,6 +24,15 @@ class EthereumContractSpecs:
     aEthWETH = ContractSpec(
         address="0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8", abi_path=current_dir() / "aEthWETH.json", name="aEthWETH"
     )
+    aUSDC = ContractSpec(
+        address="0xBcca60bB61934080951369a648Fb03DF4F96263C", abi_path=current_dir() / "atoken.json", name="aUSDC"
+    )
+    aDAI = ContractSpec(
+        address="0x028171bCA77440897B824Ca71D1c56caC55b68A3", abi_path=current_dir() / "atoken.json", name="aDAI"
+    )
+    asDAI = ContractSpec(
+        address="0x4C612E3B15b96Ff9A6faED838F8d07d479a8dD4c", abi_path=current_dir() / "atoken.json", name="asDAI"
+    )
     WrappedTokenGatewayV3 = ContractSpec(
         address="0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C",
         abi_path=current_dir() / "wrapped_token_gateway_v3.json",
@@ -50,6 +59,16 @@ class EthereumContractSpecs:
         address="0x102633152313C81cD80419b6EcF66d14Ad68949A",
         abi_path=current_dir() / "stableDebtWETH.json",
         name="stableDebtWETH",
+    )
+    variableDebtUSDC =  ContractSpec(
+        address="0x619beb58998eD2278e08620f97007e1116D5D25b",
+        abi_path=current_dir() / "variableDebt.json",
+        name="variableDebtUSDC",
+    )
+    variableDebtDAI = ContractSpec(
+        address="0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d",
+        abi_path=current_dir() / "variableDebt.json",
+        name="variableDebtDAI",
     )
     ParaSwapRepayAdapter = ContractSpec(
         address="0x1809f186D680f239420B56948C58F8DbbCdf1E18",
@@ -92,8 +111,119 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "wrapped_token_gateway_v3.json",
         name="WrappedTokenGatewayV3",
     )
+    variableDebtUSDC =  ContractSpec(
+        address="0x5F6f7B0a87CA3CF3d0b431Ae03EF3305180BFf4d",
+        abi_path=current_dir() / "variableDebt.json",
+        name="variableDebtUSDC",
+    )
+    variableDebtwxDAI = ContractSpec(
+        address="0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d",
+        abi_path=current_dir() / "variableDebt.json",
+        name="variableDebtwxDAI",
+    )
+    variableDebtsDAI = ContractSpec(
+        address="0x8Fe06E1D8Aff42Bf6812CacF7854A2249a00bED7",
+        abi_path=current_dir() / "variableDebt.json",
+        name="variableDebtsDAI",
+    )
+    aUSDC = ContractSpec(
+        address="0xc6B7AcA6DE8a6044E0e32d0c841a89244A10D284", abi_path=current_dir() / "atoken.json", name="aGnoUSDC"
+    )
+    awxDAI = ContractSpec(
+        address="0xd0Dd6cEF72143E22cCED4867eb0d5F2328715533", abi_path=current_dir() / "atoken.json", name="aGnoWXDai"
+    )
+    asDAI = ContractSpec(
+        address=" 0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC", abi_path=current_dir() / "atoken.json", name="aGnosDAI"
+    )
+
+class OptimismContractSpecs:
+    ProtocolDataProvider = ContractSpec(
+        address="0x69FA688f1Dc47d4B5d8029D5a35FB7a548310654",
+        abi_path=current_dir() / "protocol_data_provider.json",
+        name="ProtocolDataProvider",
+    )
+    PoolAddressesProvider = ContractSpec(
+        address="0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
+        abi_path=current_dir() / "protocol_address_provider.json",
+        name="PoolAddressesProvider",
+    )
+    LendingPoolV3 = ContractSpec(
+        address="0x794a61358D6845594F94dc1DB02A252b5b4814aD",
+        abi_path=current_dir() / "lending_pool_v3.json",
+        name="LendingPoolV3",
+    )
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0xe9E52021f4e11DEAD8661812A0A6c8627abA2a54",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
+    aUSDC = ContractSpec(
+        address="0x625E7708f30cA75bfd92586e17077590C60eb4cD", abi_path=current_dir() / "atoken.json", name="aUSDC"
+    )
+    aUSDCe = ContractSpec(
+        address="0x38d693cE1dF5AaDF7bC62595A37D667aD57922e5", abi_path=current_dir() / "atoken.json", name="aUSDCe"
+    )
+    aDAI = ContractSpec(
+        address="0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE", abi_path=current_dir() / "atoken.json", name="aDAI"
+    )
+
+class ArbitrumContractSpecs:
+    ProtocolDataProvider = ContractSpec(
+        address="0x69FA688f1Dc47d4B5d8029D5a35FB7a548310654",
+        abi_path=current_dir() / "protocol_data_provider.json",
+        name="ProtocolDataProvider",
+    )
+    PoolAddressesProvider = ContractSpec(
+        address="0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb",
+        abi_path=current_dir() / "protocol_address_provider.json",
+        name="PoolAddressesProvider",
+    )
+    LendingPoolV3 = ContractSpec(
+        address="0x794a61358D6845594F94dc1DB02A252b5b4814aD",
+        abi_path=current_dir() / "lending_pool_v3.json",
+        name="LendingPoolV3",
+    )
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0xecD4bd3121F9FD604ffaC631bF6d41ec12f1fafb",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
+    aUSDC = ContractSpec(
+        address="0x625E7708f30cA75bfd92586e17077590C60eb4cD", abi_path=current_dir() / "atoken.json", name="aUSDC"
+    )
+    aUSDCe = ContractSpec(
+        address="0x724dc807b04555b71ed48a6896b6F41593b8C637", abi_path=current_dir() / "atoken.json", name="aUSDCe"
+    )
+    aDAI = ContractSpec(
+        address="0x82E64f49Ed5EC1bC6e43DAD4FC8Af9bb3A2312EE", abi_path=current_dir() / "atoken.json", name="aDAI"
+    )
+
+class BaseContractSpecs:
+    ProtocolDataProvider = ContractSpec(
+        address="0x2d8A3C5677189723C4cB8873CfC9C8976FDF38Ac",
+        abi_path=current_dir() / "protocol_data_provider.json",
+        name="ProtocolDataProvider",
+    )
+    PoolAddressesProvider = ContractSpec(
+        address="0xe20fCBdBfFC4Dd138cE8b2E6FBb6CB49777ad64D",
+        abi_path=current_dir() / "protocol_address_provider.json",
+        name="PoolAddressesProvider",
+    )
+    LendingPoolV3 = ContractSpec(
+        address="0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
+        abi_path=current_dir() / "lending_pool_v3.json",
+        name="LendingPoolV3",
+    )
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0x8be473dCfA93132658821E67CbEB684ec8Ea2E74",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
+    aUSDC = ContractSpec(
+        address="0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB", abi_path=current_dir() / "atoken.json", name="aUSDC"
+    )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs, Chain.OPTIMISM: OptimismContractSpecs, Chain.ARBITRUM: ArbitrumContractSpecs, Chain.BASE: BaseContractSpecs}
 
-Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
+Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis, Chain.OPTIMISM: AllAbis, Chain.ARBITRUM: AllAbis, Chain.BASE: AllAbis}
