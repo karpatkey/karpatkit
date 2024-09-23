@@ -117,7 +117,7 @@ class GnosisContractSpecs:
         name="variableDebtUSDC",
     )
     variableDebtwxDAI = ContractSpec(
-        address="0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d",
+        address="0x281963D7471eCdC3A2Bd4503e24e89691cfe420D",
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtwxDAI",
     )
