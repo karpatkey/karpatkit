@@ -21,8 +21,10 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "lending_pool_v3.json",
         name="LendingPoolV3",
     )
-    aEthWETH = ContractSpec(
-        address="0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8", abi_path=current_dir() / "aEthWETH.json", name="aEthWETH"
+    aWrappedNative = ContractSpec(
+        address="0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8",
+        abi_path=current_dir() / "aWrappedNative.json",
+        name="aEthWeth",
     )
     aUSDC = ContractSpec(
         address="0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c", abi_path=current_dir() / "atoken.json", name="aUSDC"
@@ -50,15 +52,15 @@ class EthereumContractSpecs:
     stkABPT = ContractSpec(
         address="0xa1116930326D21fB917d5A27F1E9943A9595fb47", abi_path=current_dir() / "stkABPT.json", name="stkABPT"
     )
-    variableDebtWETH = ContractSpec(
+    variableDebtNATIVE = ContractSpec(
         address="0xeA51d7853EEFb32b6ee06b1C12E6dcCA88Be0fFE",
-        abi_path=current_dir() / "variableDebtWETH.json",
-        name="variableDebtWETH",
+        abi_path=current_dir() / "variableDebtNative.json",
+        name="variableDebtEthWeth",
     )
-    stableDebtWETH = ContractSpec(
+    stableDebtNATIVE = ContractSpec(
         address="0x102633152313C81cD80419b6EcF66d14Ad68949A",
-        abi_path=current_dir() / "stableDebtWETH.json",
-        name="stableDebtWETH",
+        abi_path=current_dir() / "stableDebtNative.json",
+        name="stableDebtEthWeth",
     )
     variableDebtUSDC = ContractSpec(
         address="0x72E95b8931767C79bA4EeE721354d6E99a61D004",
@@ -116,10 +118,10 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "variableDebt.json",
         name="variableDebtUSDC",
     )
-    variableDebtwxDAI = ContractSpec(
+    variableDebtNATIVE = ContractSpec(
         address="0x281963D7471eCdC3A2Bd4503e24e89691cfe420D",
-        abi_path=current_dir() / "variableDebt.json",
-        name="variableDebtwxDAI",
+        abi_path=current_dir() / "variableDebtNative.json",
+        name="variableDebtGnoWxdai",
     )
     variableDebtsDAI = ContractSpec(
         address="0x8Fe06E1D8Aff42Bf6812CacF7854A2249a00bED7",
@@ -129,8 +131,10 @@ class GnosisContractSpecs:
     aUSDC = ContractSpec(
         address="0xc6B7AcA6DE8a6044E0e32d0c841a89244A10D284", abi_path=current_dir() / "atoken.json", name="aGnoUSDC"
     )
-    awxDAI = ContractSpec(
-        address="0xd0Dd6cEF72143E22cCED4867eb0d5F2328715533", abi_path=current_dir() / "atoken.json", name="aGnoWXDai"
+    awrappedNATIVE = ContractSpec(
+        address="0xd0Dd6cEF72143E22cCED4867eb0d5F2328715533",
+        abi_path=current_dir() / "aWrappedNative.json",
+        name="aGnoWxdai",
     )
     asDAI = ContractSpec(
         address="0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC", abi_path=current_dir() / "atoken.json", name="aGnosDAI"
