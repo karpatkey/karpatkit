@@ -22,6 +22,21 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "lending_pool.json",
         name="LendingPoolV3",
     )
+    spWrappedNative = ContractSpec(
+        address="0x59cD1C87501baa753d0B5B5Ab5D8416A45cD71DB",
+        abi_path=current_dir() / "spWrappedNative.json",
+        name="spEthWeth",
+    )
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0xBD7D6a9ad7865463DE44B05F04559f65e3B11704",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
+    variableDebtNATIVE = ContractSpec(
+        address="0x2e7576042566f8D6990e07A1B61Ad1efd86Ae70d",
+        abi_path=current_dir() / "variableDebtNative.json",
+        name="variableDebtEthWeth",
+    )
     sDAI = ContractSpec(
         address="0x83F20F44975D03b1b09e64809B757c47f942BEeA",
         abi_path=current_dir() / "sdai.json",
@@ -77,7 +92,7 @@ class GnosisContractSpecs:
     )
     variableDebtwxDAI = ContractSpec(
         address="0x868ADfDf12A86422524EaB6978beAE08A0008F37",
-        abi_path=current_dir() / "variable_debt_token.json",
+        abi_path=current_dir() / "variableDebtNative.json",
         name="variableDebtDAI",
     )
     variableDebtUSDC = ContractSpec(
