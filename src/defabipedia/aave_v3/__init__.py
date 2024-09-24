@@ -131,7 +131,7 @@ class GnosisContractSpecs:
     aUSDC = ContractSpec(
         address="0xc6B7AcA6DE8a6044E0e32d0c841a89244A10D284", abi_path=current_dir() / "atoken.json", name="aGnoUSDC"
     )
-    awrappedNATIVE = ContractSpec(
+    aWrappedNative = ContractSpec(
         address="0xd0Dd6cEF72143E22cCED4867eb0d5F2328715533",
         abi_path=current_dir() / "aWrappedNative.json",
         name="aGnoWxdai",
