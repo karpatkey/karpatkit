@@ -1,7 +1,7 @@
 from ..types import Chain, ContractAbi, ContractSpec, current_dir
 
 
-class Abis:
+class AllAbis:
     PriceOracle = ContractAbi(abi_path=current_dir() / "price_oracle.json", name="price_oracle")
     LendingPool = ContractAbi(abi_path=current_dir() / "lending_pool.json", name="lending_pool")
 
@@ -95,6 +95,7 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "variableDebtNative.json",
         name="variableDebtDAI",
     )
+    variableDebtNATIVE = variableDebtwxDAI
     variableDebtUSDC = ContractSpec(
         address="0xBC4f20DAf4E05c17E93676D2CeC39769506b8219",
         abi_path=current_dir() / "variable_debt_token.json",
@@ -104,4 +105,4 @@ class GnosisContractSpecs:
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
 
-Abis = {Chain.ETHEREUM: Abis, Chain.GNOSIS: Abis}
+Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
