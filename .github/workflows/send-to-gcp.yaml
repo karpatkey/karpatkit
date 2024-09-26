@@ -27,4 +27,3 @@ jobs:
     - name: Copy folders to GCP bucket
       run: |
         gsutil -m cp -r ./src/* gs://us-central1-etl-ariflow-3bd661ef-bucket/dags/dependencies/
-
