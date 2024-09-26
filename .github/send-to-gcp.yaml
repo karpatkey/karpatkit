@@ -1,0 +1,30 @@
+name: Deploy to GCP Bucket
+
+on:
+  push:
+    branches:
+      - main
+      - test/gcp
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.GCP_BUCKET_SA }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v2'
+      
+    - name: Copy folders to GCP bucket
+      run: |
+        gsutil -m cp -r ./src/* gs://us-central1-etl-ariflow-3bd661ef-bucket/dags/dependencies/
+
