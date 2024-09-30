@@ -90,12 +90,16 @@ class GnosisContractSpecs:
         abi_path=current_dir() / "sptoken.json",
         name="spsDAI",
     )
-    variableDebtwxDAI = ContractSpec(
+    WrappedTokenGatewayV3 = ContractSpec(
+        address="0xBD7D6a9ad7865463DE44B05F04559f65e3B11704",
+        abi_path=current_dir() / "wrapped_token_gateway_v3.json",
+        name="WrappedTokenGatewayV3",
+    )
+    variableDebtNATIVE = ContractSpec(
         address="0x868ADfDf12A86422524EaB6978beAE08A0008F37",
-        abi_path=current_dir() / "variableDebtNative.json",
+        abi_path=current_dir() / "variableDebtNative_gc.json",
         name="variableDebtDAI",
     )
-    variableDebtNATIVE = variableDebtwxDAI
     variableDebtUSDC = ContractSpec(
         address="0xBC4f20DAf4E05c17E93676D2CeC39769506b8219",
         abi_path=current_dir() / "variable_debt_token.json",
