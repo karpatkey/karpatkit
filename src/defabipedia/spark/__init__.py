@@ -97,7 +97,7 @@ class GnosisContractSpecs:
     )
     variableDebtNATIVE = ContractSpec(
         address="0x868ADfDf12A86422524EaB6978beAE08A0008F37",
-        abi_path=current_dir() / "variableDebtNative_gc.json",
+        abi_path=current_dir() / "variableDebtNative.json",
         name="variableDebtDAI",
     )
     variableDebtUSDC = ContractSpec(
