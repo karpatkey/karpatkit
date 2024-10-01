@@ -26,6 +26,7 @@ class GnosisContractSpecs:
         name="cowswap_relayer",
     )
 
+
 class ArbitrumContractSpecs:
     CowswapSigner = ContractSpec(
         address="0x23dA9AdE38E4477b23770DeD512fD37b12381FAB",
@@ -38,4 +39,9 @@ class ArbitrumContractSpecs:
         name="cowswap_relayer",
     )
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs, Chain.ARBITRUM: ArbitrumContractSpecs}
+
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+    Chain.ARBITRUM: ArbitrumContractSpecs,
+}

@@ -1,10 +1,13 @@
-from ..types import Chain, ContractAbi, current_dir
+from ..types import Chain, ContractAbi, ContractSpec, current_dir
+
 
 class AllAbis:
     Comet = ContractAbi(abi_path=current_dir() / "comet_factory.json", name="comet_factory")
     Rewards = ContractAbi(abi_path=current_dir() / "eth_rewards.json", name="rewards")
 
+
 Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
+
 
 class PolygonContractSpecs:
     base_bulker = ContractSpec(
@@ -63,6 +66,7 @@ class PolygonContractSpecs:
         name="timelock",
     )
 
+
 class EthereumContractSpecs:
     base_bulker_USDC = ContractSpec(
         address="0x74a81F84268744a40FEBc48f8b812a1f188D80C3",
@@ -113,7 +117,7 @@ class EthereumContractSpecs:
         address="0x698A949f3b4f7a5DdE236106F25Fa0eAcA0FcEF1",
         abi_path=current_dir() / "eth_comet_factory_USDT_wstETH.json",
         name="comet_factory_USDT_wstETH",
-    )    
+    )
     comet_factory_WETH_USDC = ContractSpec(
         address="0xa7F7De6cCad4D83d81676717053883337aC2c1b4",
         abi_path=current_dir() / "eth_comet_factory_WETH_USDC.json",
@@ -159,5 +163,19 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "eth_timelock.json",
         name="timelock",
     )
-    
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs, Chain.ARBITRUM: ArbitrumContractSpecs, Chain.POLYGON: PolygonContractSpecs}
+
+
+class GnosisContractSpecs:
+    pass
+
+
+class ArbitrumContractSpecs:
+    pass
+
+
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+    Chain.ARBITRUM: ArbitrumContractSpecs,
+    Chain.POLYGON: PolygonContractSpecs,
+}
