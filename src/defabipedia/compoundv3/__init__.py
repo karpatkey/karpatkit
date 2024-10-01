@@ -16,7 +16,7 @@ class PolygonContractSpecs:
         name="base_bulker",
     )
     cUSDCv3 = ContractSpec(
-        address="0xc70e3ed4b719e4d62c780507e1f1340ff8b9bed2",
+        address="0xF25212E676D1F7F89Cd72fFEe66158f541246445",
         abi_path=current_dir() / "polygon_cUSDCv3.json",
         name="cUSDCv3",
     )
@@ -26,7 +26,7 @@ class PolygonContractSpecs:
         name="cUSDCv3_ext",
     )
     cUSDTv3 = ContractSpec(
-        address="0xAe2cCD85e75f885449561a1A8BF6605b38662093",
+        address="0xaeB318360f27748Acb200CE616E389A6C9409a07",
         abi_path=current_dir() / "polygon_cUSDTv3.json",
         name="cUSDTv3",
     )
@@ -45,10 +45,10 @@ class PolygonContractSpecs:
         abi_path=current_dir() / "polygon_comet_proxy_admin.json",
         name="comet_proxy_admin",
     )
-    comet_rewards = ContractSpec(
+    rewards = ContractSpec(
         address="0x45939657d1CA34A8FA39A924B71D28Fe8431e581",
         abi_path=current_dir() / "polygon_comet_rewards.json",
-        name="comet_rewards",
+        name="rewards",
     )
     configurator = ContractSpec(
         address="0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf",
@@ -79,7 +79,7 @@ class EthereumContractSpecs:
         name="base_bulker",
     )
     cUSDCv3 = ContractSpec(
-        address="0xAFb1Df7261B52Ba6273a3aD0ED7eD7B6b22Ff6Ef",
+        address="0xc3d688B66703497DAA19211EEdff47f25384cdc3",
         abi_path=current_dir() / "eth_cUSDCv3.json",
         name="cUSDCv3",
     )
@@ -89,7 +89,7 @@ class EthereumContractSpecs:
         name="cUSDCv3_ext",
     )
     cUSDTv3 = ContractSpec(
-        address="0xbeaf5b4e12a380f6e211181de6bfecd18bb99a8f",
+        address="0x3Afdc9BCA9213A35503b077a6072F3D0d5AB0840",
         abi_path=current_dir() / "eth_cUSDTv3.json",
         name="cUSDTv3",
     )
@@ -99,7 +99,7 @@ class EthereumContractSpecs:
         name="cUSDTv3_ext",
     )
     cWETHv3 = ContractSpec(
-        address="0x8b1fe29326dc8b02e79566e84431a5cbc3c7c7dc",
+        address="0xA17581A9E3356d9A858b789D68B4d866e593aE94",
         abi_path=current_dir() / "eth_cWETHv3.json",
         name="cWETHv3",
     )
@@ -109,7 +109,7 @@ class EthereumContractSpecs:
         name="cWETHv3_ext",
     )
     cbETH = ContractSpec(
-        address="0x31724cA0C982A31fbb5C57f4217AB585271fc9a5",
+        address="0xBe9895146f7AF43049ca1c1AE358B0541Ea49704",
         abi_path=current_dir() / "eth_cbETH.json",
         name="cbETH",
     )
