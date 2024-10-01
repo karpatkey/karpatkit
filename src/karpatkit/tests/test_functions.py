@@ -1,10 +1,11 @@
 import datetime
 
 import pytest
-from defabipedia import Chain
-from defabipedia.tokens import EthereumTokenAddr
 from hexbytes import HexBytes
 from web3.types import LogReceipt
+
+from defabipedia import Chain
+from defabipedia.tokens import EthereumTokenAddr
 
 from ..functions import (
     block_to_date,

@@ -2,7 +2,6 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import pytest
-
 from defyes import lazytime
 from defyes.lazytime import Duration, Time
 
