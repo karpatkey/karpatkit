@@ -21,7 +21,7 @@ def main_cli():
                     current = f.read()
                     obj = json.loads(current)
                     expected = json.dumps(obj, indent=2, ensure_ascii=False)
-                    if current != expected:
+                    if current != expected + "\n":
                         sys.exit(f"pretty_json: Oh noooo por dios!.\nFound a sneaky file not formatted: {json_file}")
 
             if not check_mode:
@@ -29,3 +29,4 @@ def main_cli():
                     obj = json.load(f)
                 with open(json_file, "w", encoding="utf-8") as f:
                     json.dump(obj, f, indent=2, ensure_ascii=False)
+                    f.write("\n")
