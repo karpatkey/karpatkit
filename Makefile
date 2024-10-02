@@ -49,6 +49,12 @@ lint-isort: build-if-no-image
 	@echo "=============="
 	@$(docker_run) $(image) isort --check $(path)
 
+.PHONY: lint-pretty_json
+lint-pretty_json: build-if-no-image
+	@echo "Check pretty_json..."
+	@echo "=============="
+	@$(docker_run) $(image) pretty_json --check $(path)
+
 
 .PHONY: lint-flake8
 lint-flake8: build-if-no-image
@@ -58,7 +64,7 @@ lint-flake8: build-if-no-image
 
 
 .PHONY: lint
-lint: lint-black lint-isort lint-flake8
+lint: lint-black lint-isort lint-flake8 lint-pretty_json
 	@echo "Linter rules [OK]"
 
 
@@ -79,9 +85,15 @@ isort: build-if-no-image  ## Apply isort.
 	@echo
 	@$(docker_run) $(image) isort $(path)
 
+.PHONY: pretty-json
+pretty-json: build-if-no-image
+	@echo "Applying pretty_json..."
+	@echo "================="
+	@echo
+	@$(docker_run) $(image) pretty_json $(path)
 
 .PHONY: pretty
-pretty: isort black
+pretty: isort black pretty-json
 
 
 .PHONY: cacheclear
