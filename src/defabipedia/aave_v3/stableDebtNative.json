@@ -1,7 +1,11 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "admin", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "admin",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -19,25 +23,48 @@
     "name": "Upgraded",
     "type": "event"
   },
-  { "stateMutability": "payable", "type": "fallback" },
+  {
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
   {
     "inputs": [],
     "name": "admin",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "implementation",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_logic", "type": "address" },
-      { "internalType": "bytes", "name": "_data", "type": "bytes" }
+      {
+        "internalType": "address",
+        "name": "_logic",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "_data",
+        "type": "bytes"
+      }
     ],
     "name": "initialize",
     "outputs": [],
@@ -64,7 +91,11 @@
         "name": "newImplementation",
         "type": "address"
       },
-      { "internalType": "bytes", "name": "data", "type": "bytes" }
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
     ],
     "name": "upgradeToAndCall",
     "outputs": [],
@@ -73,7 +104,11 @@
   },
   {
     "inputs": [
-      { "internalType": "contract IPool", "name": "pool", "type": "address" }
+      {
+        "internalType": "contract IPool",
+        "name": "pool",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -309,28 +344,52 @@
   {
     "inputs": [],
     "name": "DEBT_TOKEN_REVISION",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "DELEGATION_WITH_SIG_TYPEHASH",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "DOMAIN_SEPARATOR",
-    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "EIP712_REVISION",
-    "outputs": [{ "internalType": "bytes", "name": "", "type": "bytes" }],
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -338,7 +397,11 @@
     "inputs": [],
     "name": "POOL",
     "outputs": [
-      { "internalType": "contract IPool", "name": "", "type": "address" }
+      {
+        "internalType": "contract IPool",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -346,34 +409,76 @@
   {
     "inputs": [],
     "name": "UNDERLYING_ASSET_ADDRESS",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "address", "name": "", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
     "name": "allowance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "approve",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "delegatee", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "delegatee",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
     "name": "approveDelegation",
     "outputs": [],
@@ -382,32 +487,72 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "account", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
     ],
     "name": "balanceOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "fromUser", "type": "address" },
-      { "internalType": "address", "name": "toUser", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "fromUser",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "toUser",
+        "type": "address"
+      }
     ],
     "name": "borrowAllowance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "from", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
     ],
     "name": "burn",
     "outputs": [
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -415,29 +560,77 @@
   {
     "inputs": [],
     "name": "decimals",
-    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "decreaseAllowance",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "delegator", "type": "address" },
-      { "internalType": "address", "name": "delegatee", "type": "address" },
-      { "internalType": "uint256", "name": "value", "type": "uint256" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" },
-      { "internalType": "uint8", "name": "v", "type": "uint8" },
-      { "internalType": "bytes32", "name": "r", "type": "bytes32" },
-      { "internalType": "bytes32", "name": "s", "type": "bytes32" }
+      {
+        "internalType": "address",
+        "name": "delegator",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "delegatee",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      }
     ],
     "name": "delegationWithSig",
     "outputs": [],
@@ -447,7 +640,13 @@
   {
     "inputs": [],
     "name": "getAverageStableRate",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -468,10 +667,26 @@
     "inputs": [],
     "name": "getSupplyData",
     "outputs": [
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint40", "name": "", "type": "uint40" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint40",
+        "name": "",
+        "type": "uint40"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -480,8 +695,16 @@
     "inputs": [],
     "name": "getTotalSupplyAndAvgRate",
     "outputs": [
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -489,35 +712,75 @@
   {
     "inputs": [],
     "name": "getTotalSupplyLastUpdated",
-    "outputs": [{ "internalType": "uint40", "name": "", "type": "uint40" }],
+    "outputs": [
+      {
+        "internalType": "uint40",
+        "name": "",
+        "type": "uint40"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
     "name": "getUserLastUpdated",
-    "outputs": [{ "internalType": "uint40", "name": "", "type": "uint40" }],
+    "outputs": [
+      {
+        "internalType": "uint40",
+        "name": "",
+        "type": "uint40"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
     "name": "getUserStableRate",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "increaseAllowance",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -538,10 +801,26 @@
         "name": "incentivesController",
         "type": "address"
       },
-      { "internalType": "uint8", "name": "debtTokenDecimals", "type": "uint8" },
-      { "internalType": "string", "name": "debtTokenName", "type": "string" },
-      { "internalType": "string", "name": "debtTokenSymbol", "type": "string" },
-      { "internalType": "bytes", "name": "params", "type": "bytes" }
+      {
+        "internalType": "uint8",
+        "name": "debtTokenDecimals",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "debtTokenName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "debtTokenSymbol",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes",
+        "name": "params",
+        "type": "bytes"
+      }
     ],
     "name": "initialize",
     "outputs": [],
@@ -550,16 +829,44 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "address", "name": "onBehalfOf", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "rate", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "onBehalfOf",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rate",
+        "type": "uint256"
+      }
     ],
     "name": "mint",
     "outputs": [
-      { "internalType": "bool", "name": "", "type": "bool" },
-      { "internalType": "uint256", "name": "", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -567,25 +874,51 @@
   {
     "inputs": [],
     "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "owner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
     ],
     "name": "nonces",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
     "name": "principalBalanceOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -605,35 +938,79 @@
   {
     "inputs": [],
     "name": "symbol",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "totalSupply",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "transfer",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
     "name": "transferFrom",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   }

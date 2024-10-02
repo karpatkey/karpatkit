@@ -1,8 +1,16 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "pot_", "type": "address" },
-      { "internalType": "address", "name": "daiJoin_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "pot_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "daiJoin_",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -51,7 +59,11 @@
     "inputs": [],
     "name": "dai",
     "outputs": [
-      { "internalType": "contract GemLike", "name": "", "type": "address" }
+      {
+        "internalType": "contract GemLike",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -59,10 +71,20 @@
   },
   {
     "constant": false,
-    "inputs": [{ "internalType": "address", "name": "usr", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "usr",
+        "type": "address"
+      }
+    ],
     "name": "daiBalance",
     "outputs": [
-      { "internalType": "uint256", "name": "wad", "type": "uint256" }
+      {
+        "internalType": "uint256",
+        "name": "wad",
+        "type": "uint256"
+      }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -73,7 +95,11 @@
     "inputs": [],
     "name": "daiJoin",
     "outputs": [
-      { "internalType": "contract JoinLike", "name": "", "type": "address" }
+      {
+        "internalType": "contract JoinLike",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -82,8 +108,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "dst", "type": "address" },
-      { "internalType": "uint256", "name": "wad", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "dst",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "wad",
+        "type": "uint256"
+      }
     ],
     "name": "exit",
     "outputs": [],
@@ -93,7 +127,13 @@
   },
   {
     "constant": false,
-    "inputs": [{ "internalType": "address", "name": "dst", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "dst",
+        "type": "address"
+      }
+    ],
     "name": "exitAll",
     "outputs": [],
     "payable": false,
@@ -103,8 +143,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "dst", "type": "address" },
-      { "internalType": "uint256", "name": "wad", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "dst",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "wad",
+        "type": "uint256"
+      }
     ],
     "name": "join",
     "outputs": [],
@@ -114,9 +162,21 @@
   },
   {
     "constant": true,
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "pieOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -126,7 +186,11 @@
     "inputs": [],
     "name": "pot",
     "outputs": [
-      { "internalType": "contract PotLike", "name": "", "type": "address" }
+      {
+        "internalType": "contract PotLike",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -136,7 +200,13 @@
     "constant": true,
     "inputs": [],
     "name": "supply",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
