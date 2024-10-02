@@ -3,15 +3,13 @@ name: Linting
 on:
   push:
     branches:
-      - '*'
+      - "*"
     tags-ignore:
-      - '*'
+      - "*"
 
 jobs:
   Linting:
-
     runs-on: self-hosted
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,3 +18,12 @@ jobs:
         uses: docker://ghcr.io/karpatkey/pylint310
         with:
           args: src
+
+  spLinter:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Linting with make
+        run: make lint
