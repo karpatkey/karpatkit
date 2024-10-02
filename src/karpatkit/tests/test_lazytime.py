@@ -2,8 +2,8 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import pytest
-from defyes import lazytime
-from defyes.lazytime import Duration, Time
+from karpatkit import lazytime
+from karpatkit.lazytime import Duration, Time
 
 timestamp = 1698075172.5
 utc2 = timezone(timedelta(hours=2), "UTC")
