@@ -2,6 +2,7 @@ import time
 from datetime import datetime, timedelta, timezone
 
 import pytest
+
 from karpatkit import lazytime
 from karpatkit.lazytime import Duration, Time
 
