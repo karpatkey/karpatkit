@@ -23,6 +23,7 @@ class EthereumContractSpecs:
         name="oracle_wstETH_USDC",
     )
 
+
 class BaseContractSpecs:
     morpho_blue = ContractSpec(
         address="0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
@@ -34,5 +35,6 @@ class BaseContractSpecs:
         abi_path=current_dir() / "base_adaptative_Curve_IRM.json",
         name="adaptative_Curve_IRM",
     )
-    
+
+
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs}

@@ -158,6 +158,8 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "eth_timelock.json",
         name="timelock",
     )
+
+
 class OptimismContractSpecs:
     base_bulker = ContractSpec(
         address="0xcb3643CC8294B23171272845473dEc49739d4Ba3",
@@ -224,7 +226,8 @@ class OptimismContractSpecs:
         abi_path=current_dir() / "optimism_timelock.json",
         name="timelock",
     )
-    
+
+
 class ArbitrumContractSpecs:
     base_bulker = ContractSpec(
         address="0xbdE8F31D2DdDA895264e27DD990faB3DC87b372d",
@@ -297,6 +300,7 @@ class ArbitrumContractSpecs:
         name="timelock",
     )
 
+
 class BaseContractSpecs:
     base_bulker = ContractSpec(
         address="0x78D0677032A35c63D142a48A2037048871212a8C",
@@ -358,11 +362,12 @@ class BaseContractSpecs:
 class GnosisContractSpecs:
     pass
 
+
 ContractSpecs = {
     Chain.ETHEREUM: EthereumContractSpecs,
     Chain.GNOSIS: GnosisContractSpecs,
     Chain.ARBITRUM: ArbitrumContractSpecs,
     Chain.POLYGON: PolygonContractSpecs,
     Chain.OPTIMISM: OptimismContractSpecs,
-    Chain.BASE: BaseContractSpecs
+    Chain.BASE: BaseContractSpecs,
 }
