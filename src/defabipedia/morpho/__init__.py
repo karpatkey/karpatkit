@@ -26,9 +26,13 @@ class EthereumContractSpecs:
 class BaseContractSpecs:
     morpho_blue = ContractSpec(
         address="0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
-        abi_path=current_dir() / "morpho_blue.json",
+        abi_path=current_dir() / "base_morpho_blue.json",
         name="morpho_blue",
     )
-
-
+    adaptative_Curve_IRM = ContractSpec(
+        address="0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
+        abi_path=current_dir() / "base_adaptative_Curve_IRM.json",
+        name="adaptative_Curve_IRM",
+    )
+    
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs}
