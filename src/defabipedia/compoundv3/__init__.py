@@ -192,12 +192,12 @@ class OptimismContractSpecs:
     cWETHv3 = ContractSpec(
         address="0xE36A30D249f7761327fd973001A32010b521b6Fd",
         abi_path=current_dir() / "optimism_cWETHv3.json",
-        name="cUSDTv3",
+        name="cWETHv3",
     )
     cWETHv3_ext = ContractSpec(
         address="0x82B8d9A06ccABC1e9B0c0A00f38B858E6925CF2f",
         abi_path=current_dir() / "optimism_cWETHv3_ext.json",
-        name="cUSDTv3_ext",
+        name="cWETHv3_ext",
     )
     comet_factory = ContractSpec(
         address="0xFa454dE61b317b6535A0C462267208E8FdB89f45",
@@ -224,15 +224,82 @@ class OptimismContractSpecs:
         abi_path=current_dir() / "optimism_timelock.json",
         name="timelock",
     )
+    
+class ArbitrumContractSpecs:
+    base_bulker = ContractSpec(
+        address="0xbdE8F31D2DdDA895264e27DD990faB3DC87b372d",
+        abi_path=current_dir() / "arb_base_bulker.json",
+        name="base_bulker",
+    )
+    bridge_receiver = ContractSpec(
+        address="0x42480C37B249e33aABaf4c22B20235656bd38068",
+        abi_path=current_dir() / "arb_bridge_receiver.json",
+        name="bridge_receiver",
+    )
+    cUSDCev3 = ContractSpec(
+        address="0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA",
+        abi_path=current_dir() / "arb_cUSDCev3.json",
+        name="cUSDCev3",
+    )
+    cUSDCv3 = ContractSpec(
+        address="0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf",
+        abi_path=current_dir() / "arb_cUSDCv3.json",
+        name="cUSDCv3",
+    )
+    cUSDCv3_ext = ContractSpec(
+        address="0x1B2E88cC7365d90e7E81392432482925BD8437E9",
+        abi_path=current_dir() / "arb_cUSDCv3_ext.json",
+        name="cUSDCv3_ext",
+    )
+    cUSDTv3 = ContractSpec(
+        address="0xd98Be00b5D27fc98112BdE293e487f8D4cA57d07",
+        abi_path=current_dir() / "arb_cUSDTv3.json",
+        name="cUSDTv3",
+    )
+    cUSDTv3_ext = ContractSpec(
+        address="0x698A949f3b4f7a5DdE236106F25Fa0eAcA0FcEF1",
+        abi_path=current_dir() / "arb_cUSDTv3_ext.json",
+        name="cUSDTv3_ext",
+    )
+    cWETHv3 = ContractSpec(
+        address="0x6f7D514bbD4aFf3BcD1140B7344b32f063dEe486",
+        abi_path=current_dir() / "arb_cWETHv3.json",
+        name="cWETHv3",
+    )
+    cWETHv3_ext = ContractSpec(
+        address="0x5404872d8f2e24b230EC9B9eC64E3855F637FB93",
+        abi_path=current_dir() / "arb_cWETHv3_ext.json",
+        name="cWETHv3_ext",
+    )
+    comet_factory = ContractSpec(
+        address="0xe2AA5194E45B043AfdD6E98F467c0B1c13484ae9",
+        abi_path=current_dir() / "arb_comet_factory.json",
+        name="comet_factory",
+    )
+    configurator = ContractSpec(
+        address="0xb21b06D71c75973babdE35b49fFDAc3F82Ad3775",
+        abi_path=current_dir() / "arb_configurator.json",
+        name="configurator",
+    )
+    comet_proxy_admin = ContractSpec(
+        address="0xD10b40fF1D92e2267D099Da3509253D9Da4D715e",
+        abi_path=current_dir() / "arb_proxy_admin.json",
+        name="comet_proxy_admin",
+    )
+    rewards = ContractSpec(
+        address="0x88730d254A2f7e6AC8388c3198aFd694bA9f7fae",
+        abi_path=current_dir() / "arb_rewards.json",
+        name="rewards",
+    )
+    timelock = ContractSpec(
+        address="0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A",
+        abi_path=current_dir() / "arb_timelock.json",
+        name="timelock",
+    )
+
 
 class GnosisContractSpecs:
     pass
-
-
-class ArbitrumContractSpecs:
-    pass
-
-#test
 
 ContractSpecs = {
     Chain.ETHEREUM: EthereumContractSpecs,
