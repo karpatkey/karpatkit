@@ -159,7 +159,6 @@ class EthereumContractSpecs:
         name="timelock",
     )
 
-
 class OptimismContractSpecs:
     base_bulker = ContractSpec(
         address="0xcb3643CC8294B23171272845473dEc49739d4Ba3",
@@ -370,4 +369,5 @@ ContractSpecs = {
     Chain.POLYGON: PolygonContractSpecs,
     Chain.OPTIMISM: OptimismContractSpecs,
     Chain.BASE: BaseContractSpecs,
+
 }

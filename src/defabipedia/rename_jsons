@@ -17,3 +17,4 @@ name_mapping = {
     'oldname2.json': 'newname2.json'}
 
 rename_files(directory, name_mapping)
+
