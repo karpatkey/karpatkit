@@ -42,23 +42,23 @@ class PolygonContractSpecs:
     )
     comet_proxy_admin = ContractSpec(
         address="0xd712ACe4ca490D4F3E92992Ecf3DE12251b975F9",
-        abi_path=current_dir() / "polygon_comet_proxy_admin.json",
+        abi_path=current_dir() / "polygon_proxy_admin.json",
         name="comet_proxy_admin",
     )
     rewards = ContractSpec(
         address="0x45939657d1CA34A8FA39A924B71D28Fe8431e581",
-        abi_path=current_dir() / "polygon_comet_rewards.json",
+        abi_path=current_dir() / "polygon_rewards.json",
         name="rewards",
     )
     configurator = ContractSpec(
-        address="0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf",
+        address="0x83E0F742cAcBE66349E3701B171eE2487a26e738",
         abi_path=current_dir() / "polygon_configurator.json",
         name="configurator",
     )
-    polygon_bridge_receiver = ContractSpec(
+    bridge_receiver = ContractSpec(
         address="0x18281dfC4d00905DA1aaA6731414EABa843c468A",
         abi_path=current_dir() / "polygon_bridge_receiver.json",
-        name="polygon_bridge_receiver",
+        name="bridge_receiver",
     )
     timelock = ContractSpec(
         address="0xCC3E7c85Bb0EE4f09380e041fee95a0caeDD4a02",
@@ -123,13 +123,8 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "eth_comet_factory_WETH_USDC.json",
         name="comet_factory_WETH_USDC",
     )
-    configurator_implementation = ContractSpec(
-        address="0xcFC1fA6b7ca982176529899D99af6473aD80DF4F",
-        abi_path=current_dir() / "eth_configurator_implementation.json",
-        name="configurator_implementation",
-    )
     cwstETHv3 = ContractSpec(
-        address="0x1f0aa640e4871793ac10029365febe4e8e4b1441",
+        address="0x3D0bb1ccaB520A66e607822fC55BC921738fAFE3",
         abi_path=current_dir() / "eth_cwstETHv3.json",
         name="cwstETHv3",
     )
@@ -139,7 +134,7 @@ class EthereumContractSpecs:
         name="cwstETHv3_ext",
     )
     governor = ContractSpec(
-        address="0x6F6e4785c97885d26466945055d4Ae8931bE6f7a",
+        address="0xc0Da02939E1441F497fd74F78cE7Decb17B66529",
         abi_path=current_dir() / "eth_governor.json",
         name="governor",
     )
@@ -154,8 +149,8 @@ class EthereumContractSpecs:
         name="rewards",
     )
     configurator = ContractSpec(
-        address="0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf",
-        abi_path=current_dir() / "polygon_configurator.json",
+        address="0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3",
+        abi_path=current_dir() / "eth_configurator.json",
         name="configurator",
     )
     timelock = ContractSpec(
@@ -163,7 +158,72 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "eth_timelock.json",
         name="timelock",
     )
-
+class OptimismContractSpecs:
+    base_bulker = ContractSpec(
+        address="0xcb3643CC8294B23171272845473dEc49739d4Ba3",
+        abi_path=current_dir() / "optimism_base_bulker.json",
+        name="base_bulker",
+    )
+    bridge_receiver = ContractSpec(
+        address="0xC3a73A70d1577CD5B02da0bA91C0Afc8fA434DAF",
+        abi_path=current_dir() / "optimism_bridge_receiver.json",
+        name="bridge_receiver",
+    )
+    cUSDCv3 = ContractSpec(
+        address="0x2e44e174f7D53F0212823acC11C01A11d58c5bCB",
+        abi_path=current_dir() / "optimism_cUSDCv3.json",
+        name="cUSDCv3",
+    )
+    cUSDCv3_ext = ContractSpec(
+        address="0xE802a0b833f6080FEB46DD54c75444c5dba0c873",
+        abi_path=current_dir() / "optimism_cUSDCv3_ext.json",
+        name="cUSDCv3_ext",
+    )
+    cUSDTv3 = ContractSpec(
+        address="0x995E394b8B2437aC8Ce61Ee0bC610D617962B214",
+        abi_path=current_dir() / "optimism_cUSDTv3.json",
+        name="cUSDTv3",
+    )
+    cUSDTv3_ext = ContractSpec(
+        address="0xC49399814452B41dA8a7cd76a159f5515cb3e493",
+        abi_path=current_dir() / "optimism_cUSDTv3_ext.json",
+        name="cUSDTv3_ext",
+    )
+    cWETHv3 = ContractSpec(
+        address="0xE36A30D249f7761327fd973001A32010b521b6Fd",
+        abi_path=current_dir() / "optimism_cWETHv3.json",
+        name="cUSDTv3",
+    )
+    cWETHv3_ext = ContractSpec(
+        address="0x82B8d9A06ccABC1e9B0c0A00f38B858E6925CF2f",
+        abi_path=current_dir() / "optimism_cWETHv3_ext.json",
+        name="cUSDTv3_ext",
+    )
+    comet_factory = ContractSpec(
+        address="0xFa454dE61b317b6535A0C462267208E8FdB89f45",
+        abi_path=current_dir() / "optimism_comet_factory.json",
+        name="comet_factory",
+    )
+    configurator = ContractSpec(
+        address="0x84E93EC6170ED630f5ebD89A1AAE72d4F63f2713",
+        abi_path=current_dir() / "optimism_configurator.json",
+        name="configurator",
+    )
+    comet_proxy_admin = ContractSpec(
+        address="0x3C30B5a5A04656565686f800481580Ac4E7ed178",
+        abi_path=current_dir() / "optimism_proxy_admin.json",
+        name="comet_proxy_admin",
+    )
+    rewards = ContractSpec(
+        address="0x443EA0340cb75a160F31A440722dec7b5bc3C2E9",
+        abi_path=current_dir() / "optimism_rewards.json",
+        name="rewards",
+    )
+    timelock = ContractSpec(
+        address="0xd98Be00b5D27fc98112BdE293e487f8D4cA57d07",
+        abi_path=current_dir() / "optimism_timelock.json",
+        name="timelock",
+    )
 
 class GnosisContractSpecs:
     pass
@@ -179,4 +239,5 @@ ContractSpecs = {
     Chain.GNOSIS: GnosisContractSpecs,
     Chain.ARBITRUM: ArbitrumContractSpecs,
     Chain.POLYGON: PolygonContractSpecs,
+    Chain.OPTIMISM: OptimismContractSpecs,
 }
