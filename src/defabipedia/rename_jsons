@@ -11,16 +11,9 @@ def rename_files(directory, name_mapping):
         else:
             print(f'File not found: {old_name}')
 
-directory = '/Users/marin/kpk/Defabipedia' # Change this to the directory where the files are located
+directory = '/your/path/to/jsons' # Change this to the directory where the files are located
 name_mapping = {
-    '0x75e6946e4d3a374f94232dc0fbb6240ae217e869.json': 'arb_cUSDCv3.json',
-    '0x1B2E88cC7365d90e7E81392432482925BD8437E9.json': 'arb_cUSDCv3_ext.json',
-    '0x8495AF03fb797E2965bCB42Cb0693e1c15614798.json': 'arb_configurator_implementation.json',
-    '0xD10b40fF1D92e2267D099Da3509253D9Da4D715e.json': 'arb_proxy_admin.json',
-    '0xe2AA5194E45B043AfdD6E98F467c0B1c13484ae9.json': 'arb_comet_factory.json',
-    '0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A.json': 'arb_timelock.json',
-    '0x42480C37B249e33aABaf4c22B20235656bd38068.json': 'arb_bridge_receiver.json',
-    '0x88730d254A2f7e6AC8388c3198aFd694bA9f7fae.json': 'arb_rewards.json',
-    '0xbdE8F31D2DdDA895264e27DD990faB3DC87b372d.json': 'arb_bulker.json'}
+    'oldname.json': 'newname.json',
+    'oldname2.json': 'newname2.json'}
 
 rename_files(directory, name_mapping)
