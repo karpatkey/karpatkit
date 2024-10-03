@@ -2,60 +2,45 @@
     {
         "inputs": [
             {
-                "internalType": "contract IERC4626",
-                "name": "vault",
+                "internalType": "address",
+                "name": "morpho",
                 "type": "address"
-            },
-            {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "baseFeed1",
-                "type": "address"
-            },
-            {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "baseFeed2",
-                "type": "address"
-            },
-            {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "quoteFeed1",
-                "type": "address"
-            },
-            {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "quoteFeed2",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "vaultConversionSample",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "baseTokenDecimals",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "quoteTokenDecimals",
-                "type": "uint256"
             }
         ],
         "stateMutability": "nonpayable",
         "type": "constructor"
     },
     {
-        "inputs": [],
-        "name": "MathOverflowedMulDiv",
-        "type": "error"
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "Id",
+                "name": "id",
+                "type": "bytes32"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "avgBorrowRate",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "rateAtTarget",
+                "type": "uint256"
+            }
+        ],
+        "name": "BorrowRateUpdate",
+        "type": "event"
     },
     {
         "inputs": [],
-        "name": "BASE_FEED_1",
+        "name": "MORPHO",
         "outputs": [
             {
-                "internalType": "contract AggregatorV3Interface",
+                "internalType": "address",
                 "name": "",
                 "type": "address"
             }
@@ -64,47 +49,161 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "BASE_FEED_2",
-        "outputs": [
+        "inputs": [
             {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "",
-                "type": "address"
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "loanToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "collateralToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "irm",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "lltv",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct MarketParams",
+                "name": "marketParams",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint128",
+                        "name": "totalSupplyAssets",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalSupplyShares",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalBorrowAssets",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalBorrowShares",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "lastUpdate",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "fee",
+                        "type": "uint128"
+                    }
+                ],
+                "internalType": "struct Market",
+                "name": "market",
+                "type": "tuple"
             }
         ],
-        "stateMutability": "view",
+        "name": "borrowRate",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "QUOTE_FEED_1",
-        "outputs": [
+        "inputs": [
             {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "",
-                "type": "address"
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "loanToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "collateralToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "oracle",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "irm",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "lltv",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct MarketParams",
+                "name": "marketParams",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint128",
+                        "name": "totalSupplyAssets",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalSupplyShares",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalBorrowAssets",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "totalBorrowShares",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "lastUpdate",
+                        "type": "uint128"
+                    },
+                    {
+                        "internalType": "uint128",
+                        "name": "fee",
+                        "type": "uint128"
+                    }
+                ],
+                "internalType": "struct Market",
+                "name": "market",
+                "type": "tuple"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "QUOTE_FEED_2",
-        "outputs": [
-            {
-                "internalType": "contract AggregatorV3Interface",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "SCALE_FACTOR",
+        "name": "borrowRateView",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -116,39 +215,19 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "VAULT",
-        "outputs": [
+        "inputs": [
             {
-                "internalType": "contract IERC4626",
+                "internalType": "Id",
                 "name": "",
-                "type": "address"
+                "type": "bytes32"
             }
         ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "VAULT_CONVERSION_SAMPLE",
+        "name": "rateAtTarget",
         "outputs": [
             {
-                "internalType": "uint256",
+                "internalType": "int256",
                 "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "price",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
+                "type": "int256"
             }
         ],
         "stateMutability": "view",
