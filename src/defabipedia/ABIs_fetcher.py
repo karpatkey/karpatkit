@@ -5,7 +5,6 @@ import requests
 from web3 import Web3
 
 from defabipedia.types import Chain
-from karpatkit.constants import ABI_TOKEN_SIMPLIFIED, Address
 from karpatkit.node import get_node
 
 
@@ -76,9 +75,8 @@ def main():
         web3 = get_node(Chain.SCROLL) # Connect to a Scroll node
         api_key = 'TPFPXF2MEANHGI8EF8P6PI96YXQM4DAN3H'"""
 
-    """contract_addresses = ['0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA', 
-'0x9aB958D306Beb81711e5f5CA0731C1E4772dF9cb',  
-        ]"""
+    """contract_addresses = ['0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA',
+                            '0x9aB958D306Beb81711e5f5CA0731C1E4772dF9cb']"""
 
     for address in checksummed_addresses:
         print(f"Processing contract: {address}")
