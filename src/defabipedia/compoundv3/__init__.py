@@ -297,6 +297,63 @@ class ArbitrumContractSpecs:
         name="timelock",
     )
 
+class BaseContractSpecs:
+    base_bulker = ContractSpec(
+        address="0x78D0677032A35c63D142a48A2037048871212a8C",
+        abi_path=current_dir() / "base_base_bulker.json",
+        name="base_bulker",
+    )
+    bridge_receiver = ContractSpec(
+        address="0x18281dfC4d00905DA1aaA6731414EABa843c468A",
+        abi_path=current_dir() / "base_bridge_receiver.json",
+        name="bridge_receiver",
+    )
+    cUSDCv3 = ContractSpec(
+        address="0xb125E6687d4313864e53df431d5425969c15Eb2F",
+        abi_path=current_dir() / "base_cUSDCv3.json",
+        name="cUSDCv3",
+    )
+    cUSDCv3_ext = ContractSpec(
+        address="0x3bac64185786922292266AA92a58cf870D694E2a",
+        abi_path=current_dir() / "base_cUSDCv3_ext.json",
+        name="cUSDCv3_ext",
+    )
+    cUSDbCv3 = ContractSpec(
+        address="0x9c4ec768c28520B50860ea7a15bd7213a9fF58bf",
+        abi_path=current_dir() / "base_cUSDbCv3.json",
+        name="cUSDbCv3",
+    )
+    cUSDbCv3_ext = ContractSpec(
+        address="0x2F9E3953b2Ef89fA265f2a32ed9F80D00229125B",
+        abi_path=current_dir() / "base_cUSDbCv3_ext.json",
+        name="cUSDbCv3_ext",
+    )
+    comet_factory = ContractSpec(
+        address="0x27C348936400791b7350d80Fb81Bc61Ad68dF4AE",
+        abi_path=current_dir() / "base_comet_factory.json",
+        name="comet_factory",
+    )
+    configurator = ContractSpec(
+        address="0x45939657d1CA34A8FA39A924B71D28Fe8431e581",
+        abi_path=current_dir() / "base_configurator.json",
+        name="configurator",
+    )
+    comet_proxy_admin = ContractSpec(
+        address="0xbdE8F31D2DdDA895264e27DD990faB3DC87b372d",
+        abi_path=current_dir() / "base_proxy_admin.json",
+        name="comet_proxy_admin",
+    )
+    rewards = ContractSpec(
+        address="0x123964802e6ABabBE1Bc9547D72Ef1B69B00A6b1",
+        abi_path=current_dir() / "base_rewards.json",
+        name="rewards",
+    )
+    timelock = ContractSpec(
+        address="0xCC3E7c85Bb0EE4f09380e041fee95a0caeDD4a02",
+        abi_path=current_dir() / "base_timelock.json",
+        name="timelock",
+    )
+
 
 class GnosisContractSpecs:
     pass
@@ -307,4 +364,5 @@ ContractSpecs = {
     Chain.ARBITRUM: ArbitrumContractSpecs,
     Chain.POLYGON: PolygonContractSpecs,
     Chain.OPTIMISM: OptimismContractSpecs,
+    Chain.BASE: BaseContractSpecs
 }
