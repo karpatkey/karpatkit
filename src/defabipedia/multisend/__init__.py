@@ -2,7 +2,7 @@ from defabipedia.types import Chain, ContractAbi, ContractSpec, current_dir
 
 
 class AllAbis:
-    PriceOracle = ContractAbi(abi_path=current_dir() / "price_oracle.json", name="price_oracle")
+    pass
 
 
 class EthereumContractSpecs:
@@ -11,6 +11,7 @@ class EthereumContractSpecs:
         abi_path=current_dir() / "multisend.json",
         name="MultiSend",
     )
+
 
 class GnosisContractSpecs:
     MultiSend = ContractSpec(
