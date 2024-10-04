@@ -1,4 +1,4 @@
-from defabipedia.types import Chain, ContractAbi, ContractSpec, current_dir
+from defabipedia.types import Chain, ContractSpec, current_dir
 
 
 class AllAbis:
