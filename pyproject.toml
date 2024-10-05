@@ -10,9 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 keywords = []
-authors = [
-  { name = "karpatkey", email = "info@karpatkey.com" },
-]
+authors = [{ name = "karpatkey", email = "info@karpatkey.com" }]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
@@ -24,10 +22,13 @@ classifiers = [
 ]
 
 dependencies = [
-    "diskcache>=5.4.0,<6.0",
-    "web3>=6.12,<7.0",
-    "requests>=2.31.0,<3.0",
+  "diskcache>=5.4.0,<6.0",
+  "web3>=6.12,<7.0",
+  "requests>=2.31.0,<3.0",
 ]
+
+[project.scripts]
+pretty_json = "karpatkit.pretty_json:main_cli"
 
 [project.urls]
 Issues = "https://github.com/karpatkey/karpatkit/issues"
@@ -42,10 +43,7 @@ version-file = "_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/karpatkit", "src/defabipedia"]
-exclude = [
-  "src/karpatkit/tests",
-  "src/defabipedia/tests",
-]
+exclude = ["src/karpatkit/tests", "src/defabipedia/tests"]
 
 # Linter configuruation.
 [tool.isort]
@@ -58,15 +56,18 @@ line_length = 120
 python_files = "test_*.py tests.py"
 
 [tool.black]
-line_length = 120
+line-length = 120
 
 [tool.flake8]
-extend-exclude = [
-    '.git',
-    '__pycache__',
-]
-extend-ignore = ['E203', 'E266', 'E501', 'W605', 'W503',
-  'E722', 'C901' # Re-enable E722 and C901 after fixing.
+extend-exclude = ['.git', '__pycache__']
+extend-ignore = [
+  'E203',
+  'E266',
+  'E501',
+  'W605',
+  'W503',
+  'E722',
+  'C901', # Re-enable E722 and C901 after fixing.
 ]
 max-line-length = 120
 max-complexity = 18

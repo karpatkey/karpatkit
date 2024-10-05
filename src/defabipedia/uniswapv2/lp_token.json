@@ -1,136 +1,136 @@
 [
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "uint8",
-                "name": "",
-                "internalType": "uint8"
-            }
-        ],
-        "name": "decimals",
-        "inputs": [],
-        "constant": true
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "uint256",
-                "name": "",
-                "internalType": "uint256"
-            }
-        ],
-        "name": "totalSupply",
-        "inputs": [],
-        "constant": true
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "uint112",
-                "name": "_reserve0",
-                "internalType": "uint112"
-            },
-            {
-                "type": "uint112",
-                "name": "_reserve1",
-                "internalType": "uint112"
-            },
-            {
-                "type": "uint32",
-                "name": "_blockTimestampLast",
-                "internalType": "uint32"
-            }
-        ],
-        "name": "getReserves",
-        "inputs": [],
-        "constant": true
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "uint256",
-                "name": "",
-                "internalType": "uint256"
-            }
-        ],
-        "name": "balanceOf",
-        "inputs": [
-            {
-                "type": "address",
-                "name": "",
-                "internalType": "address"
-            }
-        ],
-        "constant": true
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "address",
-                "name": "",
-                "internalType": "address"
-            }
-        ],
-        "name": "token0",
-        "inputs": [],
-        "constant": true
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "address",
-                "name": "",
-                "internalType": "address"
-            }
-        ],
-        "name": "token1",
-        "inputs": [],
-        "constant": true
-    },
-    {
-        "inputs": [],
-        "name": "kLast",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "type": "function",
-        "stateMutability": "view",
-        "payable": false,
-        "outputs": [
-            {
-                "type": "uint32",
-                "name": "",
-                "internalType": "uint32"
-            }
-        ],
-        "name": "swapFee",
-        "inputs": [],
-        "constant": true
-    }
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "uint8",
+        "name": "",
+        "internalType": "uint8"
+      }
+    ],
+    "name": "decimals",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
+    "name": "totalSupply",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "uint112",
+        "name": "_reserve0",
+        "internalType": "uint112"
+      },
+      {
+        "type": "uint112",
+        "name": "_reserve1",
+        "internalType": "uint112"
+      },
+      {
+        "type": "uint32",
+        "name": "_blockTimestampLast",
+        "internalType": "uint32"
+      }
+    ],
+    "name": "getReserves",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
+    "name": "balanceOf",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
+    "name": "token0",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
+    "name": "token1",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "kLast",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [
+      {
+        "type": "uint32",
+        "name": "",
+        "internalType": "uint32"
+      }
+    ],
+    "name": "swapFee",
+    "inputs": [],
+    "constant": true
+  }
 ]
