@@ -1,0 +1,226 @@
+[
+    {
+        "inputs": [],
+        "name": "canonicalChainID",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "zroPaymentAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address[]",
+                "name": "rewardContracts",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "extraRewardContracts",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "tokenRewardContracts",
+                "type": "address[]"
+            },
+            {
+                "internalType": "address[]",
+                "name": "tokenRewardTokens",
+                "type": "address[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "lockCvxMaxAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "depositCvxCrvMaxAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "bridgeCvxMaxAmount",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct SidechainClaimZap.ClaimRewardsAmounts",
+                "name": "amounts",
+                "type": "tuple"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "bool",
+                        "name": "useAllWalletFunds",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "sendCvxToL1",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "lockCvxL1",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "useCompounder",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "refundEth",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "overrideL1Receiver",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "l1Receiever",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "zro",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "adapterParams",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct SidechainClaimZap.Options",
+                "name": "options",
+                "type": "tuple"
+            }
+        ],
+        "name": "claimRewards",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "compounder",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "cvx",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "cvxCrv",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getName",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_owner",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_cvx",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_cvxCrv",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_compounder",
+                "type": "address"
+            }
+        ],
+        "name": "initialize",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "setApprovals",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+]
