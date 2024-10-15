@@ -1,8 +1,16 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "vat_", "type": "address" },
-      { "internalType": "address", "name": "dai_", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "vat_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "dai_",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -59,7 +67,11 @@
     "inputs": [],
     "name": "dai",
     "outputs": [
-      { "internalType": "contract DSTokenLike", "name": "", "type": "address" }
+      {
+        "internalType": "contract DSTokenLike",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -67,7 +79,13 @@
   },
   {
     "constant": false,
-    "inputs": [{ "internalType": "address", "name": "usr", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "usr",
+        "type": "address"
+      }
+    ],
     "name": "deny",
     "outputs": [],
     "payable": false,
@@ -77,8 +95,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "usr", "type": "address" },
-      { "internalType": "uint256", "name": "wad", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "usr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "wad",
+        "type": "uint256"
+      }
     ],
     "name": "exit",
     "outputs": [],
@@ -89,8 +115,16 @@
   {
     "constant": false,
     "inputs": [
-      { "internalType": "address", "name": "usr", "type": "address" },
-      { "internalType": "uint256", "name": "wad", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "usr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "wad",
+        "type": "uint256"
+      }
     ],
     "name": "join",
     "outputs": [],
@@ -102,14 +136,26 @@
     "constant": true,
     "inputs": [],
     "name": "live",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [{ "internalType": "address", "name": "usr", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "usr",
+        "type": "address"
+      }
+    ],
     "name": "rely",
     "outputs": [],
     "payable": false,
@@ -121,7 +167,11 @@
     "inputs": [],
     "name": "vat",
     "outputs": [
-      { "internalType": "contract VatLike", "name": "", "type": "address" }
+      {
+        "internalType": "contract VatLike",
+        "name": "",
+        "type": "address"
+      }
     ],
     "payable": false,
     "stateMutability": "view",
@@ -129,9 +179,21 @@
   },
   {
     "constant": true,
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "wards",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"

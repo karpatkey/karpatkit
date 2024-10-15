@@ -1,20 +1,17 @@
-FROM python:3.10
+FROM python:3.10-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
 ###############################################################################
 # Base
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-                    eatmydata \
- && rm -rf /var/lib/apt/lists/*
+ && apt-get install -y --no-install-recommends eatmydata 
 ###############################################################################
 # DEPS
 
 RUN eatmydata apt-get update \
- && eatmydata apt-get install -y --no-install-recommends \
-                              vim \
- && rm -rf /var/lib/apt/lists/*
+ && eatmydata apt-get install -y --no-install-recommends vim git
+
 RUN pip install --upgrade pip \
  && pip install --no-cache-dir ipython
 ###############################################################################

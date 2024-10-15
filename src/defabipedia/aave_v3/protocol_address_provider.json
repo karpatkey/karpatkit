@@ -1,8 +1,16 @@
 [
   {
     "inputs": [
-      { "internalType": "string", "name": "marketId", "type": "string" },
-      { "internalType": "address", "name": "owner", "type": "address" }
+      {
+        "internalType": "string",
+        "name": "marketId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -262,70 +270,136 @@
   {
     "inputs": [],
     "name": "getACLAdmin",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getACLManager",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "bytes32", "name": "id", "type": "bytes32" }],
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      }
+    ],
     "name": "getAddress",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getMarketId",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getPool",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getPoolConfigurator",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getPoolDataProvider",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getPriceOracle",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getPriceOracleSentinel",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -338,7 +412,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newAclAdmin", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newAclAdmin",
+        "type": "address"
+      }
     ],
     "name": "setACLAdmin",
     "outputs": [],
@@ -347,7 +425,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newAclManager", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newAclManager",
+        "type": "address"
+      }
     ],
     "name": "setACLManager",
     "outputs": [],
@@ -356,8 +438,16 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "id", "type": "bytes32" },
-      { "internalType": "address", "name": "newAddress", "type": "address" }
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "newAddress",
+        "type": "address"
+      }
     ],
     "name": "setAddress",
     "outputs": [],
@@ -366,7 +456,11 @@
   },
   {
     "inputs": [
-      { "internalType": "bytes32", "name": "id", "type": "bytes32" },
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
       {
         "internalType": "address",
         "name": "newImplementationAddress",
@@ -380,7 +474,11 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "newMarketId", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "newMarketId",
+        "type": "string"
+      }
     ],
     "name": "setMarketId",
     "outputs": [],
@@ -415,7 +513,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newPoolImpl", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newPoolImpl",
+        "type": "address"
+      }
     ],
     "name": "setPoolImpl",
     "outputs": [],
@@ -424,7 +526,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newPriceOracle", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newPriceOracle",
+        "type": "address"
+      }
     ],
     "name": "setPriceOracle",
     "outputs": [],
@@ -446,7 +552,11 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
     ],
     "name": "transferOwnership",
     "outputs": [],

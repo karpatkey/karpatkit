@@ -3,20 +3,16 @@ name: Linting
 on:
   push:
     branches:
-      - '*'
+      - "*"
     tags-ignore:
-      - '*'
+      - "*"
 
 jobs:
-  Linting:
-
+  spLinter:
     runs-on: self-hosted
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check black isort and flake8
-        uses: docker://ghcr.io/karpatkey/pylint310
-        with:
-          args: src
+      - name: Check Linting with make
+        run: make lint

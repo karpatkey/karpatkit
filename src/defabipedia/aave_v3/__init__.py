@@ -36,7 +36,7 @@ class EthereumContractSpecs:
         address="0x4C612E3B15b96Ff9A6faED838F8d07d479a8dD4c", abi_path=current_dir() / "atoken.json", name="asDAI"
     )
     WrappedTokenGatewayV3 = ContractSpec(
-        address="0xD322A49006FC828F9B5B37Ab215F99B4E5caB19C",
+        address="0x893411580e590D62dDBca8a703d61Cc4A8c7b2b9",
         abi_path=current_dir() / "wrapped_token_gateway_v3.json",
         name="WrappedTokenGatewayV3",
     )

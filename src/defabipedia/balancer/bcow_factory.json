@@ -1,237 +1,237 @@
 [
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "solutionSettler",
-                "type": "address"
-            },
-            {
-                "internalType": "bytes32",
-                "name": "appData",
-                "type": "bytes32"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "target",
-                "type": "address"
-            }
-        ],
-        "name": "AddressEmptyCode",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "account",
-                "type": "address"
-            }
-        ],
-        "name": "AddressInsufficientBalance",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "BCoWFactory_NotValidBCoWPool",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "BFactory_AddressZero",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "BFactory_NotBDao",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "FailedInnerCall",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            }
-        ],
-        "name": "SafeERC20FailedOperation",
-        "type": "error"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "bCoWPool",
-                "type": "address"
-            }
-        ],
-        "name": "COWAMMPoolCreated",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "caller",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "bDao",
-                "type": "address"
-            }
-        ],
-        "name": "LOG_BDAO",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "caller",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "bPool",
-                "type": "address"
-            }
-        ],
-        "name": "LOG_NEW_POOL",
-        "type": "event"
-    },
-    {
-        "inputs": [],
-        "name": "APP_DATA",
-        "outputs": [
-            {
-                "internalType": "bytes32",
-                "name": "",
-                "type": "bytes32"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "SOLUTION_SETTLER",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "contract IBPool",
-                "name": "bPool",
-                "type": "address"
-            }
-        ],
-        "name": "collect",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getBDao",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bPool",
-                "type": "address"
-            }
-        ],
-        "name": "isBPool",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "logBCoWPool",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "symbol",
-                "type": "string"
-            }
-        ],
-        "name": "newBPool",
-        "outputs": [
-            {
-                "internalType": "contract IBPool",
-                "name": "bPool",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "bDao",
-                "type": "address"
-            }
-        ],
-        "name": "setBDao",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "solutionSettler",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "appData",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "AddressEmptyCode",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "AddressInsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BCoWFactory_NotValidBCoWPool",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BFactory_AddressZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BFactory_NotBDao",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInnerCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "SafeERC20FailedOperation",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "bCoWPool",
+        "type": "address"
+      }
+    ],
+    "name": "COWAMMPoolCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "bDao",
+        "type": "address"
+      }
+    ],
+    "name": "LOG_BDAO",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "caller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "bPool",
+        "type": "address"
+      }
+    ],
+    "name": "LOG_NEW_POOL",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "APP_DATA",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "SOLUTION_SETTLER",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IBPool",
+        "name": "bPool",
+        "type": "address"
+      }
+    ],
+    "name": "collect",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getBDao",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "bPool",
+        "type": "address"
+      }
+    ],
+    "name": "isBPool",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "logBCoWPool",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "symbol",
+        "type": "string"
+      }
+    ],
+    "name": "newBPool",
+    "outputs": [
+      {
+        "internalType": "contract IBPool",
+        "name": "bPool",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "bDao",
+        "type": "address"
+      }
+    ],
+    "name": "setBDao",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ]
