@@ -1,10 +1,10 @@
-from ..types import Chain, ContractSpec, current_dir
+from ..types import Chain, ContractSpec, parent
 
 
 class ArbitrumContractSpecs:
     DolomiteMargin = ContractSpec(
         address="0x6Bd780E7fDf01D77e4d475c821f1e7AE05409072",
-        abi_path=current_dir() / "dolomite_margin.json",
+        abi_path=parent(__file__) / "dolomite_margin.json",
         name="dolomite_margin",
     )
 
