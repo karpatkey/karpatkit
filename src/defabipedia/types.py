@@ -6,7 +6,7 @@ from pathlib import Path
 
 from web3 import Web3
 
-__all__ = ["Blockchain", "Chain", "current_dir", "ContractSpec", "ContractAbi", "ContractAddress", "StrEnum"]
+__all__ = ["Blockchain", "Chain", "parent", "ContractSpec", "ContractAbi", "ContractAddress", "StrEnum"]
 
 
 class StrEnum(str, Enum):
@@ -133,6 +133,11 @@ class ContractAddress:
 
 
 def current_dir() -> Path:
-    """Return the directory path of the caller"""
+    """Return the directory path of the caller. Slow!"""
     caller_frame = inspect.stack()[1]
     return Path(caller_frame.filename).parent
+
+
+def parent(path) -> Path:
+    """Return the directory of a path as a Path object"""
+    return Path(path).parent

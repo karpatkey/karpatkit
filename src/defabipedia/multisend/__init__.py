@@ -1,4 +1,4 @@
-from defabipedia.types import Chain, ContractSpec, current_dir
+from defabipedia.types import Chain, ContractSpec, parent
 
 
 class AllAbis:
@@ -8,7 +8,7 @@ class AllAbis:
 class EthereumContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-        abi_path=current_dir() / "multisend.json",
+        abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
     )
 
@@ -16,7 +16,7 @@ class EthereumContractSpecs:
 class GnosisContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-        abi_path=current_dir() / "multisend.json",
+        abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
     )
 
@@ -24,7 +24,7 @@ class GnosisContractSpecs:
 class OptimismContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-        abi_path=current_dir() / "multisend.json",
+        abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
     )
 
@@ -32,7 +32,7 @@ class OptimismContractSpecs:
 class ArbitrumContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-        abi_path=current_dir() / "multisend.json",
+        abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
     )
 
@@ -40,7 +40,7 @@ class ArbitrumContractSpecs:
 class BaseContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
-        abi_path=current_dir() / "multisend.json",
+        abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
     )
 
