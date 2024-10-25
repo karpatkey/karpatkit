@@ -2,8 +2,9 @@ from ..types import Chain, ContractAbi, ContractSpec, parent
 
 
 class AllAbis:
-    Comet = ContractAbi(abi_path=parent(__file__) / "comet_factory.json", name="comet_factory")
-    Rewards = ContractAbi(abi_path=parent(__file__) / "eth_rewards.json", name="rewards")
+    comet_factory = ContractAbi(abi_path=parent(__file__) / "comet_factory.json", name="comet_factory")
+    rewards = ContractAbi(abi_path=parent(__file__) / "eth_rewards.json", name="rewards")
+    comet = ContractAbi(abi_path=parent(__file__) / "comet.json", name="comet")
 
 
 Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
