@@ -246,7 +246,7 @@ def top_up_address(w3: Web3, address: str, amount: int) -> None:
         raise Exception("Address is a smart contract address with no payable function.")
 
 
-def steal_safe(w3, safe_address, new_owner_address):
+def steal_safe(w3: Web3, safe_address: str, new_owner_local_account: LocalAccount) -> SimpleSafe:
     """
     Return a SimpleSafe instance from an existing safe with a new owner.
 
@@ -254,13 +254,13 @@ def steal_safe(w3, safe_address, new_owner_address):
     so it will be able to sign and execute transactions.
     """
 
-    safe = SimpleSafe(safe_address, w3=w3, signer_key=new_owner_address)
+    safe = SimpleSafe(safe_address, w3=w3, signer_key=new_owner_local_account.key)
 
     fork_unlock_account(w3, safe_address)
     fork_set_balance(w3, safe.address, 10000000000000000000)  # give some gas: 10 ETH
 
-    # set thresshold to 1 and add owner
-    safe.contract.functions.addOwnerWithThreshold(new_owner_address, 1).transact({"from": safe.address})
+    # set threshold to 1 and add owner
+    safe.contract.functions.addOwnerWithThreshold(new_owner_local_account.address, 1).transact({"from": safe.address})
     return safe
 
 
