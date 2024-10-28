@@ -1,4 +1,5 @@
 import time
+import platform
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -188,7 +189,7 @@ def test_time_add(d):
     assert isinstance(d, float)
     assert d == 19
 
-
+@pytest.mark.skipif(platform.system() == "Windows", reason="tzset not supported on Windows")
 @pytest.fixture(params=["UTC", "America/Argentina/Buenos_Aires"])
 def tz(request, monkeypatch):
     monkeypatch.setenv("TZ", request.param)

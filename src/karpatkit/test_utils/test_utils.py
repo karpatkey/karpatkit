@@ -1,6 +1,6 @@
 import pytest
 
-from .fork import create_simple_safe
+from .fork import create_simple_safe, local_node_gc_replay
 from .utils import to_hex_32_bytes
 
 
