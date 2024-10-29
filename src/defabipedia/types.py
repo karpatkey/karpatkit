@@ -21,6 +21,8 @@ class StrEnum(str, Enum):
 
 
 class Blockchain(str):
+    chain_id: int
+
     def __new__(cls, name: str, chain_id: int):
         instance = super().__new__(cls, name)
         instance.chain_id = chain_id
@@ -75,10 +77,12 @@ class Chain:
 
 
 class ContractAbi:
+    abi_path: Path
+
     def __init__(self, name: str, abi: str | None = None, abi_path: Path | None = None):
         self.name = name
         self._abi = abi  # if no abi is provided the abi_path will be used lazily
-        self.abi_path = abi_path
+        self.abi_path = abi_path or Path("")
         if abi is None and abi_path is None:
             raise ValueError("Missing argument: abi or abi_path must me provided")
 
@@ -114,7 +118,7 @@ class SwapPools(ContractSpec):
         abi: str | None = None,
         abi_path: Path | None = None,
         tokens: list[str] = [],
-        protocol: str = None,
+        protocol: str | None = None,
         uni_fee: int = 100,
     ):
         super().__init__(address, name, abi, abi_path)
