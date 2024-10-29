@@ -1,0 +1,209 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract INXMMaster",
+        "name": "_master",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IStakingViewer",
+        "name": "_stakingViewer",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IAssessmentViewer",
+        "name": "_assessmentViewer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "RevertedWithoutReason",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "assessmentViewer",
+    "outputs": [
+      {
+        "internalType": "contract IAssessmentViewer",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "member",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getClaimableNXM",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "governanceRewards",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "assessmentRewards",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "assessmentStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakingPoolTotalRewards",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakingPoolTotalExpiredStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "managerTotalRewards",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "legacyPooledStakeRewards",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "legacyPooledStakeDeposits",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "legacyClaimAssessmentTokens",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "legacyCoverNoteDeposits",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct INexusViewer.ClaimableNXM",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "member",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getStakedNXM",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "stakingPoolTotalActiveStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "assessmentStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "assessmentRewards",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct INexusViewer.StakedNXM",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "master",
+    "outputs": [
+      {
+        "internalType": "contract INXMMaster",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stakingViewer",
+    "outputs": [
+      {
+        "internalType": "contract IStakingViewer",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
