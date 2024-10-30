@@ -292,11 +292,13 @@ def local_node_gc(request) -> LocalNode:
     _local_node(request, node)
     return node
 
+
 @pytest.fixture(scope="session")
 def local_node_base(request) -> LocalNode:
     node = LocalNode(BASE_FORK_NODE_URL, BASE_LOCAL_NODE_PORT, BASE_LOCAL_NODE_DEFAULT_BLOCK)
     _local_node(request, node)
     return node
+
 
 @pytest.fixture(scope="session")
 def local_node_opt(request) -> LocalNode:
@@ -304,11 +306,13 @@ def local_node_opt(request) -> LocalNode:
     _local_node(request, node)
     return node
 
+
 @pytest.fixture(scope="session")
 def local_node_arb(request) -> LocalNode:
     node = LocalNode(ARB_FORK_NODE_URL, ARB_LOCAL_NODE_PORT, ARB_LOCAL_NODE_DEFAULT_BLOCK)
     _local_node(request, node)
     return node
+
 
 @pytest.fixture(scope="session")
 def accounts() -> list[LocalAccount]:
