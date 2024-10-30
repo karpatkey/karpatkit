@@ -32,16 +32,31 @@ REMOTE_ETH_NODE_URL = codecs.decode(
     "zlib",
 ).decode()
 REMOTE_GC_NODE_URL = "https://rpc.ankr.com/gnosis"
+REMOTE_BASE_NODE_URL = "https://1rpc.io/base"
+REMOTE_OPT_NODE_URL = "https://1rpc.io/op"
+REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
 
 RUN_LOCAL_NODE = os.environ.get("KKIT_RUN_LOCAL_NODE", False)
 ETH_FORK_NODE_URL = os.environ.get("KKIT_ETH_FORK_URL", REMOTE_ETH_NODE_URL)
 GC_FORK_NODE_URL = os.environ.get("KKIT_GC_FORK_URL", REMOTE_GC_NODE_URL)
+BASE_FORK_NODE_URL = os.environ.get("KKIT_BASE_FORK_URL", REMOTE_BASE_NODE_URL)
+OPT_FORK_NODE_URL = os.environ.get("KKIT_OPT_FORK_URL", REMOTE_OPT_NODE_URL)
+ARB_FORK_NODE_URL = os.environ.get("KKIT_ARB_FORK_URL", REMOTE_ARB_NODE_URL)
 ETH_LOCAL_NODE_PORT = 8546
 GC_LOCAL_NODE_PORT = 8547
+BASE_LOCAL_NODE_PORT = 8548
+OPT_LOCAL_NODE_PORT = 8549
+ARB_LOCAL_NODE_PORT = 8550
 ETH_LOCAL_NODE_URL = f"http://127.0.0.1:{ETH_LOCAL_NODE_PORT}"
 GC_LOCAL_NODE_URL = f"http://127.0.0.1:{GC_LOCAL_NODE_PORT}"
+BASE_LOCAL_NODE_URL = f"http://127.0.0.1:{BASE_LOCAL_NODE_PORT}"
+OPT_LOCAL_NODE_URL = f"http://127.0.0.1:{OPT_LOCAL_NODE_PORT}"
+ARB_LOCAL_NODE_URL = f"http://127.0.0.1:{ARB_LOCAL_NODE_PORT}"
 ETH_LOCAL_NODE_DEFAULT_BLOCK = 17565000
 GC_LOCAL_NODE_DEFAULT_BLOCK = 30397769
+BASE_LOCAL_NODE_DEFAULT_BLOCK = 21744030
+OPT_LOCAL_NODE_DEFAULT_BLOCK = 127339335
+ARB_LOCAL_NODE_DEFAULT_BLOCK = 269169232
 
 
 def gen_test_accounts() -> list[LocalAccount]:
@@ -277,6 +292,23 @@ def local_node_gc(request) -> LocalNode:
     _local_node(request, node)
     return node
 
+@pytest.fixture(scope="session")
+def local_node_base(request) -> LocalNode:
+    node = LocalNode(BASE_FORK_NODE_URL, BASE_LOCAL_NODE_PORT, BASE_LOCAL_NODE_DEFAULT_BLOCK)
+    _local_node(request, node)
+    return node
+
+@pytest.fixture(scope="session")
+def local_node_opt(request) -> LocalNode:
+    node = LocalNode(OPT_FORK_NODE_URL, OPT_LOCAL_NODE_PORT, OPT_LOCAL_NODE_DEFAULT_BLOCK)
+    _local_node(request, node)
+    return node
+
+@pytest.fixture(scope="session")
+def local_node_arb(request) -> LocalNode:
+    node = LocalNode(ARB_FORK_NODE_URL, ARB_LOCAL_NODE_PORT, ARB_LOCAL_NODE_DEFAULT_BLOCK)
+    _local_node(request, node)
+    return node
 
 @pytest.fixture(scope="session")
 def accounts() -> list[LocalAccount]:
