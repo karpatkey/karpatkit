@@ -9,6 +9,7 @@ import shutil
 import socket
 import subprocess
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
 import pytest
@@ -19,11 +20,20 @@ from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
 from web3.providers.base import BaseProvider
 
+from defabipedia import Blockchain, Chain
 from defabipedia.tokens import erc20_contract
 
 from .simple_safe import SimpleSafe
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class ForkConfig:
+    upstream_url: str
+    default_block: int
+    local_port: int
+    blockchain: Blockchain
 
 
 REMOTE_ETH_NODE_URL = codecs.decode(
@@ -37,26 +47,42 @@ REMOTE_OPT_NODE_URL = "https://1rpc.io/op"
 REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
 
 RUN_LOCAL_NODE = os.environ.get("KKIT_RUN_LOCAL_NODE", False)
-ETH_FORK_NODE_URL = os.environ.get("KKIT_ETH_FORK_URL", REMOTE_ETH_NODE_URL)
-GC_FORK_NODE_URL = os.environ.get("KKIT_GC_FORK_URL", REMOTE_GC_NODE_URL)
-BASE_FORK_NODE_URL = os.environ.get("KKIT_BASE_FORK_URL", REMOTE_BASE_NODE_URL)
-OPT_FORK_NODE_URL = os.environ.get("KKIT_OPT_FORK_URL", REMOTE_OPT_NODE_URL)
-ARB_FORK_NODE_URL = os.environ.get("KKIT_ARB_FORK_URL", REMOTE_ARB_NODE_URL)
-ETH_LOCAL_NODE_PORT = 8546
-GC_LOCAL_NODE_PORT = 8547
-BASE_LOCAL_NODE_PORT = 8548
-OPT_LOCAL_NODE_PORT = 8549
-ARB_LOCAL_NODE_PORT = 8550
-ETH_LOCAL_NODE_URL = f"http://127.0.0.1:{ETH_LOCAL_NODE_PORT}"
-GC_LOCAL_NODE_URL = f"http://127.0.0.1:{GC_LOCAL_NODE_PORT}"
-BASE_LOCAL_NODE_URL = f"http://127.0.0.1:{BASE_LOCAL_NODE_PORT}"
-OPT_LOCAL_NODE_URL = f"http://127.0.0.1:{OPT_LOCAL_NODE_PORT}"
-ARB_LOCAL_NODE_URL = f"http://127.0.0.1:{ARB_LOCAL_NODE_PORT}"
-ETH_LOCAL_NODE_DEFAULT_BLOCK = 17565000
-GC_LOCAL_NODE_DEFAULT_BLOCK = 30397769
-BASE_LOCAL_NODE_DEFAULT_BLOCK = 21744030
-OPT_LOCAL_NODE_DEFAULT_BLOCK = 127339335
-ARB_LOCAL_NODE_DEFAULT_BLOCK = 269169232
+
+
+eth_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_ETH_FORK_URL", REMOTE_ETH_NODE_URL),
+    local_port=8546,
+    default_block=17565000,
+    blockchain=Chain.ETHEREUM,
+)
+
+gc_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_GC_FORK_URL", REMOTE_GC_NODE_URL),
+    local_port=8547,
+    default_block=30397769,
+    blockchain=Chain.GNOSIS,
+)
+
+base_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_BASE_FORK_URL", REMOTE_BASE_NODE_URL),
+    local_port=8548,
+    default_block=21744030,
+    blockchain=Chain.BASE,
+)
+
+opt_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_OPT_FORK_URL", REMOTE_OPT_NODE_URL),
+    local_port=8549,
+    default_block=127339335,
+    blockchain=Chain.OPTIMISM,
+)
+
+arb_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_ARB_FORK_URL", REMOTE_ARB_NODE_URL),
+    local_port=8550,
+    default_block=269169232,
+    blockchain=Chain.ARBITRUM,
+)
 
 
 def gen_test_accounts() -> list[LocalAccount]:
@@ -148,7 +174,7 @@ def fork_reset_state(w3: Web3, url: str, block: int | str = "latest"):
     return w3.provider.make_request("anvil_reset", [{"forking": {"jsonRpcUrl": url, "blockNumber": block}}])
 
 
-def run_hardhat():
+def run_hardhat(url, block, port):
     """Run hardhat node in the background."""
     try:
         npm = shutil.which("npm")
@@ -163,7 +189,7 @@ def run_hardhat():
     hardhat_log = open(log_filename, "w")
     npx = shutil.which("npx")
     node = SimpleDaemonRunner(
-        cmd=f"{npx} hardhat node --show-stack-traces --fork '{ETH_FORK_NODE_URL}' --fork-block-number {ETH_LOCAL_NODE_DEFAULT_BLOCK} --port {ETH_LOCAL_NODE_PORT}",
+        cmd=f"{npx} hardhat node --show-stack-traces --fork '{url}' --fork-block-number {block} --port {port}",
         popen_kwargs={"stdout": hardhat_log, "stderr": hardhat_log},
     )
     node.start()
@@ -185,28 +211,28 @@ def run_anvil(url, block, port):
 
 
 class LocalNode:
-    def __init__(self, remote_url: str, port: int, default_block: int):
-        self.remote_url = remote_url
-        self.port = port
-        self.url = f"http://127.0.0.1:{port}"
-        self.default_block = default_block
+    def __init__(self, fork_cfg: ForkConfig):
+        self.fork_cfg = fork_cfg
+        self.port = fork_cfg.local_port
+        self.url = f"http://127.0.0.1:{fork_cfg.local_port}"
+        self.default_block = fork_cfg.default_block
         self.w3 = Web3(HTTPProvider(self.url, request_kwargs={"timeout": 30}))
 
     def reset_state(self):
-        fork_reset_state(self.w3, self.remote_url, self.default_block)
+        fork_reset_state(self.w3, self.fork_cfg.upstream_url, self.default_block)
 
     def unlock_account(self, address: str):
         fork_unlock_account(self.w3, address)
 
     def set_block(self, block):
         """Set the local node to a specific block"""
-        fork_reset_state(self.w3, url=self.remote_url, block=block)
+        fork_reset_state(self.w3, url=self.fork_cfg.upstream_url, block=block)
 
 
 def _local_node(request, node: LocalNode):
     """Run a local node_daemon for testing"""
     if RUN_LOCAL_NODE:
-        node_daemon = run_anvil(node.remote_url, node.default_block, node.port)
+        node_daemon = run_anvil(node.fork_cfg.upstream_url, node.default_block, node.fork_cfg.local_port)
 
         def stop():
             node_daemon.stop()
@@ -281,35 +307,35 @@ def steal_safe(w3: Web3, safe_address: str, new_owner_local_account: LocalAccoun
 
 @pytest.fixture(scope="session")
 def local_node_eth(request) -> LocalNode:
-    node = LocalNode(ETH_FORK_NODE_URL, ETH_LOCAL_NODE_PORT, ETH_LOCAL_NODE_DEFAULT_BLOCK)
+    node = LocalNode(eth_fork_cfg)
     _local_node(request, node)
     return node
 
 
 @pytest.fixture(scope="session")
 def local_node_gc(request) -> LocalNode:
-    node = LocalNode(GC_FORK_NODE_URL, GC_LOCAL_NODE_PORT, GC_LOCAL_NODE_DEFAULT_BLOCK)
+    node = LocalNode(gc_fork_cfg)
     _local_node(request, node)
     return node
 
 
 @pytest.fixture(scope="session")
 def local_node_base(request) -> LocalNode:
-    node = LocalNode(BASE_FORK_NODE_URL, BASE_LOCAL_NODE_PORT, BASE_LOCAL_NODE_DEFAULT_BLOCK)
+    node = LocalNode(base_fork_cfg)
     _local_node(request, node)
     return node
 
 
 @pytest.fixture(scope="session")
 def local_node_opt(request) -> LocalNode:
-    node = LocalNode(OPT_FORK_NODE_URL, OPT_LOCAL_NODE_PORT, OPT_LOCAL_NODE_DEFAULT_BLOCK)
+    node = LocalNode(opt_fork_cfg)
     _local_node(request, node)
     return node
 
 
 @pytest.fixture(scope="session")
 def local_node_arb(request) -> LocalNode:
-    node = LocalNode(ARB_FORK_NODE_URL, ARB_LOCAL_NODE_PORT, ARB_LOCAL_NODE_DEFAULT_BLOCK)
+    node = LocalNode(arb_fork_cfg)
     _local_node(request, node)
     return node
 
@@ -387,14 +413,15 @@ class DoNothingLocalNode:
         pass
 
 
-def _local_node_replay(local_node, request, chain_name, chain_id):
+def _local_node_replay(local_node, request):
+    chain = local_node.fork_cfg.blockchain
     if "record" not in local_node.w3.middleware_onion:
         local_node.w3.middleware_onion.inject(RecordMiddleware, "record", layer=0)
 
     test_file_path = Path(request.node.path)
     directory = test_file_path.parent.resolve()
     test_name = request.node.name
-    filename = f"{test_file_path.name}-{test_name}-{chain_name}.json.gz"
+    filename = f"{test_file_path.name}-{test_name}-{chain.name}.json.gz"
     web3_test_data_file = directory / "test_data" / filename
 
     if os.path.exists(web3_test_data_file):
@@ -410,7 +437,7 @@ def _local_node_replay(local_node, request, chain_name, chain_id):
     if mode == "replay_and_assert":
         with gzip.open(web3_test_data_file, mode="rt") as f:
             ReplayAndAssertMiddleware.set_interactions(json.load(f))
-        fake_local_node = DoNothingLocalNode(chain_id)
+        fake_local_node = DoNothingLocalNode(chain.chain_id)
         fake_local_node.w3.middleware_onion.inject(ReplayAndAssertMiddleware, "replay_and_assert", layer=0)
         yield fake_local_node
     else:
@@ -428,13 +455,24 @@ def _local_node_replay(local_node, request, chain_name, chain_id):
 
 @pytest.fixture()
 def local_node_eth_replay(local_node_eth, request) -> LocalNode:
-    marker = request.node.get_closest_marker("replay_web3_off")
-    if marker is not None:
-        yield local_node_eth
-    else:
-        yield from _local_node_replay(local_node_eth, request, "ethereum", chain_id=0x1)
+    yield from _local_node_replay(local_node_eth, request)
 
 
 @pytest.fixture()
 def local_node_gc_replay(local_node_gc, request) -> LocalNode:
-    yield from _local_node_replay(local_node_gc, request, "gnosis", chain_id=0x64)
+    yield from _local_node_replay(local_node_gc, request)
+
+
+@pytest.fixture()
+def local_node_base_replay(local_node_base, request) -> LocalNode:
+    yield from _local_node_replay(local_node_base, request)
+
+
+@pytest.fixture()
+def local_node_opt_replay(local_node_opt, request) -> LocalNode:
+    yield from _local_node_replay(local_node_opt, request)
+
+
+@pytest.fixture()
+def local_node_arb_replay(local_node_arb, request) -> LocalNode:
+    yield from _local_node_replay(local_node_arb, request)

@@ -6,8 +6,7 @@ from web3.types import LogReceipt
 
 from defabipedia import Chain
 from defabipedia.tokens import EthereumTokenAddr
-
-from ..functions import (
+from karpatkit.functions import (
     block_to_date,
     date_to_block,
     get_abi_function_signatures,
