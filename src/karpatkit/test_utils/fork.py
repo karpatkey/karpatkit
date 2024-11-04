@@ -1,6 +1,5 @@
 import atexit
 import codecs
-from dataclasses import dataclass
 import gzip
 import json
 import logging
@@ -10,6 +9,7 @@ import shutil
 import socket
 import subprocess
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
 import pytest
@@ -20,8 +20,8 @@ from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
 from web3.providers.base import BaseProvider
 
+from defabipedia import Blockchain, Chain
 from defabipedia.tokens import erc20_contract
-from defabipedia import Chain, Blockchain
 
 from .simple_safe import SimpleSafe
 
