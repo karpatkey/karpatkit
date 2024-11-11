@@ -20,6 +20,21 @@ class EthereumSwapPools:
         tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"],
         protocol="Curve",
     )
+    Curve_oETH_ETH = SwapPools(
+        address="0x94b17476a93b3262d87b9a326965d1e91f9c13e7",
+        abi_path=parent(__file__) / "oETH_ETH_pool_curve.json",
+        name="oETH_ETH_pool_curve",
+        tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x856c4Efb76C1D1AE02e20CEB03A2A6a08b0b8dC3"],
+        protocol="Curve",
+    )
+
+    Curve_osETH_rETH = SwapPools(
+        address="0xe080027Bd47353b5D1639772b4a75E9Ed3658A0d",
+        abi_path=parent(__file__) / "osETH_rETH_pool_curve.json",
+        name="osETH_rETH_pool_curve",
+        tokens=["0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38", "0xae78736Cd615f374D3085123A210448E74Fc6393"],
+        protocol="Curve",
+    )
     Curve_stETH_ETH2 = SwapPools(
         address="0x21E27a5E5513D6e65C4f830167390997aA84843a",
         abi_path=parent(__file__) / "stETH_ETH_poo2_curve.json",
