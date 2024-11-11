@@ -360,13 +360,8 @@ class BaseContractSpecs:
     )
 
 
-class GnosisContractSpecs:
-    pass
-
-
 ContractSpecs = {
     Chain.ETHEREUM: EthereumContractSpecs,
-    Chain.GNOSIS: GnosisContractSpecs,
     Chain.ARBITRUM: ArbitrumContractSpecs,
     Chain.POLYGON: PolygonContractSpecs,
     Chain.OPTIMISM: OptimismContractSpecs,
