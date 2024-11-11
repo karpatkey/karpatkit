@@ -118,6 +118,53 @@ class EthereumSwapPools:
         protocol="Balancer",
     )
 
+    bal_GYD_USDT = SwapPools(
+        address="0xfbfaD5fa9E99081da6461F36f229B5cC88A64c63",
+        abi_path=parent(__file__) / "bal_GYD_USDT_pool.json",
+        name="ECLP-GYD-USDT",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_sDAI = SwapPools(
+        address="0x2191Df821C198600499aA1f0031b1a7514D7A7D9",
+        abi_path=parent(__file__) / "bal_GYD_sDAI_pool.json",
+        name="ECLP-GYD-sDAI",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_sDAI2 = SwapPools(
+        address="0x1CCE5169bDe03f3d5aD0206f6BD057953539DAE6",
+        abi_path=parent(__file__) / "bal_GYD_sDAI_pool2.json",
+        name="ECLP-GYD-sDAI",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_USDC = SwapPools(
+        address="0xC2AA60465BfFa1A88f5bA471a59cA0435c3ec5c1",
+        abi_path=parent(__file__) / "bal_GYD_USDC_pool.json",
+        name="ECLP-GYD-USDC",
+        tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_GHO = SwapPools(
+        address="0xaA7a70070E7495fe86c67225329DbD39BAa2F63b",
+        abi_path=parent(__file__) / "bal_GYD_GHO_pool.json",
+        name="ECLP-GHO-GYD",
+        tokens=["0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GHO_USDT_USDC = SwapPools(
+        address="0x8353157092ED8Be69a9DF8F95af097bbF33Cb2aF",
+        abi_path=parent(__file__) / "bal_GHO_USDT_USDC_pool.json",
+        name="GHO/USDT/USDC",
+        tokens=[
+            "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        ],
+        protocol="Balancer",
+    )
+
 
 class GnosisSwapPools:
     TriPool = SwapPools(
