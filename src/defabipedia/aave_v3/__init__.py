@@ -3,6 +3,7 @@ from defabipedia.types import Chain, ContractAbi, ContractSpec, parent
 
 class AllAbis:
     PriceOracle = ContractAbi(abi_path=parent(__file__) / "price_oracle.json", name="price_oracle")
+    aToken = ContractAbi(abi_path=parent(__file__) / "atoken.json", name="aToken")
 
 
 class EthereumContractSpecs:
