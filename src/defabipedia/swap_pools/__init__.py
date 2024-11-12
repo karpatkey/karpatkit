@@ -20,6 +20,21 @@ class EthereumSwapPools:
         tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"],
         protocol="Curve",
     )
+    Curve_oETH_ETH = SwapPools(
+        address="0x94b17476a93b3262d87b9a326965d1e91f9c13e7",
+        abi_path=parent(__file__) / "oETH_ETH_pool_curve.json",
+        name="oETH_ETH_pool_curve",
+        tokens=["0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", "0x856c4Efb76C1D1AE02e20CEB03A2A6a08b0b8dC3"],
+        protocol="Curve",
+    )
+
+    Curve_osETH_rETH = SwapPools(
+        address="0xe080027Bd47353b5D1639772b4a75E9Ed3658A0d",
+        abi_path=parent(__file__) / "osETH_rETH_pool_curve.json",
+        name="osETH_rETH_pool_curve",
+        tokens=["0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38", "0xae78736Cd615f374D3085123A210448E74Fc6393"],
+        protocol="Curve",
+    )
     Curve_stETH_ETH2 = SwapPools(
         address="0x21E27a5E5513D6e65C4f830167390997aA84843a",
         abi_path=parent(__file__) / "stETH_ETH_poo2_curve.json",
@@ -100,6 +115,53 @@ class EthereumSwapPools:
         abi_path=parent(__file__) / "bal_wstETH_WETH_pool.json",
         name="bal_wstETH_WETH_pool",
         tokens=["0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"],
+        protocol="Balancer",
+    )
+
+    bal_GYD_USDT = SwapPools(
+        address="0xfbfaD5fa9E99081da6461F36f229B5cC88A64c63",
+        abi_path=parent(__file__) / "bal_GYD_USDT_pool.json",
+        name="ECLP-GYD-USDT",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_sDAI = SwapPools(
+        address="0x2191Df821C198600499aA1f0031b1a7514D7A7D9",
+        abi_path=parent(__file__) / "bal_GYD_sDAI_pool.json",
+        name="ECLP-GYD-sDAI",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_sDAI2 = SwapPools(
+        address="0x1CCE5169bDe03f3d5aD0206f6BD057953539DAE6",
+        abi_path=parent(__file__) / "bal_GYD_sDAI_pool2.json",
+        name="ECLP-GYD-sDAI",
+        tokens=["0xdAC17F958D2ee523a2206206994597C13D831ec7", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_USDC = SwapPools(
+        address="0xC2AA60465BfFa1A88f5bA471a59cA0435c3ec5c1",
+        abi_path=parent(__file__) / "bal_GYD_USDC_pool.json",
+        name="ECLP-GYD-USDC",
+        tokens=["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GYD_GHO = SwapPools(
+        address="0xaA7a70070E7495fe86c67225329DbD39BAa2F63b",
+        abi_path=parent(__file__) / "bal_GYD_GHO_pool.json",
+        name="ECLP-GHO-GYD",
+        tokens=["0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f", "0xe07F9D810a48ab5c3c914BA3cA53AF14E4491e8A"],
+        protocol="Balancer",
+    )
+    bal_GHO_USDT_USDC = SwapPools(
+        address="0x8353157092ED8Be69a9DF8F95af097bbF33Cb2aF",
+        abi_path=parent(__file__) / "bal_GHO_USDT_USDC_pool.json",
+        name="GHO/USDT/USDC",
+        tokens=[
+            "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
+            "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        ],
         protocol="Balancer",
     )
 
