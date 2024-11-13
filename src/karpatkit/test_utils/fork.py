@@ -1,5 +1,3 @@
-from functools import lru_cache
-
 import atexit
 import codecs
 import gzip
@@ -12,6 +10,7 @@ import socket
 import subprocess
 import time
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
 import pytest
