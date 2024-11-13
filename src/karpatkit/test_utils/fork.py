@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 import atexit
 import codecs
 import gzip
@@ -83,6 +85,24 @@ arb_fork_cfg = ForkConfig(
     default_block=269169232,
     blockchain=Chain.ARBITRUM,
 )
+
+fork_configs = {
+    Chain.ETHEREUM: eth_fork_cfg,
+    Chain.GNOSIS: gc_fork_cfg,
+    Chain.BASE: base_fork_cfg,
+    Chain.OPTIMISM: opt_fork_cfg,
+    Chain.ARBITRUM: arb_fork_cfg,
+}
+
+
+def get_local_web3_url_for_chain(blockchain: Blockchain):
+    cfg = fork_configs[blockchain]
+    return f"http://127.0.0.1:{cfg.local_port}"
+
+
+@lru_cache(maxsize=24)
+def get_local_web3_for_chain(blockchain: Blockchain):
+    return Web3(HTTPProvider(get_local_web3_url_for_chain(blockchain), request_kwargs={"timeout": 30}))
 
 
 def gen_test_accounts() -> list[LocalAccount]:
