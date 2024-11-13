@@ -14,6 +14,11 @@ class EthereumContractSpecs:
         abi_path=parent(__file__) / "eth_claim_zap.json",
         name="claim_zap",
     )
+    vlAura = ContractSpec(
+        address="0x3Fa73f1E5d8A792C80F426fc8F84FBF7Ce9bBCAC",
+        abi_path=parent(__file__) / "vl_aura.json",
+        name="vl_aura",
+    )
 
 
 class GnosisContractSpecs:
