@@ -1,0 +1,61 @@
+[
+    {
+        "stateMutability": "view",
+        "type": "function",
+        "name": "ether_balances",
+        "inputs": [
+            {
+                "name": "addresses",
+                "type": "address[]"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ]
+    },
+    {
+        "stateMutability": "view",
+        "type": "function",
+        "name": "tokens_balance",
+        "inputs": [
+            {
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "name": "tokens",
+                "type": "address[]"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ]
+    },
+    {
+        "stateMutability": "view",
+        "type": "function",
+        "name": "token_balances",
+        "inputs": [
+            {
+                "name": "owners",
+                "type": "address[]"
+            },
+            {
+                "name": "token",
+                "type": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ]
+    }
+]
