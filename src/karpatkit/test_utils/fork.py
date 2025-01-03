@@ -12,6 +12,7 @@ import time
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
+from datetime import datetime
 
 import pytest
 from eth_account import Account
@@ -216,27 +217,29 @@ def run_hardhat(url, block, port):
 
 
 def run_anvil(url, block, port):
-    """Run anvil node in the background"""
+    """Run anvil node in the background with version check"""
     log_filename = f"/tmp/rr_fork_node_{port}_log.txt"
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")
-    if Web3(Web3.HTTPProvider(url)).eth.chain_id == 1:
-        try:
-            # cancun hardfork is only available in the latest versions of anvil
-            node = SimpleDaemonRunner(
-                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork cancun",
-                popen_kwargs={"stdout": log, "stderr": log},
-            )
-        except:
-            node = SimpleDaemonRunner(
-                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
-                popen_kwargs={"stdout": log, "stderr": log},
-            )
-    else:
-        node = SimpleDaemonRunner(
-            cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
-            popen_kwargs={"stdout": log, "stderr": log},
-        )
+
+    # Get anvil version
+    version_output = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout.strip()
+
+    try:
+        # Extract the date from the version string
+        version_date_str = version_output.split()[-1].split("T")[0]
+        version_date = datetime.strptime(version_date_str, "%Y-%m-%d")
+        required_date = datetime.strptime("2024-09", "%Y-%m")
+
+        if version_date < required_date:
+            raise RuntimeError(f"Anvil version is too old: {version_date_str}. Minimum required is 2024-09.")
+    except Exception as e:
+        raise RuntimeError(f"Failed to parse anvil version: {version_output}. Error: {e}")
+
+    node = SimpleDaemonRunner(
+        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
+        popen_kwargs={"stdout": log, "stderr": log},
+    )
 
     node.start()
     return node
