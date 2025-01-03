@@ -220,11 +220,18 @@ def run_anvil(url, block, port):
     log_filename = f"/tmp/rr_fork_node_{port}_log.txt"
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")
-    if port == 8546:
-        node = SimpleDaemonRunner(
-            cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork cancun",
-            popen_kwargs={"stdout": log, "stderr": log},
-        )
+    if Web3(Web3.HTTPProvider(url)).eth.chain_id == 1:
+        try:
+            # cancun hardfork is only available in the latest versions of anvil
+            node = SimpleDaemonRunner(
+                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork cancun",
+                popen_kwargs={"stdout": log, "stderr": log},
+            )
+        except:
+            node = SimpleDaemonRunner(
+                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
+                popen_kwargs={"stdout": log, "stderr": log},
+            )
     else:
         node = SimpleDaemonRunner(
             cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
