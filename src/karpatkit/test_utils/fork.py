@@ -220,7 +220,7 @@ def run_anvil(url, block, port):
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")
 
-    version = subprocess.run(["./anvil", "--version"], capture_output=True, text=True).stdout
+    version = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout
 
     year, month, _ = version.split()[3].split("-")
 
