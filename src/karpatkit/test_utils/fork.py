@@ -49,7 +49,6 @@ REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
 
 RUN_LOCAL_NODE = os.environ.get("KKIT_RUN_LOCAL_NODE", False)
 
-
 eth_fork_cfg = ForkConfig(
     upstream_url=os.environ.get("KKIT_ETH_FORK_URL", REMOTE_ETH_NODE_URL),
     local_port=8546,
@@ -216,27 +215,22 @@ def run_hardhat(url, block, port):
 
 
 def run_anvil(url, block, port):
-    """Run anvil node in the background"""
+    """Run anvil node in the background with version check"""
     log_filename = f"/tmp/rr_fork_node_{port}_log.txt"
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")
-    if Web3(Web3.HTTPProvider(url)).eth.chain_id == 1:
-        try:
-            # cancun hardfork is only available in the latest versions of anvil
-            node = SimpleDaemonRunner(
-                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork cancun",
-                popen_kwargs={"stdout": log, "stderr": log},
-            )
-        except:
-            node = SimpleDaemonRunner(
-                cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
-                popen_kwargs={"stdout": log, "stderr": log},
-            )
-    else:
-        node = SimpleDaemonRunner(
-            cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
-            popen_kwargs={"stdout": log, "stderr": log},
-        )
+
+    version = subprocess.run(["./anvil", "--version"], capture_output=True, text=True).stdout
+
+    year, month, _ = version.split()[3].split("-")
+
+    if not (int(year) >= 2024 and int(month) >= 9):
+        raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
+
+    node = SimpleDaemonRunner(
+        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
+        popen_kwargs={"stdout": log, "stderr": log},
+    )
 
     node.start()
     return node
