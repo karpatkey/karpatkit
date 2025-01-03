@@ -50,7 +50,6 @@ REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
 
 RUN_LOCAL_NODE = os.environ.get("KKIT_RUN_LOCAL_NODE", False)
 
-
 eth_fork_cfg = ForkConfig(
     upstream_url=os.environ.get("KKIT_ETH_FORK_URL", REMOTE_ETH_NODE_URL),
     local_port=8546,
@@ -222,19 +221,12 @@ def run_anvil(url, block, port):
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")
 
-    # Get anvil version
-    version_output = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout.strip()
+    version = subprocess.run(["./anvil", "--version"], capture_output=True, text=True).stdout
 
-    try:
-        # Extract the date from the version string
-        version_date_str = version_output.split()[-1].split("T")[0]
-        version_date = datetime.strptime(version_date_str, "%Y-%m-%d")
-        required_date = datetime.strptime("2024-09", "%Y-%m")
+    year, month, _ = version.split()[3].split("-")
 
-        if version_date < required_date:
-            raise RuntimeError(f"Anvil version is too old: {version_date_str}. Minimum required is 2024-09.")
-    except Exception as e:
-        raise RuntimeError(f"Failed to parse anvil version: {version_output}. Error: {e}")
+    if not (int(year) >= 2024 and int(month) >= 9):
+        raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
 
     node = SimpleDaemonRunner(
         cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
