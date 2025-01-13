@@ -228,7 +228,7 @@ def run_anvil(url, block, port):
         raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
 
     node = SimpleDaemonRunner(
-        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port}",
+        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork latest --timeout 30000",
         popen_kwargs={"stdout": log, "stderr": log},
     )
 
