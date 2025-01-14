@@ -11,7 +11,8 @@ from .constants import TESTNET_CHAINS, Address
 from .node import get_node
 
 TESTNET_HEADER = {
-    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/97.0.4692.99 Mobile Safari/537.36"
 }
 EXPLORERS = {
     Chain.ETHEREUM: (APIUrl.ETHERSCAN, APIKey.ETHERSCAN),
@@ -30,10 +31,10 @@ EXPLORERS = {
 }
 
 
-def get_implemented_contract(blockchain, proxy_address):
+def get_implemented_contract(blockchain, proxy_address, block: int | str = "latest"):
     proxy_address = Web3.to_checksum_address(proxy_address)
     node = get_node(blockchain)
-    bytecode = node.eth.get_code(proxy_address).hex()
+    bytecode = node.eth.get_code(proxy_address, block_identifier=block).hex()
 
     # Check for EIP-1167 proxy implementation
     if bytecode[2:22] == "363d3d373d3d3d363d73" and bytecode[62:] == "5af43d82803e903d91602b57fd5bf3":
@@ -41,13 +42,7 @@ def get_implemented_contract(blockchain, proxy_address):
     hash_value = Web3.keccak(text="eip1967.proxy.implementation")
     impl_slot = (int.from_bytes(hash_value, byteorder="big") - 1).to_bytes(32, byteorder="big")
     impl_contract = (
-        "0x"
-        + Web3.to_hex(
-            node.eth.get_storage_at(
-                proxy_address,
-                impl_slot.hex(),
-            )
-        )[-40:]
+        "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, impl_slot.hex(), block_identifier=block))[-40:]
     )
     impl_function = Web3.keccak(text="implementation()")[:4].hex()[2:]
 
@@ -57,12 +52,15 @@ def get_implemented_contract(blockchain, proxy_address):
     elif len(bytecode) < 150:
         return "0x" + bytecode[32:72]
     elif impl_function in bytecode:
-        contract_abi = '[{"constant":true,"inputs":[],"name":"implementation","outputs":[{"name":"impl","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}]'
+        contract_abi = (
+            '[{"constant":true,"inputs":[],"name":"implementation","outputs":'
+            '[{"name":"impl","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}]'
+        )
         contract_instance = node.eth.contract(proxy_address, abi=contract_abi)
         impl_call = contract_instance.functions.implementation().call()
         return impl_call
     elif impl_contract == "0x0000000000000000000000000000000000000000":
-        safe_impl_contract = "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, 0))[-40:]
+        safe_impl_contract = "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, 0, block_identifier=block))[-40:]
         return safe_impl_contract
     else:
         return impl_contract
@@ -127,8 +125,8 @@ class ChainExplorer(requests.Session):
             return timestamp
 
     @cached
-    def abi_from_address(self, contract_address: str) -> str:
-        contract_address = get_implemented_contract(self.chain, contract_address)
+    def abi_from_address(self, contract_address: str, block: int | str = "latest") -> str:
+        contract_address = get_implemented_contract(self.chain, contract_address, block)
         response = self._get(module="contract", action="getabi", address=contract_address)
         abi = response.json()["result"]
         if abi == "Contract source code not verified":
@@ -136,17 +134,22 @@ class ChainExplorer(requests.Session):
         return abi
 
     @cached
-    def get_contract_creation(self, contract_address: str) -> dict:
+    def get_contract_creation(self, contract_address: str, block: int | str = "latest") -> dict:
         if self.chain != Chain.ETHEREUM:
             raise ValueError("Chain should be ethereum for this method")
-        contract_address = get_implemented_contract(self.chain, contract_address)
+        contract_address = get_implemented_contract(self.chain, contract_address, block)
         response = self._get(module="contract", action="getcontractcreation", contractaddresses=contract_address)
         contract = response.json()["result"]
         return contract
 
     @cached
     def get_logs(
-        self, contract_address: str, from_block: int, to_block: int, topic: str, optional_params: dict = {}
+        self,
+        contract_address: str,
+        from_block: int,
+        to_block: int,
+        topic: str,
+        optional_params: dict = {},  # noqa: B006
     ) -> list:
         KEYS_WHITELIST = [
             "topic1",
@@ -156,7 +159,8 @@ class ChainExplorer(requests.Session):
             "topic0_2_opr",
             "topic0_3_opr",
             "topic1_2_opr",
-            "topic1_3_opr" "topic2_3_opr",
+            "topic1_3_opr",
+            "topic2_3_opr",
         ]
         contract_address = get_implemented_contract(self.chain, contract_address)
         for key, value in optional_params.items():

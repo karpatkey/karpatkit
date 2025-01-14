@@ -15,7 +15,7 @@ def main_cli():
     for root_dir in args.root_dir:
         for json_file in glob.glob(os.path.join(root_dir, "**", "*.json"), recursive=True):
             if check_mode:
-                with open(json_file, "r", encoding="utf-8") as f:
+                with open(json_file, encoding="utf-8") as f:
                     current = f.read()
                     obj = json.loads(current)
                     expected = json.dumps(obj, indent=2, ensure_ascii=False)
@@ -23,7 +23,7 @@ def main_cli():
                         sys.exit(f"pretty_json: Oh noooo por dios!.\nFound a sneaky file not formatted: {json_file}")
 
             if not check_mode:
-                with open(json_file, "r", encoding="utf-8") as f:
+                with open(json_file, encoding="utf-8") as f:
                     obj = json.load(f)
                 with open(json_file, "w", encoding="utf-8") as f:
                     json.dump(obj, f, indent=2, ensure_ascii=False)

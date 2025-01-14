@@ -13,7 +13,7 @@ class StrEnum(str, Enum):
     def __new__(cls, value):
         # values must already be of type `str`
         if not isinstance(value, str):
-            raise TypeError("%r is not a string" % (value,))
+            raise TypeError(f"{value!r} is not a string")
         value = str(value)
         member = str.__new__(cls, value)
         member._value_ = value
@@ -51,7 +51,7 @@ class Chain:
     # Look up indexes
     _by_id = {}
     _by_name = {}
-    for attr_name, attr_value in locals().copy().items():
+    for attr_value in locals().copy().values():
         if isinstance(attr_value, Blockchain):
             _by_id[attr_value.chain_id] = attr_value
             _by_name[attr_value.name] = attr_value
@@ -65,7 +65,7 @@ class Chain:
         try:
             return cls._by_id.get(chain_id, None)
         except KeyError:
-            raise ValueError(f"No Blockchain with chain_id {chain_id} found in Chain.")
+            raise ValueError(f"No Blockchain with chain_id {chain_id} found in Chain.") from None
 
     @classmethod
     def get_blockchain_by_name(cls, name) -> Blockchain | None:
@@ -117,12 +117,12 @@ class SwapPools(ContractSpec):
         name: str,
         abi: str | None = None,
         abi_path: Path | None = None,
-        tokens: list[str] = [],
+        tokens: list[str] | None = None,
         protocol: str | None = None,
         uni_fee: int = 100,
     ):
         super().__init__(address, name, abi, abi_path)
-        self.tokens = tokens
+        self.tokens = tokens or []
         self.protocol = protocol
         self.uni_fee = uni_fee
 

@@ -59,10 +59,10 @@ class ProviderManager(JSONBaseProvider):
                         raise ValueError(
                             {
                                 "code": -32602,
-                                "message": "eth_getLogs and eth_newFilter are limited to %s blocks range" % hex(10000),
+                                "message": f"eth_getLogs and eth_newFilter are limited to {hex(10000)} blocks range",
                                 "max_block_range": 10000,
                             }
-                        )  # Ad-hoc parsing: Quicknode nodes return a similar message
+                        ) from e  # Ad-hoc parsing: Quicknode nodes return a similar message
                 except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
                     errors.append(e)
                     logger.error("Error when making request: %s", e)
@@ -111,14 +111,16 @@ def get_node(blockchain: Blockchain | str, block=None):
     The block parameter is not used and will be removed.
     """
     if block is not None:
-        warnings.warn("get_node() block argument is deprecated. Just remove it.", DeprecationWarning)
+        warnings.warn("get_node() block argument is deprecated. Just remove it.", DeprecationWarning, stacklevel=2)
 
     node_endpoints = get_config()["nodes"]
     if blockchain not in node_endpoints:
         raise ValueError(f"Unknown blockchain '{blockchain}'")
     endpoints = node_endpoints[blockchain]
     if isinstance(endpoints, dict):
-        warnings.warn("endpoint config latest and archival is deprecated. Use a list instead.", DeprecationWarning)
+        warnings.warn(
+            "endpoint config latest and archival is deprecated. Use a list instead.", DeprecationWarning, stacklevel=2
+        )
         endpoints = endpoints["latest"] + endpoints["archival"]
     if not endpoints:
         raise ValueError(f"No configured nodes for blockchain {blockchain}")

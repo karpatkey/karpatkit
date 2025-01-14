@@ -40,11 +40,11 @@ def test_cache_decorator(temporary_cache):
         centinel()
         return a + b + c
 
-    assert 3 == f(1, 2, 0)
+    assert f(1, 2, 0) == 3
     assert centinel.call_count == 1
-    assert 3 == f(1, 2, 0)
-    assert 3 == f(1, 2, 0, "foo")
-    assert 3 == f(1, 2, 3, d="foo")
+    assert f(1, 2, 0) == 3
+    assert f(1, 2, 0, "foo") == 3
+    assert f(1, 2, 3, d="foo") == 3
     assert centinel.call_count == 1  # only called once
 
 
