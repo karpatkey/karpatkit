@@ -157,7 +157,8 @@ class ChainExplorer(requests.Session):
             "topic0_2_opr",
             "topic0_3_opr",
             "topic1_2_opr",
-            "topic1_3_opr" "topic2_3_opr",
+            "topic1_3_opr",
+            "topic2_3_opr",
         ]
         contract_address = get_implemented_contract(self.chain, contract_address)
         for key, value in optional_params.items():
