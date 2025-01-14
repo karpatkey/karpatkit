@@ -63,6 +63,8 @@ def disk_cache_middleware(make_request, web3):
         "eth_getCode",
         "eth_getStorageAt",
         "eth_getBlockByNumber",
+        "debug_traceTransaction",
+        "trace_transaction",
     }
 
     def middleware(method, params):
