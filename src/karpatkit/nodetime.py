@@ -66,7 +66,7 @@ async def async_all_chains(func, **kwargs) -> dict[Blockchain, Block | Exception
         *(asyncio.to_thread(func, blockchain=blockchain, **kwargs) for blockchain in chains),
         return_exceptions=True,
     )
-    return dict(zip(chains, results))
+    return dict(zip(chains, results, strict=False))
 
 
 def block_before_time(blockchain: Blockchain, timestamp: float) -> Block:

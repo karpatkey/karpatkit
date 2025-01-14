@@ -71,14 +71,14 @@ def test_all_chains_block_before_time_latest():
 async def test_async_all_chains_get_latest_block():
     r = await nodetime.async_all_chains_get_latest_block()
     for chain in expected_block_for:
-        assert isinstance(r[chain], (Block, Exception))
+        assert isinstance(r[chain], Block | Exception)
 
 
 @pytest.mark.asyncio
 async def test_async_all_chains_block_before_time():
     r = await nodetime.async_all_chains_block_before_time(requested_time)
     for chain in expected_block_for:
-        assert isinstance(r[chain], (Block, Exception))
+        assert isinstance(r[chain], Block | Exception)
 
 
 ## Individual tests

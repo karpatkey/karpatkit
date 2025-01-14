@@ -5,11 +5,20 @@ from defabipedia import Chain
 from karpatkit.explorer import ChainExplorer
 
 ADDRESS_N1 = "0x458cD345B4C05e8DF39d0A07220feb4Ec19F5e6f"
-ABI_N1 = '{"internalType":"bytes","name":"signatures","type":"bytes"}],"name":"execTransaction","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"}'
+ABI_N1 = (
+    '{"internalType":"bytes","name":"signatures","type":"bytes"}],"name":"execTransaction","outputs":['
+    '{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"payable","type":"function"}'
+)
 ADDRESS_N2 = "0xbf65bfcb5da067446CeE6A706ba3Fe2fB1a9fdFd"
-ABI_N2 = '{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}'
+ABI_N2 = (
+    '{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":['
+    '{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}'
+)
 ADDRESS_N3 = "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"
-ABI_N3 = '{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}'
+ABI_N3 = (
+    '{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":['
+    '{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}'
+)
 ADDRESS_N4 = "0xD6A6372e371AF57c773176C41DD4a26f6084b37E"
 
 
@@ -73,7 +82,8 @@ def test_get_logs():
                 "0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
                 "0x000000000000000000000000ba100000625a3754423978a60c9317c58a424e3d",
             ],
-            "data": "0x0000000000000000000000000000000000000000000000007d24b6d0c338c40000000000000000000000000000000000000000000000006ec9dbd910381f2302",
+            "data": "0x0000000000000000000000000000000000000000000000007d24b6d0c338c40000000000"
+            "000000000000000000000000000000000000006ec9dbd910381f2302",
             "blockNumber": "0xfe6328",
             "blockHash": "0xd1495a48d4054e5706ebdbb6b1413b95124605b02362f11a5ada1aef183f88d5",
             "timeStamp": "0x63f3bb43",
@@ -91,7 +101,8 @@ def test_get_logs():
                 "0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
                 "0x000000000000000000000000ba100000625a3754423978a60c9317c58a424e3d",
             ],
-            "data": "0x0000000000000000000000000000000000000000000000006e6088ec0a459400000000000000000000000000000000000000000000000061aea368d094c6a871",
+            "data": "0x0000000000000000000000000000000000000000000000006e6088ec0a459400000000000000"
+            "000000000000000000000000000000000061aea368d094c6a871",
             "blockNumber": "0xfe6336",
             "blockHash": "0xbb53a31224bfc8cee037b4cd7dbdacec21d7975aa1818863f42eb7e63cfadcf5",
             "timeStamp": "0x63f3bbeb",

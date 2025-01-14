@@ -45,7 +45,7 @@ def get_contract_name(web3, contract_address, abi):
     contract = web3.eth.contract(address=contract_address, abi=abi)
     try:
         return contract.functions.name().call()
-    except:
+    except:  # noqa
         return contract_address
 
 
