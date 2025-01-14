@@ -30,10 +30,10 @@ EXPLORERS = {
 }
 
 
-def get_implemented_contract(blockchain, proxy_address):
+def get_implemented_contract(blockchain, proxy_address, block: int | str = "latest"):
     proxy_address = Web3.to_checksum_address(proxy_address)
     node = get_node(blockchain)
-    bytecode = node.eth.get_code(proxy_address).hex()
+    bytecode = node.eth.get_code(proxy_address, block_identifier=block).hex()
 
     # Check for EIP-1167 proxy implementation
     if bytecode[2:22] == "363d3d373d3d3d363d73" and bytecode[62:] == "5af43d82803e903d91602b57fd5bf3":
@@ -46,6 +46,7 @@ def get_implemented_contract(blockchain, proxy_address):
             node.eth.get_storage_at(
                 proxy_address,
                 impl_slot.hex(),
+                block_identifier=block
             )
         )[-40:]
     )
@@ -62,7 +63,7 @@ def get_implemented_contract(blockchain, proxy_address):
         impl_call = contract_instance.functions.implementation().call()
         return impl_call
     elif impl_contract == "0x0000000000000000000000000000000000000000":
-        safe_impl_contract = "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, 0))[-40:]
+        safe_impl_contract = "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, 0, block_identifier=block))[-40:]
         return safe_impl_contract
     else:
         return impl_contract
@@ -127,8 +128,8 @@ class ChainExplorer(requests.Session):
             return timestamp
 
     @cached
-    def abi_from_address(self, contract_address: str) -> str:
-        contract_address = get_implemented_contract(self.chain, contract_address)
+    def abi_from_address(self, contract_address: str, block: int | str = "latest") -> str:
+        contract_address = get_implemented_contract(self.chain, contract_address, block)
         response = self._get(module="contract", action="getabi", address=contract_address)
         abi = response.json()["result"]
         if abi == "Contract source code not verified":
@@ -136,10 +137,10 @@ class ChainExplorer(requests.Session):
         return abi
 
     @cached
-    def get_contract_creation(self, contract_address: str) -> dict:
+    def get_contract_creation(self, contract_address: str, block: int | str = "latest") -> dict:
         if self.chain != Chain.ETHEREUM:
             raise ValueError("Chain should be ethereum for this method")
-        contract_address = get_implemented_contract(self.chain, contract_address)
+        contract_address = get_implemented_contract(self.chain, contract_address, block)
         response = self._get(module="contract", action="getcontractcreation", contractaddresses=contract_address)
         contract = response.json()["result"]
         return contract
