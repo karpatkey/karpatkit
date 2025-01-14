@@ -41,14 +41,7 @@ def get_implemented_contract(blockchain, proxy_address, block: int | str = "late
     hash_value = Web3.keccak(text="eip1967.proxy.implementation")
     impl_slot = (int.from_bytes(hash_value, byteorder="big") - 1).to_bytes(32, byteorder="big")
     impl_contract = (
-        "0x"
-        + Web3.to_hex(
-            node.eth.get_storage_at(
-                proxy_address,
-                impl_slot.hex(),
-                block_identifier=block
-            )
-        )[-40:]
+        "0x" + Web3.to_hex(node.eth.get_storage_at(proxy_address, impl_slot.hex(), block_identifier=block))[-40:]
     )
     impl_function = Web3.keccak(text="implementation()")[:4].hex()[2:]
 

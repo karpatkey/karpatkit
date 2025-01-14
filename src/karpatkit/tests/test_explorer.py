@@ -42,12 +42,12 @@ def test_contract_creation():
     contract = ChainExplorer(Chain.ETHEREUM).get_contract_creation("0x6B175474E89094C44Da98b954EedeAC495271d0F")
     assert contract == [
         {
-            'blockNumber': '8928158',
+            "blockNumber": "8928158",
             "contractAddress": "0x6b175474e89094c44da98b954eedeac495271d0f",
             "contractCreator": "0xddb108893104de4e1c6d0e47c42237db4e617acc",
-            'contractFactory': '0xb5b06a16621616875a6c2637948bf98ea57c58fa',
-            'creationBytecode': '',
-            'timestamp': '1573672677',
+            "contractFactory": "0xb5b06a16621616875a6c2637948bf98ea57c58fa",
+            "creationBytecode": "",
+            "timestamp": "1573672677",
             "txHash": "0x495402df7d45fe36329b0bd94487f49baee62026d50f654600f6771bd2a596ab",
         }
     ]
