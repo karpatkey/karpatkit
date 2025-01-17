@@ -11,7 +11,8 @@ from .constants import TESTNET_CHAINS, Address
 from .node import get_node
 
 TESTNET_HEADER = {
-    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/97.0.4692.99 Mobile Safari/537.36"
 }
 EXPLORERS = {
     Chain.ETHEREUM: (APIUrl.ETHERSCAN, APIKey.ETHERSCAN),
@@ -51,7 +52,10 @@ def get_implemented_contract(blockchain, proxy_address, block: int | str = "late
     elif len(bytecode) < 150:
         return "0x" + bytecode[32:72]
     elif impl_function in bytecode:
-        contract_abi = '[{"constant":true,"inputs":[],"name":"implementation","outputs":[{"name":"impl","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}]'
+        contract_abi = (
+            '[{"constant":true,"inputs":[],"name":"implementation","outputs":'
+            '[{"name":"impl","type":"address"}],"payable":false,"stateMutability":"view","type":"function"}]'
+        )
         contract_instance = node.eth.contract(proxy_address, abi=contract_abi)
         impl_call = contract_instance.functions.implementation().call()
         return impl_call
@@ -140,7 +144,12 @@ class ChainExplorer(requests.Session):
 
     @cached
     def get_logs(
-        self, contract_address: str, from_block: int, to_block: int, topic: str, optional_params: dict = {}
+        self,
+        contract_address: str,
+        from_block: int,
+        to_block: int,
+        topic: str,
+        optional_params: dict = {},  # noqa: B006
     ) -> list:
         KEYS_WHITELIST = [
             "topic1",

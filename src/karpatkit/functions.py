@@ -5,7 +5,6 @@ import re
 from contextlib import suppress
 from datetime import datetime
 from decimal import Decimal
-from typing import List, Tuple
 
 import requests
 from hexbytes import HexBytes
@@ -167,7 +166,7 @@ def balance_of(
         balance = web3.eth.get_balance(address, block)
     else:
         token_contract = web3.eth.contract(address=contract_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
-        try:
+        try:  # noqa: SIM105
             balance = token_contract.functions.balanceOf(address).call(block_identifier=block)
         except ContractLogicError:
             pass
@@ -307,7 +306,7 @@ def format_address(address: str | bytes) -> str:
         print(formatted_address)
         # Output: 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed
     """
-    if isinstance(address, str) and address.startswith("0x"):
+    if isinstance(address, str) and address.startswith("0x"):  # noqa: SIM108
         # If the address is already a hex string, skip the to_hex conversion
         hex_address = address
     else:
@@ -349,7 +348,8 @@ def get_impl_1167_1(web3, contract_address, block):
 
 
 def get_impl_storage_proxy(web3, contract_address, block):
-    # OpenZeppelins' Unstructured Storage proxy pattern - Example: USDC in mainnet (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)
+    # OpenZeppelins' Unstructured Storage proxy pattern -
+    # Example: USDC in mainnet (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)
     impl_address = Address.ZERO
     IMPLEMENTATION_SLOT_UNSTRUCTURED = "0x7050c9e0f4ca769c69bd3a8ef740bc37934f8e2c036e5a723fd8ee048ed3f8c3"
     impl_address = web3.eth.get_storage_at(contract_address, IMPLEMENTATION_SLOT_UNSTRUCTURED, block_identifier=block)
@@ -454,8 +454,7 @@ def get_abi_function_signatures(
                 function["components_names"] = []
                 function["stateMutability"] = func["stateMutability"]
 
-                i = 0
-                for input_type in input_types:
+                for i, input_type in enumerate(input_types):
                     if input_type == "tuple" or input_type == "tuple[]":
                         function["components"] += [component["type"] for component in func["inputs"][i]["components"]]
                         function["components_names"] += [
@@ -472,8 +471,6 @@ def get_abi_function_signatures(
                     if i < len(input_types) - 1:
                         function["signature"] += ","
                         function["inline_signature"] += ","
-
-                    i += 1
 
                 function["signature"] += ")"
                 function["inline_signature"] += ")"
@@ -515,7 +512,7 @@ def get_data(contract_address, function_name, parameters, blockchain, web3=None,
 
 def get_block_intervals(
     blockchain: str, block_start: int, block_end: int, block_interval: int
-) -> List[Tuple[int, int]]:
+) -> list[tuple[int, int]]:
     """Function used by get_logs_web3 to get the block intervals.
     It returns a list of tuples with the start and end block numbers of each interval.
     """
@@ -528,7 +525,7 @@ def get_block_intervals(
     n_blocks = list(range(block_start, block_end + 1, block_interval))
     n_blocks += [] if ((block_end - block_start) / block_interval) % 1 == 0 else [block_end]
 
-    return list(zip(n_blocks[:-1], n_blocks[1:]))
+    return list(zip(n_blocks[:-1], n_blocks[1:], strict=False))
 
 
 def prepare_log_params(address, topics, tx_hash, block_hash, block_start, block_end):
@@ -642,10 +639,11 @@ def get_logs_web3(
             elif error_info["code"] == -32600:  # error code in anker: "block range is too wide"
                 block_interval = 3000
             else:
-                raise ValueError(error_info)
+                raise ValueError(error_info) from error
             # Log the error and the new block range
             logger.debug(
-                f"Web3.eth.get_logs: query returned more than 10000 results. Trying with a {block_interval} block range."
+                f"Web3.eth.get_logs: query returned more than 10000 results. "
+                f"Trying with a {block_interval} block range."
             )
             # Retry fetching the logs with the new block range
             logs = []

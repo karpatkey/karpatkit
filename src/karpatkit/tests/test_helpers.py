@@ -20,9 +20,8 @@ def not_suppressed_code():
 
 
 def test_not_suppress_error_codes(not_suppressed_code):
-    with pytest.raises(ValueError):
-        with helpers.suppress_error_codes():
-            raise ValueError({"code": not_suppressed_code})
+    with pytest.raises(ValueError), helpers.suppress_error_codes():
+        raise ValueError({"code": not_suppressed_code})
 
 
 def test_call_contract_method():
@@ -86,6 +85,5 @@ def test_suppress_value():
     ],
 )
 def test_suppress_value_doesnt_match(exception):
-    with pytest.raises(Exception):
-        with helpers.suppress_value(ValueError, "something"):
-            raise exception
+    with pytest.raises(Exception), helpers.suppress_value(ValueError, "something"):  # noqa: B017
+        raise exception

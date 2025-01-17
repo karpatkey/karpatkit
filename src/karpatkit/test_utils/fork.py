@@ -133,13 +133,13 @@ def wait_for_port(port, host="localhost", timeout=5.0):
             s = socket.create_connection((host, port), timeout=timeout)
             s.close()
             return
-        except socket.error:
+        except OSError as exc:
             time.sleep(0.05)
             if time.time() - start_time >= timeout:
-                raise socket.error("Timeout waiting for port")
+                raise OSError("Timeout waiting for port") from exc
 
 
-class SimpleDaemonRunner(object):
+class SimpleDaemonRunner:
     def __init__(self, cmd, popen_kwargs=None):
         self.console = None
         self.proc = None
@@ -186,9 +186,8 @@ def fork_reset_state(w3: Web3, url: str, block: int | str = "latest"):
         block: Block number at which to fork the blockchain, or "latest" to use the latest block
     """
 
-    if isinstance(block, str):
-        if block == "latest":
-            raise ValueError("Can't use 'latest' as fork block")
+    if isinstance(block, str) and block == "latest":
+        raise ValueError("Can't use 'latest' as fork block")
     return w3.provider.make_request("anvil_reset", [{"forking": {"jsonRpcUrl": url, "blockNumber": block}}])
 
 
@@ -200,11 +199,11 @@ def run_hardhat(url, block, port):
         if "hardhat" not in json.loads(subprocess.check_output([npm, "list", "--json"])).get("dependencies", {}):
             raise subprocess.CalledProcessError
     except subprocess.CalledProcessError:
-        raise RuntimeError("Hardhat is not installed properly. Check the README for instructions.")
+        raise RuntimeError("Hardhat is not installed properly. Check the README for instructions.") from None
 
     log_filename = "/tmp/rr_hardhat_log.txt"
     logger.info(f"Writing Hardhat log to {log_filename}")
-    hardhat_log = open(log_filename, "w")
+    hardhat_log = open(log_filename, "w")  # noqa: SIM115
     npx = shutil.which("npx")
     node = SimpleDaemonRunner(
         cmd=f"{npx} hardhat node --show-stack-traces --fork '{url}' --fork-block-number {block} --port {port}",
@@ -218,7 +217,7 @@ def run_anvil(url, block, port):
     """Run anvil node in the background with version check"""
     log_filename = f"/tmp/rr_fork_node_{port}_log.txt"
     logger.info(f"Writing Anvil log to {log_filename}")
-    log = open(log_filename, "w")
+    log = open(log_filename, "w")  # noqa: SIM115
 
     version = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout
 
@@ -228,7 +227,8 @@ def run_anvil(url, block, port):
         raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
 
     node = SimpleDaemonRunner(
-        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} --hardfork latest --timeout 30000",
+        cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} "
+        f"--hardfork latest --timeout 30000",
         popen_kwargs={"stdout": log, "stderr": log},
     )
 
@@ -309,8 +309,8 @@ def top_up_address(w3: Web3, address: str, amount: int) -> None:
         raise ValueError("Not enough ETH in the faucet account")
     try:
         w3.eth.send_transaction({"to": address, "value": Web3.to_wei(amount, "ether"), "from": SCRAPE_ACCOUNT.address})
-    except ContractLogicError:
-        raise Exception("Address is a smart contract address with no payable function.")
+    except ContractLogicError as exc:
+        raise Exception("Address is a smart contract address with no payable function.") from exc
 
 
 def steal_safe(w3: Web3, safe_address: str, new_owner_local_account: LocalAccount) -> SimpleSafe:
@@ -450,10 +450,7 @@ def _local_node_replay(local_node, request):
     filename = f"{test_file_path.name}-{test_name}-{chain.name}.json.gz"
     web3_test_data_file = directory / "test_data" / filename
 
-    if os.path.exists(web3_test_data_file):
-        mode = "replay_and_assert"
-    else:
-        mode = "record"
+    mode = "replay_and_assert" if os.path.exists(web3_test_data_file) else "record"
 
     if not web3_test_data_file.parent.exists():
         os.makedirs(web3_test_data_file.parent)
