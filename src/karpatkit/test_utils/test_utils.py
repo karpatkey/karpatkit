@@ -12,8 +12,7 @@ def test_to_hex_32_bytes():
     )
 
 
-@pytest.mark.replay_web3_off()
-def test_crete_safe_gnosis(local_node_gc_replay, accounts):
+def test_create_safe_gnosis(local_node_gc_replay, accounts):
     owner = accounts[0]
     safe = create_simple_safe(local_node_gc_replay.w3, owner)
     assert safe.retrieve_owners() == [owner.address]
