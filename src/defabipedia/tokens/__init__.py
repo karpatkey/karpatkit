@@ -148,10 +148,24 @@ class EthereumContractSpecs:
     DAI = ContractSpec(address=EthereumTokenAddr.DAI, abi_path=parent(__file__) / "erc20.json", name="DAI")
 
 
-# TODO: search for a better way, maybe remove EthereumTokenAddr
-# for token in EthereumTokenAddr:
-#    contract_spec = ContractSpec(address=token, abi_path=parent(__file__) / 'erc20.json', name=token.name)
-#    setattr(EthereumContractSpecs, token.name, contract_spec)
+class GnosisContractSpecs:
+    pass
+
+
+class PolygonContractSpecs:
+    pass
+
+
+class ArbitrumContractSpecs:
+    pass
+
+
+class OptimismContractSpecs:
+    pass
+
+
+class BaseContractSpecs:
+    pass
 
 
 Addresses = {
@@ -162,3 +176,25 @@ Addresses = {
     Chain.OPTIMISM: OptimismTokenAddr,
     Chain.BASE: BaseTokenAddr,
 }
+
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+    Chain.POLYGON: PolygonContractSpecs,
+    Chain.ARBITRUM: ArbitrumContractSpecs,
+    Chain.OPTIMISM: OptimismContractSpecs,
+    Chain.BASE: BaseContractSpecs,
+}
+
+
+# for chain, contract_specs_class in ContractSpecs.items():
+#    addresses = ERC20Addresses.get(chain)
+#    if addresses:
+#        for attr_name in addresses.__dict__.keys():
+#            attr = getattr(addresses, attr_name)
+#            if not attr_name.startswith("_") and not callable(attr):
+#                token_name = attr_name
+#                contract_spec = ContractSpec(address=attr,
+#                                             abi_path=parent(__file__) / 'erc20.json',
+#                                             name=token_name)
+#                setattr(contract_specs_class, token_name, contract_spec)
