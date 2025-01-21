@@ -125,8 +125,8 @@ class ChainExplorer(requests.Session):
             return timestamp
 
     @cached
-    def abi_from_address(self, contract_address: str, block: int | str = "latest") -> str:
-        contract_address = get_implemented_contract(self.chain, contract_address, block)
+    def abi_from_address(self, contract_address: str) -> str:
+        contract_address = get_implemented_contract(self.chain, contract_address)
         response = self._get(module="contract", action="getabi", address=contract_address)
         abi = response.json()["result"]
         if abi == "Contract source code not verified":
@@ -134,10 +134,10 @@ class ChainExplorer(requests.Session):
         return abi
 
     @cached
-    def get_contract_creation(self, contract_address: str, block: int | str = "latest") -> dict:
+    def get_contract_creation(self, contract_address: str) -> dict:
         if self.chain != Chain.ETHEREUM:
             raise ValueError("Chain should be ethereum for this method")
-        contract_address = get_implemented_contract(self.chain, contract_address, block)
+        contract_address = get_implemented_contract(self.chain, contract_address)
         response = self._get(module="contract", action="getcontractcreation", contractaddresses=contract_address)
         contract = response.json()["result"]
         return contract
