@@ -16,9 +16,10 @@ from pathlib import Path
 import pytest
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from web3 import HTTPProvider, Web3
+from web3 import AsyncWeb3, HTTPProvider, Web3
 from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
+from web3.providers.async_rpc import AsyncHTTPProvider
 from web3.providers.base import BaseProvider
 
 from defabipedia import Blockchain, Chain
@@ -243,6 +244,7 @@ class LocalNode:
         self.url = f"http://127.0.0.1:{fork_cfg.local_port}"
         self.default_block = fork_cfg.default_block
         self.w3 = Web3(HTTPProvider(self.url, request_kwargs={"timeout": 30}))
+        self.w3_async = AsyncWeb3(AsyncHTTPProvider(self.url, request_kwargs={"timeout": 30}))
 
     def reset_state(self):
         fork_reset_state(self.w3, self.fork_cfg.upstream_url, self.default_block)
