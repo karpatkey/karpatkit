@@ -16,7 +16,7 @@ from pathlib import Path
 import pytest
 from eth_account import Account
 from eth_account.signers.local import LocalAccount
-from web3 import HTTPProvider, Web3, AsyncWeb3
+from web3 import AsyncWeb3, HTTPProvider, Web3
 from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
 from web3.providers.base import BaseProvider
