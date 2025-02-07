@@ -23,7 +23,6 @@ from .lazytime import Time
 from .node import get_node
 from .nodetime import block_before_time
 
-
 logger = logging.getLogger(__name__)
 
 
