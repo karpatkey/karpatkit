@@ -21,6 +21,8 @@ from .explorer import ChainExplorer
 from .helpers import suppress_error_codes
 from .lazytime import Time
 from .node import get_node
+from .nodetime import block_before_time
+
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +100,13 @@ def date_to_block(datestring, blockchain) -> int:
         timestamp = datestring.timestamp()
     else:
         timestamp = Time.from_string(datestring)
-    return timestamp_to_block(timestamp, blockchain)
+
+    try:
+        block = block_before_time(blockchain, timestamp).number
+    except Exception as e:
+        logger.error(f"Could not get block through algorithm, proceeding with API: {e}")
+        block = timestamp_to_block(timestamp, blockchain)
+    return block
 
 
 def timestamp_to_block(timestamp: int, blockchain) -> int:
