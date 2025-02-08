@@ -104,6 +104,11 @@ def get_local_web3_for_chain(blockchain: Blockchain):
     return Web3(HTTPProvider(get_local_web3_url_for_chain(blockchain), request_kwargs={"timeout": 30}))
 
 
+@lru_cache(maxsize=24)
+def get_local_async_web3_for_chain(blockchain: Blockchain):
+    return AsyncWeb3(AsyncHTTPProvider(get_local_web3_url_for_chain(blockchain), request_kwargs={"timeout": 30}))
+
+
 def gen_test_accounts() -> list[LocalAccount]:
     # test accounts are generated using the mnemonic:
     #   "test test test test test test test test test test test junk" and derivation path "m/44'/60'/0'/0"
