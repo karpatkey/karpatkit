@@ -225,12 +225,13 @@ def run_anvil(url, block, port):
     logger.info(f"Writing Anvil log to {log_filename}")
     log = open(log_filename, "w")  # noqa: SIM115
 
-    version = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout
+    # version can also be "0.3.0=stable so this doesn't work"
+    # version = subprocess.run(["anvil", "--version"], capture_output=True, text=True).stdout
 
-    year, month, _ = version.split()[3].split("-")
+    # year, month, _ = version.split()[3].split("-")
 
-    if not (int(year) >= 2024 and int(month) >= 9):
-        raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
+    # if not (int(year) >= 2024 and int(month) >= 9):
+    #     raise RuntimeError(f"Anvil version is too old: {version}. Minimum required is 2024-09.")
 
     node = SimpleDaemonRunner(
         cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} "
