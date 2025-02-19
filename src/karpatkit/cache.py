@@ -48,6 +48,26 @@ def clear():
         _cache.clear()
 
 
+def has_key(key):
+    """Return true if the key is already in the cache"""
+    return key in _cache
+
+
+def get_value(key):
+    """Get a value from the cache"""
+    return _cache[key]
+
+
+def set_value(key, value):
+    """Set a value to the cache"""
+    _cache[key] = value
+
+
+def del_key(key):
+    """Delete a key from the cache"""
+    del _cache[key]
+
+
 def disk_cache_middleware(make_request, web3):
     """
     Cache middleware that supports multiple blockchains.
@@ -81,16 +101,16 @@ def disk_cache_middleware(make_request, web3):
         if do_cache:
             params_hash = generate_cache_key(params)
             cache_key = f"{web3._network_name}.{method}.{params_hash}"
-            if cache_key not in _cache:
+            if not has_key(cache_key):
                 response = make_request(method, params)
                 if "error" not in response and "result" in response and response["result"] is not None:
-                    _cache[cache_key] = ("result", response["result"])
+                    set_value(cache_key, ("result", response["result"]))
                 elif "error" in response:
                     if response["error"]["code"] in suppressed_error_codes:
-                        _cache[cache_key] = ("error", response["error"])
+                        set_value(cache_key, ("error", response["error"]))
                 return response
             else:
-                key, data = _cache[cache_key]
+                key, data = get_value(cache_key)
                 return {"jsonrpc": "2.0", "id": 11, key: data}
         else:
             logger.debug(f"Not caching '{method}' with params: '{params}'")
@@ -113,14 +133,14 @@ def cache_contract_method(exclude_args=None, validator=None):
                 for arg in exclude_args:
                     cache_args.pop(arg)
             cache_key = generate_cache_key((obj.contract.address, f.__qualname__, cache_args))
-            if cache_key not in _cache or validator is None:
+            if not has_key(cache_key) or validator is None:
                 result = f(*args, **kwargs)
-                _cache[cache_key] = result
+                set_value(cache_key, result)
             else:
-                result = _cache[cache_key]
+                result = get_value(cache_key)
                 if not validator(obj, **result):
                     result = f(*args, **kwargs)
-                    _cache[cache_key] = result
+                    set_value(cache_key, result)
             return result
 
         return method_wrapper
@@ -170,11 +190,11 @@ def cache_call(exclude_args=None, filter=None, is_method=False, include_attrs=No
 
                 cache_key = generate_cache_key(key_tuple)
 
-                if cache_key not in _cache:
+                if not has_key(cache_key):
                     result = f(*args, **kwargs)
-                    _cache[cache_key] = result
+                    set_value(cache_key, result)
                 else:
-                    result = _cache[cache_key]
+                    result = get_value(cache_key)
             else:
                 result = f(*args, **kwargs)
             return result
@@ -187,10 +207,10 @@ def cache_call(exclude_args=None, filter=None, is_method=False, include_attrs=No
 def const_call(f):
     """Utility to do .call() on web3 contracts that are known to be cacheable"""
     cache_key = generate_cache_key((f.w3._network_name, f.address, f.function_identifier, f.args, f.kwargs))
-    if not is_enabled() or cache_key not in _cache:
+    if not is_enabled() or not has_key(cache_key):
         result = f.call()
         if is_enabled():
-            _cache[cache_key] = result
+            set_value(cache_key, result)
     else:
-        result = _cache[cache_key]
+        result = get_value(cache_key)
     return result
