@@ -3,7 +3,16 @@ from unittest import mock
 import diskcache
 import pytest
 
-from karpatkit.cache import cache_call, cache_contract_method, const_call, disk_cache_middleware
+from karpatkit.cache import (
+    cache_call,
+    cache_contract_method,
+    const_call,
+    del_key,
+    disk_cache_middleware,
+    get_value,
+    has_key,
+    set_value,
+)
 
 
 @pytest.fixture
@@ -14,6 +23,15 @@ def temporary_cache(monkeypatch):
 @pytest.fixture
 def disable_cache(monkeypatch):
     monkeypatch.setattr("karpatkit.cache._cache", None)
+
+
+def test_get_set_in(temporary_cache):
+    assert not has_key("foo")
+    set_value("foo", "bar")
+    assert has_key("foo")
+    assert get_value("foo") == "bar"
+    del_key("foo")
+    assert not has_key("foo")
 
 
 def build_web3_contract_mock():
