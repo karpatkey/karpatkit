@@ -69,7 +69,7 @@ def get_value(key):
         The cached value.
 
     Raises:
-        KeyError: The key doesn't exist in the cache.
+        KeyError: The key doesn't exist in the cache or there is no value associated with that key.
     """
     return _cache[key]
 
