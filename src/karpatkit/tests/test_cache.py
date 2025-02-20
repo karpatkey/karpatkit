@@ -10,7 +10,6 @@ from karpatkit.cache import (
     del_key,
     disk_cache_middleware,
     get_value,
-    has_key,
     set_value,
 )
 
