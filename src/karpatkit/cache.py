@@ -158,16 +158,16 @@ def cache_contract_method(exclude_args=None, validator=None):
 
             if validator is None:
                 return refreshed_result()
+
+            try:
+                cached_result = get_value(cache_key)
+            except KeyError:
+                return refreshed_result()
+
+            if validator(obj, **cached_result):
+                return cached_result
             else:
-                try:
-                    cached_result = get_value(cache_key)
-                except KeyError:
-                    return refreshed_result()
-                else:
-                    if validator(obj, **cached_result):
-                        return cached_result
-                    else:
-                        return refreshed_result()
+                return refreshed_result()
 
         return method_wrapper
 
