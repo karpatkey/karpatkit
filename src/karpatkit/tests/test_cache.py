@@ -26,12 +26,11 @@ def disable_cache(monkeypatch):
 
 
 def test_get_set_in(temporary_cache):
-    assert not has_key("foo")
     set_value("foo", "bar")
-    assert has_key("foo")
     assert get_value("foo") == "bar"
     del_key("foo")
-    assert not has_key("foo")
+    with pytest.raises(KeyError):
+        get_value("foo")
 
 
 def build_web3_contract_mock():

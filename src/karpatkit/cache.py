@@ -48,20 +48,6 @@ def clear():
         _cache.clear()
 
 
-def has_key(key):
-    """Return true if there is a value associated with the key.
-
-    This implementation avoids legacy code, still using *has_key*, to fail when the cache is incomplete.
-    For new code, just use the *try get_value(...) / except KeyError* approach instead.
-    """
-    try:
-        get_value(key)
-    except KeyError:
-        return False
-    else:
-        return True
-
-
 def get_value(key):
     """Get a value from the cache.
 
