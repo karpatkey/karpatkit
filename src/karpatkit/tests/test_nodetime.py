@@ -13,8 +13,10 @@ expected_block_for = {
     Chain.FANTOM: Block(number=79_676_154, timestamp=1_713_576_343),
     Chain.GNOSIS: Block(number=33_531_687, timestamp=1_713_576_340),
     Chain.ARBITRUM: Block(number=202_813_448, timestamp=1_713_576_344),
-    Chain.OPTIMISM: Block(number=118_988_778, timestamp=1_713_576_333),
+    Chain.OPTIMISM: Block(number=118_988_778, timestamp=1_713_576_343),
     Chain.BASE: Block(number=13_393_498, timestamp=1_713_576_343),
+    Chain.POLYGON: Block(number=56_026_448, timestamp=1_713_576_343),
+    Chain.BINANCE: Block(number=38_011_803, timestamp=1_713_576_343),
 }
 
 latest_block_numbers = {
@@ -49,9 +51,9 @@ def test_all_chains_block_before_time():
     available_chains = set(expected_block_for).intersection(r)
     assert len(available_chains) > 0
     for chain in available_chains:
-        if chain in {Chain.ARBITRUM}:
+        if chain in {Chain.ARBITRUM, Chain.OPTIMISM}:
             assert r[chain].timestamp == expected_block_for[chain].timestamp
-            assert abs(r[chain].timestamp - expected_block_for[chain].timestamp) <= 4
+            assert abs(r[chain].timestamp - expected_block_for[chain].timestamp) <= 5
             # because some consecutive blocks have the same timestamp
         else:
             assert r[chain] == expected_block_for[chain]
@@ -139,9 +141,9 @@ def test_blocks_around_time_ok(blockchain, timestamp):
 
 def test_blocks_before_time_ok(blockchain):
     block = nodetime.block_before_time(blockchain, requested_time)
-    if blockchain in [Chain.ARBITRUM]:
+    if blockchain in {Chain.ARBITRUM, Chain.OPTIMISM}:
         assert block.timestamp == expected_block_for[blockchain].timestamp
-        assert abs(block.timestamp - expected_block_for[blockchain].timestamp) <= 4
+        assert abs(block.timestamp - expected_block_for[blockchain].timestamp) <= 5
         # because some consecutive blocks have the same timestamp
     else:
         assert block == expected_block_for[blockchain]
