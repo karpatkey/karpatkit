@@ -18,9 +18,8 @@ jobs:
       - name: Setup kkit_config.json
         run: |
           cat << EOF > kkit_config.json
-          {"apikeys": {}, "nodes": {}}
+          ${{ secrets.CONFIG_JSON }}
           EOF
-          #${{ secrets.CONFIG_JSON }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
