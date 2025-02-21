@@ -1,4 +1,5 @@
 version = 1
+revision = 1
 requires-python = ">=3.10"
 
 [[package]]
@@ -669,7 +670,6 @@ wheels = [
 
 [[package]]
 name = "karpatkit"
-version = "0.3.5.dev14+gaf94a54.d20250124"
 source = { editable = "." }
 dependencies = [
     { name = "diskcache" },
