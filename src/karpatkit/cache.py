@@ -48,13 +48,15 @@ def clear():
         _cache.clear()
 
 
-def has_key(key):
-    """Return true if the key is already in the cache"""
-    return key in _cache
-
-
 def get_value(key):
-    """Get a value from the cache"""
+    """Get a value from the cache.
+
+    Returns:
+        The cached value.
+
+    Raises:
+        KeyError: The key doesn't exist in the cache or there is no value associated with that key.
+    """
     return _cache[key]
 
 
@@ -101,7 +103,9 @@ def disk_cache_middleware(make_request, web3):
         if do_cache:
             params_hash = generate_cache_key(params)
             cache_key = f"{web3._network_name}.{method}.{params_hash}"
-            if not has_key(cache_key):
+            try:
+                key, data = get_value(cache_key)
+            except KeyError:
                 response = make_request(method, params)
                 if "error" not in response and "result" in response and response["result"] is not None:
                     set_value(cache_key, ("result", response["result"]))
@@ -110,7 +114,6 @@ def disk_cache_middleware(make_request, web3):
                         set_value(cache_key, ("error", response["error"]))
                 return response
             else:
-                key, data = get_value(cache_key)
                 return {"jsonrpc": "2.0", "id": 11, key: data}
         else:
             logger.debug(f"Not caching '{method}' with params: '{params}'")
@@ -133,15 +136,24 @@ def cache_contract_method(exclude_args=None, validator=None):
                 for arg in exclude_args:
                     cache_args.pop(arg)
             cache_key = generate_cache_key((obj.contract.address, f.__qualname__, cache_args))
-            if not has_key(cache_key) or validator is None:
+
+            def refreshed_result():
                 result = f(*args, **kwargs)
                 set_value(cache_key, result)
+                return result
+
+            if validator is None:
+                return refreshed_result()
+
+            try:
+                cached_result = get_value(cache_key)
+            except KeyError:
+                return refreshed_result()
+
+            if validator(obj, **cached_result):
+                return cached_result
             else:
-                result = get_value(cache_key)
-                if not validator(obj, **result):
-                    result = f(*args, **kwargs)
-                    set_value(cache_key, result)
-            return result
+                return refreshed_result()
 
         return method_wrapper
 
@@ -190,11 +202,11 @@ def cache_call(exclude_args=None, filter=None, is_method=False, include_attrs=No
 
                 cache_key = generate_cache_key(key_tuple)
 
-                if not has_key(cache_key):
+                try:
+                    result = get_value(cache_key)
+                except KeyError:
                     result = f(*args, **kwargs)
                     set_value(cache_key, result)
-                else:
-                    result = get_value(cache_key)
             else:
                 result = f(*args, **kwargs)
             return result
@@ -206,11 +218,13 @@ def cache_call(exclude_args=None, filter=None, is_method=False, include_attrs=No
 
 def const_call(f):
     """Utility to do .call() on web3 contracts that are known to be cacheable"""
+    if not is_enabled():
+        return f.call()
+
     cache_key = generate_cache_key((f.w3._network_name, f.address, f.function_identifier, f.args, f.kwargs))
-    if not is_enabled() or not has_key(cache_key):
+    try:
+        return get_value(cache_key)
+    except KeyError:
         result = f.call()
-        if is_enabled():
-            set_value(cache_key, result)
-    else:
-        result = get_value(cache_key)
-    return result
+        set_value(cache_key, result)
+        return result
