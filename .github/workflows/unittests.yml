@@ -34,6 +34,9 @@ jobs:
       - name: Try anvil
         run: anvil --version
 
+      - name: Check Linting
+        run: make lint
+
       - name: Run unittests
         run: |
           KKIT_ETH_FORK_URL="https://rpc.ankr.com/eth" \
