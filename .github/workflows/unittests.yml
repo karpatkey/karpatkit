@@ -9,7 +9,7 @@ on:
       - "*"
 
 jobs:
-  spLinter:
+  tests:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
