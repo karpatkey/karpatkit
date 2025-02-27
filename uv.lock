@@ -669,7 +669,7 @@ wheels = [
 
 [[package]]
 name = "karpatkit"
-version = "0.6.1.dev4+ga733802.d20250220"
+version = "0.6.1.dev3+g8a01ab8.d20250227"
 source = { editable = "." }
 dependencies = [
     { name = "diskcache" },
@@ -1415,7 +1415,7 @@ dependencies = [
     { name = "lru-dict" },
     { name = "protobuf" },
     { name = "pyunormalize" },
-    { name = "pywin32", marker = "platform_system == 'Windows'" },
+    { name = "pywin32", marker = "sys_platform == 'win32'" },
     { name = "requests" },
     { name = "typing-extensions" },
     { name = "websockets" },
