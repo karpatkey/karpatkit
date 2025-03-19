@@ -6,6 +6,7 @@ import requests
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
 from web3.providers import HTTPProvider, JSONBaseProvider
+from web3._utils.request import cache_and_return_session
 
 from defabipedia.types import Blockchain, Chain
 
@@ -15,6 +16,7 @@ from .helpers import get_config
 logger = logging.getLogger(__name__)
 
 DEFAULT_TIMEOUT = float(os.environ.get("KKIT_NODE_TIMEOUT", 30))
+DEFAULT_MAX_LENGTH = int(os.environ.get("KKIT_NODE_MAX_LENGTH", "100_000_000"))
 
 
 def reset_providers():
@@ -30,6 +32,41 @@ class AllProvidersDownError(Exception):
 _nodes_providers = dict()
 
 
+class MaxLengthHTTPProvider(HTTPProvider):
+    def make_request(self, method, params):
+        request_data = self.encode_rpc_request(method, params)
+
+        try:
+            session = cache_and_return_session(self.endpoint_uri)
+            response = session.post(
+                self.endpoint_uri,
+                data=request_data,
+                headers=self.get_request_headers(),
+                stream=True,
+                timeout=self.get_request_kwargs().get("timeout", DEFAULT_TIMEOUT),
+            )
+
+            chunk_list = []
+            length = 0
+            for chunk in response.iter_content(chunk_size=8192):
+                length += len(chunk)
+                if length > DEFAULT_MAX_LENGTH:
+                    raise MaxLengthError(f"Response length exceded ({length}).")
+                chunk_list.append(chunk)
+
+            return self.decode_rpc_response(b"".join(chunk_list))
+
+        except MaxLengthError:
+            raise
+
+        except Exception as e:
+            raise requests.exceptions.RequestException(f"Error in RPC: {e}")
+
+
+class MaxLengthError(OSError):
+    """Raises when the accumulated data is too big."""
+
+
 class ProviderManager(JSONBaseProvider):
     def __init__(self, endpoints: list, max_fails_per_provider: int = 2, max_executions: int = 2):
         super().__init__()
@@ -42,7 +79,7 @@ class ProviderManager(JSONBaseProvider):
             if "://" not in url:
                 logger.warning(f"Skipping invalid endpoint URI '{url}'.")
                 continue
-            provider = HTTPProvider(url, request_kwargs={"timeout": DEFAULT_TIMEOUT})
+            provider = MaxLengthHTTPProvider(url)
             errors = []
             self.providers.append((provider, errors))
 
@@ -54,6 +91,8 @@ class ProviderManager(JSONBaseProvider):
                 try:
                     response = provider.make_request(method, params)
                     return response
+                except MaxLengthError:
+                    raise
                 except requests.exceptions.HTTPError as e:
                     if e.response.status_code == 413:
                         raise ValueError(
