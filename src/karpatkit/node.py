@@ -4,9 +4,9 @@ import warnings
 
 import requests
 from web3 import Web3
+from web3._utils.request import cache_and_return_session
 from web3.middleware import geth_poa_middleware
 from web3.providers import HTTPProvider, JSONBaseProvider
-from web3._utils.request import cache_and_return_session
 
 from defabipedia.types import Blockchain, Chain
 
@@ -60,7 +60,7 @@ class MaxLengthHTTPProvider(HTTPProvider):
             raise
 
         except Exception as e:
-            raise requests.exceptions.RequestException(f"Error in RPC: {e}")
+            raise requests.exceptions.RequestException(f"Error in RPC: {e}") from e
 
 
 class MaxLengthError(OSError):
