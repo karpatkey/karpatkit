@@ -1,4 +1,4 @@
-from ..types import Chain, ContractSpec, parent, ContractAbi
+from ..types import Chain, ContractAbi, ContractSpec, parent
 
 # TODO: check all the ABIs for the different versions of pools, tokens, zaps and gauges...
 
@@ -25,11 +25,13 @@ class GnosisContractSpecs:
         name="x3pool",
     )
 
+
 class GnosisAbis:
     child_gauge = ContractAbi(
         abi_path=parent(__file__) / "child_gauge.json",
         name="child_gauge",
     )
+
 
 Abis = {Chain.GNOSIS: GnosisAbis}
 ContractSpecs = {Chain.GNOSIS: GnosisContractSpecs}
