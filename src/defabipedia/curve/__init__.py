@@ -25,5 +25,11 @@ class GnosisContractSpecs:
         name="x3pool",
     )
 
+class GnosisAbis:
+    child_gauge = ContractSpec(
+        abi_path=parent(__file__) / "child_gauge.json",
+        name="child_gauge",
+    )
 
+Abis = {Chain.GNOSIS: GnosisAbis}
 ContractSpecs = {Chain.GNOSIS: GnosisContractSpecs}
