@@ -94,9 +94,7 @@
         "type": "error",
     },
     {
-        "inputs": [
-            {"internalType": "address", "name": "sourceOfFunds", "type": "address"}
-        ],
+        "inputs": [{"internalType": "address", "name": "sourceOfFunds", "type": "address"}],
         "name": "InvalidSourceOfFunds",
         "type": "error",
     },
@@ -668,9 +666,7 @@
     {
         "inputs": [],
         "name": "config",
-        "outputs": [
-            {"internalType": "contract PWNConfig", "name": "", "type": "address"}
-        ],
+        "outputs": [{"internalType": "contract PWNConfig", "name": "", "type": "address"}],
         "stateMutability": "view",
         "type": "function",
     },
@@ -948,9 +944,7 @@
     {
         "inputs": [],
         "name": "loanToken",
-        "outputs": [
-            {"internalType": "contract PWNLOAN", "name": "", "type": "address"}
-        ],
+        "outputs": [{"internalType": "contract PWNLOAN", "name": "", "type": "address"}],
         "stateMutability": "view",
         "type": "function",
     },
@@ -1037,9 +1031,7 @@
     {
         "inputs": [],
         "name": "revokedNonce",
-        "outputs": [
-            {"internalType": "contract PWNRevokedNonce", "name": "", "type": "address"}
-        ],
+        "outputs": [{"internalType": "contract PWNRevokedNonce", "name": "", "type": "address"}],
         "stateMutability": "view",
         "type": "function",
     },

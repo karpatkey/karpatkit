@@ -10,9 +10,7 @@ class GnosisContractSpecs:
 
 
 class GnosisAbis:
-    LoanContract = ContractAbi(
-        abi_path=parent(__file__) / "loan_contract.json", name="LoanContract"
-    )
+    LoanContract = ContractAbi(abi_path=parent(__file__) / "loan_contract.json", name="LoanContract")
 
 
 ContractSpecs = {Chain.GNOSIS: GnosisContractSpecs}
