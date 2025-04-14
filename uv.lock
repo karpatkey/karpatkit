@@ -669,7 +669,6 @@ wheels = [
 
 [[package]]
 name = "karpatkit"
-version = "0.6.1.dev6+g6317428.d20250407"
 source = { editable = "." }
 dependencies = [
     { name = "diskcache" },
