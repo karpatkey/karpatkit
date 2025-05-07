@@ -47,7 +47,7 @@ class Chain:
     KOVAN = Blockchain("kovan", 0x45)
     BASE = Blockchain("base", 0x2105)
     METIS = Blockchain("metis", 0x440)
-    COSMOS = Blockchain("cosmos", None)
+    COSMOS = Blockchain("cosmos", 0xFFFFFFFFF)
 
     # Look up indexes
     _by_id = {}
