@@ -93,22 +93,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "legacyPooledStakeRewards",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "legacyPooledStakeDeposits",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
             "name": "legacyClaimAssessmentTokens",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "legacyCoverNoteDeposits",
             "type": "uint256"
           }
         ],
@@ -145,6 +130,11 @@
           {
             "internalType": "uint256",
             "name": "assessmentStake",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "assessmentStakeLockupExpiry",
             "type": "uint256"
           },
           {
