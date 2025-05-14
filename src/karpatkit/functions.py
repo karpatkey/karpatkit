@@ -103,7 +103,10 @@ def date_to_block(datestring, blockchain) -> int:
     try:
         block = block_before_time(blockchain, timestamp).number
     except Exception as e:
-        logger.error(f"Could not get block through algorithm, proceeding with API: {e}")
+        logger.warning(
+            f"""Could not get block through algorithm on blockchain {blockchain} and datestring {datestring},
+            proceeding with API: {e}"""
+        )
         block = timestamp_to_block(timestamp, blockchain)
     return block
 
