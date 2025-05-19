@@ -74,7 +74,7 @@ class ChainExplorer(requests.Session):
             self.headers.update(TESTNET_HEADER)
         domain, apikey = EXPLORERS[blockchain]
         self.params["apikey"] = apikey
-        self.url = f"https://{domain}/api"
+        self.url = f"https://{domain}"
 
     def _get(self, **params):
         response = self.request("GET", self.url, params=params)
@@ -118,6 +118,7 @@ class ChainExplorer(requests.Session):
             timestamp = block_obj["timestamp"]
         else:
             response = self._get(module="block", action="getblockreward", blockno=block)
+            breakpoint()
             timestamp = response.json()["result"]["timeStamp"]
         try:
             return int(timestamp)

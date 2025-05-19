@@ -6,14 +6,14 @@ apikeys_cfg = get_config()["apikeys"]
 
 class APIKey(Constants):
     ETHERSCAN = apikeys_cfg.get("etherscan", None)
-    POLSCAN = apikeys_cfg.get("polscan", None)
-    GNOSISSCAN = apikeys_cfg.get("gnosisscan", None)
-    BSCSCAN = apikeys_cfg.get("bscscan", None)
+    POLSCAN = apikeys_cfg.get("etherscan", None)
+    GNOSISSCAN = apikeys_cfg.get("etherscan", None)
+    BSCSCAN = apikeys_cfg.get("etherscan", None)
     SNOWTRACE = apikeys_cfg.get("snowtrace", None)
-    FTMSCAN = apikeys_cfg.get("ftmscan", None)
-    OPTIMISTICETHERSCAN = apikeys_cfg.get("optimisticetherscan", None)
-    ARBISCAN = apikeys_cfg.get("arbiscan", None)
-    BASESCAN = apikeys_cfg.get("basescan", None)
+    FTMSCAN = apikeys_cfg.get("etherscan", None)
+    OPTIMISTICETHERSCAN = apikeys_cfg.get("etherscan", None)
+    ARBISCAN = apikeys_cfg.get("etherscan", None)
+    BASESCAN = apikeys_cfg.get("etherscan", None)
     METISEXPLORER = apikeys_cfg.get("metisexplorer", None)
     ZAPPER = apikeys_cfg.get("zapper", None)
     ETHPLORER = apikeys_cfg.get("ethplorer", None)
@@ -34,9 +34,9 @@ class APIUrl(Constants):
     OPTIMISTICETHERSCAN = "api.etherscan.io/v2/api?chainid=10"
     ARBISCAN = "api.etherscan.io/v2/api?chainid=42161"
     BASESCAN = "api.etherscan.io/v2/api?chainid=8453"
-    METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/"
-    ZAPPER = "api.zapper.fi"
-    ETHPLORER = "api.ethplorer.io"
-    ROPSTEN = "api-ropsten.etherscan.io"
-    KOVAN = "api-kovan.etherscan.io"
-    GOERLI = "api-goerli.etherscan.io"
+    METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/api"
+    ZAPPER = "api.zapper.fi/api"
+    ETHPLORER = "api.ethplorer.io/api"
+    ROPSTEN = "api-ropsten.etherscan.io/api"
+    KOVAN = "api-kovan.etherscan.io/api"
+    GOERLI = "api-goerli.etherscan.io/api"

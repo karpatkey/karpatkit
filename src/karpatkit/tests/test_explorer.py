@@ -26,6 +26,10 @@ def test_avalanche_time_from_block():
     time = ChainExplorer(Chain.AVALANCHE).time_from_block(39_455_385)
     assert time == 1_703_419_194
 
+def test_gnosis_time_from_block():
+    time = ChainExplorer(Chain.GNOSIS).time_from_block(21_738_610)
+    assert time == 1_650_462_360
+
 
 test_cases = [
     (Chain.GNOSIS, ADDRESS_N1, ABI_N1),
