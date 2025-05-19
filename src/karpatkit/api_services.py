@@ -25,18 +25,20 @@ class APIKey(Constants):
 
 
 class APIUrl(Constants):
-    ETHERSCAN = "api.etherscan.io"
-    POLSCAN = "api.polygonscan.com"
-    GNOSISSCAN = "api.gnosisscan.io"
-    BSCSCAN = "api.bscscan.com"
-    SNOWTRACE = "api.snowtrace.io"
-    FTMSCAN = "api.ftmscan.io"
-    OPTIMISTICETHERSCAN = "api-optimistic.etherscan.io"
-    ARBISCAN = "api.arbiscan.io"
-    BASESCAN = "api.basescan.org/"
-    METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/"
+    ETHERSCAN = "https://api.etherscan.io/v2/api?chainid=1"
+    POLSCAN = "https://api.etherscan.io/v2/api?chainid=137"
+    GNOSISSCAN = "https://api.etherscan.io/v2/api?chainid=100"
+    BSCSCAN = "https://api.etherscan.io/v2/api?chainid=8453" #pending?
+    SNOWTRACE = "https://api.etherscan.io/v2/api?chainid=8453" #pending?
+    FTMSCAN = "https://api.etherscan.io/v2/api?chainid=8453" #pending?
+    OPTIMISTICETHERSCAN = "https://api.etherscan.io/v2/api?chainid=10"
+    ARBISCAN = "https://api.etherscan.io/v2/api?chainid=42161"
+    BASESCAN = "https://api.etherscan.io/v2/api?chainid=8453"
+    METISEXPLORER = "https://api.etherscan.io/v2/api?chainid=" #pending?
     ZAPPER = "api.zapper.fi"
     ETHPLORER = "api.ethplorer.io"
     ROPSTEN = "api-ropsten.etherscan.io"
     KOVAN = "api-kovan.etherscan.io"
     GOERLI = "api-goerli.etherscan.io"
+
+
