@@ -25,15 +25,15 @@ class APIKey(Constants):
 
 
 class APIUrl(Constants):
-    ETHERSCAN = "https://api.etherscan.io/v2/api?chainid=1"
-    POLSCAN = "https://api.etherscan.io/v2/api?chainid=137"
-    GNOSISSCAN = "https://api.etherscan.io/v2/api?chainid=100"
-    BSCSCAN = "https://api.etherscan.io/v2/api?chainid=56"
+    ETHERSCAN = "api.etherscan.io/v2/api?chainid=1"
+    POLSCAN = "api.etherscan.io/v2/api?chainid=137"
+    GNOSISSCAN = "api.etherscan.io/v2/api?chainid=100"
+    BSCSCAN = "api.etherscan.io/v2/api?chainid=56"
     SNOWTRACE = "api.snowtrace.io"
-    FTMSCAN = "https://api.etherscan.io/v2/api?chainid=250"
-    OPTIMISTICETHERSCAN = "https://api.etherscan.io/v2/api?chainid=10"
-    ARBISCAN = "https://api.etherscan.io/v2/api?chainid=42161"
-    BASESCAN = "https://api.etherscan.io/v2/api?chainid=8453"
+    FTMSCAN = "api.etherscan.io/v2/api?chainid=250"
+    OPTIMISTICETHERSCAN = "api.etherscan.io/v2/api?chainid=10"
+    ARBISCAN = "api.etherscan.io/v2/api?chainid=42161"
+    BASESCAN = "api.etherscan.io/v2/api?chainid=8453"
     METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/"
     ZAPPER = "api.zapper.fi"
     ETHPLORER = "api.ethplorer.io"
