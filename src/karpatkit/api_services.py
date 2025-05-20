@@ -25,6 +25,7 @@ class APIKey(Constants):
 
 
 class APIUrl(Constants):
+    # using etherscan api v2 with chain id parameter. 
     ETHERSCAN = "api.etherscan.io/v2/api?chainid=1"
     POLSCAN = "api.etherscan.io/v2/api?chainid=137"
     GNOSISSCAN = "api.etherscan.io/v2/api?chainid=100"
