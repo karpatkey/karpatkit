@@ -118,7 +118,6 @@ class ChainExplorer(requests.Session):
             timestamp = block_obj["timestamp"]
         else:
             response = self._get(module="block", action="getblockreward", blockno=block)
-            breakpoint()
             timestamp = response.json()["result"]["timeStamp"]
         try:
             return int(timestamp)
