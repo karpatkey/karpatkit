@@ -1,5 +1,6 @@
 from ..types import Chain, ContractSpec, parent
 
+
 class ArbitrumContractSpecs:
     Datastore = ContractSpec(
         address="0xFD70de6b91282D8017aA4E741e9Ae325CAb992d8",
@@ -18,7 +19,6 @@ class ArbitrumContractSpecs:
         abi_path=parent(__file__) / "reader.json",
         name="reader",
     )
-
 
 
 ContractSpecs = {Chain.ARBITRUM: ArbitrumContractSpecs}
