@@ -13,6 +13,7 @@ from . import (  # noqa
     curve,
     dolomite,
     etherfi,
+    gmx,
     gnosis,
     hop,
     lido,
