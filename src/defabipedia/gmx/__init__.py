@@ -20,5 +20,11 @@ class ArbitrumContractSpecs:
         name="reader",
     )
 
+    Order_vault = ContractSpec(
+        address="0x31eF83a530Fde1B38EE9A18093A333D8Bbbc40D5",
+        abi_path=parent(__file__) / "order_vault.json",
+        name="order_vault",
+    )
+
 
 ContractSpecs = {Chain.ARBITRUM: ArbitrumContractSpecs}
