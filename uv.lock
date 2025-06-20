@@ -696,7 +696,7 @@ wheels = [
 
 [[package]]
 name = "karpatkit"
-version = "0.8.2.dev8+g019d029.d20250620"
+version = "0.9.1.dev3+gb0b65b0.d20250620"
 source = { editable = "." }
 dependencies = [
     { name = "diskcache" },
@@ -717,8 +717,8 @@ dev = [
 requires-dist = [
     { name = "diskcache", specifier = ">=5.4.0,<6.0" },
     { name = "requests", specifier = ">=2.31.0,<3.0" },
-    { name = "safe-eth-py", specifier = ">=7.5.0" },
-    { name = "web3", specifier = ">=7.0" },
+    { name = "safe-eth-py", specifier = "==7.5.0" },
+    { name = "web3", specifier = "==7.12.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -1384,7 +1384,7 @@ wheels = [
 
 [[package]]
 name = "safe-eth-py"
-version = "7.5.1"
+version = "7.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
@@ -1393,9 +1393,9 @@ dependencies = [
     { name = "safe-pysha3" },
     { name = "web3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/01/79/ad880b4b0052febe166b10dfd471de41b952f000a7410eea28133920ed97/safe_eth_py-7.5.1.tar.gz", hash = "sha256:37de42defb47bb68ea99120793deb11a66b5d64e156a222789c410b0393db04c", size = 793250 }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/b3/28667b299269500efab7584636828622225c3eaa84286a79efff067a48c3/safe_eth_py-7.5.0.tar.gz", hash = "sha256:87dedcffd42edead2097b7a797fb74c74ed44698f5c3c96c3492632693e460e3", size = 793102 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/87/a07b12c08f41152a12edf4daed6553cc2f8815be8b88479c761c126141ea/safe_eth_py-7.5.1-py3-none-any.whl", hash = "sha256:17958ad6a6e57e68d917cce597f95aea2d94c3c1d5f805f9fbf6be6faca6b874", size = 904174 },
+    { url = "https://files.pythonhosted.org/packages/f2/13/450a0cbd853e5cb58ecea952d4694cdc44ba7fbf797995cf6392ab368830/safe_eth_py-7.5.0-py3-none-any.whl", hash = "sha256:ae2b52a91a82d5e6924b7a83023f282385c7b49c76aa3357323e29cc9f5aef3c", size = 904003 },
 ]
 
 [[package]]
