@@ -1,8 +1,6 @@
 [
     {
-        "inputs": [
-            {"internalType": "address", "name": "_cvxcrvStaking", "type": "address"}
-        ],
+        "inputs": [{"internalType": "address", "name": "_cvxcrvStaking", "type": "address"}],
         "stateMutability": "nonpayable",
         "type": "constructor",
     },

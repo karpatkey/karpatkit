@@ -2,9 +2,7 @@ from ..types import Chain, ContractAbi, ContractSpec, parent
 
 
 class AllAbis:
-    BaseRewardPool = ContractAbi(
-        abi_path=parent(__file__) / "base_reward_pool.json", name="base_reward_pool"
-    )
+    BaseRewardPool = ContractAbi(abi_path=parent(__file__) / "base_reward_pool.json", name="base_reward_pool")
 
 
 class EthereumContractSpecs:
