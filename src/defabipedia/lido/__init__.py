@@ -1,4 +1,8 @@
-from ..types import Chain, ContractSpec, parent
+from ..types import Chain, ContractAbi, ContractSpec, parent
+
+
+class AllAbis:
+    trpEscrowProto = ContractAbi(abi_path=parent(__file__) / "trp_escrow_proto.json", name="trpEscrowProto")
 
 
 class EthereumContractSpecs:
@@ -24,3 +28,4 @@ class GnosisContractSpecs:
 
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+Abis = {Chain.ETHEREUM: AllAbis}
