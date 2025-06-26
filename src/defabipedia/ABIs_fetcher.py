@@ -21,7 +21,7 @@ CHAIN_IDS = {
     "SCROLL": 534352,
 }
 
-def fetch_abi(contract_address: str, api_key: str, chain: str | int) -> str:
+def fetch_abi(contract_address: str, api_key: str, chain: str) -> str:
     """
     Fetch the verified ABI of *contract_address* on the specified chain
     using the Etherscan V2 API.
