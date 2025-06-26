@@ -1,6 +1,5 @@
 import json
 import re
-from functools import lru_cache
 
 import requests
 from web3 import Web3
