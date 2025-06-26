@@ -4,7 +4,7 @@ import os
 from inspect import getcallargs
 
 import diskcache
-from web3.middleware.cache import generate_cache_key
+from web3._utils.caching.caching_utils import generate_cache_key
 
 from .helpers import suppressed_error_codes
 

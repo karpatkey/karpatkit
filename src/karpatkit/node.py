@@ -4,8 +4,7 @@ import warnings
 
 import requests
 from web3 import Web3
-from web3._utils.request import cache_and_return_session
-from web3.middleware import geth_poa_middleware
+from web3.middleware import ExtraDataToPOAMiddleware
 from web3.providers import HTTPProvider, JSONBaseProvider
 
 from defabipedia.types import Blockchain, Chain
@@ -33,11 +32,22 @@ _nodes_providers = dict()
 
 
 class MaxLengthHTTPProvider(HTTPProvider):
-    def make_request(self, method, params):
+    """
+    Same idea as before, but in v7 we reuse the provider's built-in
+    RequestSessionManager instead of the old cache_and_return_session().
+    """
+
+    def __init__(self, endpoint_uri: str, request_kwargs: dict | None = None):
+        # Pass request_kwargs through so callers can still customise headers, retries, etc.
+        super().__init__(endpoint_uri=endpoint_uri, request_kwargs=request_kwargs or {})
+
+    def make_request(self, method: str, params):
         request_data = self.encode_rpc_request(method, params)
 
         try:
-            session = cache_and_return_session(self.endpoint_uri)
+            # v7: every HTTPProvider owns a RequestSessionManager that caches one Session
+            session = self._request_session_manager.session
+
             response = session.post(
                 self.endpoint_uri,
                 data=request_data,
@@ -46,12 +56,12 @@ class MaxLengthHTTPProvider(HTTPProvider):
                 timeout=self.get_request_kwargs().get("timeout", DEFAULT_TIMEOUT),
             )
 
-            chunk_list = []
+            chunk_list: list[bytes] = []
             length = 0
             for chunk in response.iter_content(chunk_size=8192):
                 length += len(chunk)
                 if length > DEFAULT_MAX_LENGTH:
-                    raise MaxLengthError(f"Response length exceded ({length}).")
+                    raise MaxLengthError(f"Response length exceeded ({length}).")
                 chunk_list.append(chunk)
 
             return self.decode_rpc_response(b"".join(chunk_list))
@@ -64,7 +74,7 @@ class MaxLengthHTTPProvider(HTTPProvider):
 
 
 class MaxLengthError(OSError):
-    """Raises when the accumulated data is too big."""
+    """Raised when the accumulated data is too big."""
 
 
 class ProviderManager(JSONBaseProvider):
@@ -77,10 +87,10 @@ class ProviderManager(JSONBaseProvider):
 
         for url in endpoints:
             if "://" not in url:
-                logger.warning(f"Skipping invalid endpoint URI '{url}'.")
+                logger.warning("Skipping invalid endpoint URI '%s'.", url)
                 continue
             provider = MaxLengthHTTPProvider(url)
-            errors = []
+            errors: list[Exception] = []
             self.providers.append((provider, errors))
 
     def make_request(self, method, params):
@@ -101,7 +111,7 @@ class ProviderManager(JSONBaseProvider):
                                 "message": f"eth_getLogs and eth_newFilter are limited to {hex(10000)} blocks range",
                                 "max_block_range": 10000,
                             }
-                        ) from e  # Ad-hoc parsing: Quicknode nodes return a similar message
+                        ) from e
                 except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
                     errors.append(e)
                     logger.error("Error when making request: %s", e)
@@ -128,12 +138,11 @@ def get_web3_provider(provider):
         def __call__(self, method, params):
             self.increment()
             logger.debug("Web3 call count: %d", self.call_count)
-            response = self.make_request(method, params)
-            return response
+            return self.make_request(method, params)
 
     web3.middleware_onion.add(CallCounterMiddleware, "call_counter")
     if cache.is_enabled():
-        # adding the cache after to get only effective calls counted by the counter
+        # Add the cache after the counter so we only count effective calls
         web3.middleware_onion.add(cache.disk_cache_middleware, "disk_cache")
     return web3
 
@@ -145,7 +154,7 @@ def get_web3_call_count(web3):
 
 def get_node(blockchain: Blockchain | str, block=None):
     """
-    Return a node that does tries with multiple providers.
+    Return a node that tries multiple providers.
 
     The block parameter is not used and will be removed.
     """
@@ -158,13 +167,15 @@ def get_node(blockchain: Blockchain | str, block=None):
     endpoints = node_endpoints[blockchain]
     if isinstance(endpoints, dict):
         warnings.warn(
-            "endpoint config latest and archival is deprecated. Use a list instead.", DeprecationWarning, stacklevel=2
+            "endpoint config latest and archival is deprecated. Use a list instead.",
+            DeprecationWarning,
+            stacklevel=2,
         )
         endpoints = endpoints["latest"] + endpoints["archival"]
     if not endpoints:
         raise ValueError(f"No configured nodes for blockchain {blockchain}")
 
-    providers = _nodes_providers.get(blockchain, None)
+    providers = _nodes_providers.get(blockchain)
     if not providers:
         providers = ProviderManager(endpoints=endpoints)
         _nodes_providers[blockchain] = providers
@@ -173,6 +184,5 @@ def get_node(blockchain: Blockchain | str, block=None):
     web3._network_name = str(blockchain)  # TODO: remove this. Use Chains.get_blockchain_from_web3()
 
     if blockchain in [Chain.AVALANCHE, Chain.POLYGON, Chain.BINANCE, Chain.METIS, Chain.OPTIMISM]:
-        web3.middleware_onion.inject(geth_poa_middleware, layer=0)
-        # https://web3py.readthedocs.io/en/stable/middleware.html#proof-of-authority
+        web3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
     return web3
