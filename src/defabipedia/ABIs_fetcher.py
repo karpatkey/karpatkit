@@ -1,6 +1,5 @@
 import json
 import re
-from typing import Union
 
 import requests
 from web3 import Web3
@@ -11,7 +10,7 @@ from karpatkit.node import get_node
 BASE_URL = "https://api.etherscan.io/v2/api"
 
 
-def _get_chain_id(chain: Union[str, Blockchain]) -> int:
+def _get_chain_id(chain: str | Blockchain) -> int:
     """
     Resolve a chain name (e.g. "polygon") or a Blockchain instance to its chain_id.
     """
@@ -25,7 +24,7 @@ def _get_chain_id(chain: Union[str, Blockchain]) -> int:
 
     raise ValueError(f"Unsupported chain: {chain}")
 
-def fetch_abi(contract_address: str, api_key: str, chain: Union[str, Blockchain]) -> str:
+def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> str:
     """
     Fetch the verified ABI of *contract_address* on the specified chain
     using the Etherscan V2 API.
