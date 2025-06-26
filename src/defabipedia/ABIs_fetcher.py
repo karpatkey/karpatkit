@@ -4,29 +4,38 @@ import re
 import requests
 from web3 import Web3
 
-from defabipedia.types import Chain
+from defabipedia.types import Blockchain, Chain
 from karpatkit.node import get_node
 
 BASE_URL = "https://api.etherscan.io/v2/api"
 
 
-#reference here: https://docs.etherscan.io/etherscan-v2/supported-chains
+from typing import Union
 
-CHAIN_IDS = {
-    "ETHEREUM": 1,
-    "ARBITRUM": 42161,
-    "OPTIMISM": 10,
-    "BASE": 8453,
-    "POLYGON": 137,
-    "SCROLL": 534352,
-}
+import requests
 
-def fetch_abi(contract_address: str, api_key: str, chain: str) -> str:
+BASE_URL = "https://api.etherscan.io/v2/api"
+
+def _get_chain_id(chain: Union[str, Blockchain]) -> int:
+    """
+    Resolve a chain name (e.g. "polygon") or a Blockchain instance to its chain_id.
+    """
+    if isinstance(chain, Blockchain):
+        return chain.chain_id
+
+    if isinstance(chain, str):
+        attr = chain.upper()
+        if hasattr(Chain, attr):
+            return getattr(Chain, attr).chain_id
+
+    raise ValueError(f"Unsupported chain: {chain}")
+
+def fetch_abi(contract_address: str, api_key: str, chain: Union[str, Blockchain]) -> str:
     """
     Fetch the verified ABI of *contract_address* on the specified chain
     using the Etherscan V2 API.
     """
-    chain_id = CHAIN_IDS[chain.upper()]
+    chain_id = _get_chain_id(chain)
 
     url = (
         f"{BASE_URL}"
@@ -48,6 +57,7 @@ def fetch_abi(contract_address: str, api_key: str, chain: str) -> str:
         )
 
     return data["result"]
+
 
 
 def get_implementation_address(web3, contract_address):
