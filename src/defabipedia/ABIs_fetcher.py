@@ -1,5 +1,6 @@
 import json
 import re
+from functools import lru_cache
 
 import requests
 from web3 import Web3
@@ -7,29 +8,47 @@ from web3 import Web3
 from defabipedia.types import Chain
 from karpatkit.node import get_node
 
+BASE_URL = "https://api.etherscan.io/v2/api"
 
-def fetch_abi(contract_address, api_key, chain):
-    if chain.upper() == "POLYGON":
-        url = (
-            f"https://api.polygonscan.com/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
+
+#reference here: https://docs.etherscan.io/etherscan-v2/supported-chains
+
+CHAIN_IDS = {
+    "ETHEREUM": 1,
+    "ARBITRUM": 42161,
+    "OPTIMISM": 10,
+    "BASE": 8453,
+    "POLYGON": 137,
+    "SCROLL": 534352,
+}
+
+def fetch_abi(contract_address: str, api_key: str, chain: str | int) -> str:
+    """
+    Fetch the verified ABI of *contract_address* on the specified chain
+    using the Etherscan V2 API.
+    """
+    chain_id = CHAIN_IDS[chain.upper()]
+
+    url = (
+        f"{BASE_URL}"
+        f"?chainid={chain_id}"
+        f"&module=contract"
+        f"&action=getabi"
+        f"&address={contract_address}"
+        f"&apikey={api_key}"
+    )
+
+    resp = requests.get(url, timeout=10)
+    resp.raise_for_status()
+    data = resp.json()
+
+    if data.get("status") != "1":
+        raise RuntimeError(
+            f"Etherscan error for {contract_address} on chain {chain_id}: "
+            f"{data.get('message')} – {data.get('result')}"
         )
-    if chain.upper() == "ETHEREUM":
-        url = f"https://api.etherscan.io/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
-    if chain.upper() == "ARBITRUM":
-        url = f"https://api.arbiscan.io/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
-    if chain.upper() == "OPTIMISM":
-        url = f"https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
-    if chain.upper() == "SCROLL":
-        url = f"https://api.scroll.io/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
-    if chain.upper() == "BASE":
-        url = f"https://api.basescan.org/api?module=contract&action=getabi&address={contract_address}&apikey={api_key}"
-    response = requests.get(url)
-    result = response.json()
-    if result["status"] == "1":
-        return result["result"]
-    else:
-        print(f"Error for {contract_address}: {result['message']}")
-        return None
+
+    return data["result"]
 
 
 def get_implementation_address(web3, contract_address):
@@ -58,19 +77,14 @@ def save_abi_to_file(address, abi_json):
 def main():
     if chain.upper() == "POLYGON":
         web3 = get_node(Chain.POLYGON)  # Connect to a Polygon node
-        api_key = "KPWNSAEG9FJR6B1REG2CIUZII3S7UV6QFP"  # Replace with your PolygonScan API key
     if chain.upper() == "ETHEREUM":
         web3 = get_node(Chain.ETHEREUM)  # Connect to an Ethereum node
-        api_key = "V7CRSQN8M1PGEK27EFAVYHN5TI64HRICYC"
     if chain.upper() == "ARBITRUM":
         web3 = get_node(Chain.ARBITRUM)  # Connect to an Arbitrum node
-        api_key = "P7HW6RTZHRAM5GPEIPJWJYSYG8NAYGYW4J"
     if chain.upper() == "OPTIMISM":
         web3 = get_node(Chain.OPTIMISM)  # Connect to a Optimism node
-        api_key = "7KHS47QYPX8IDIZR5E2F4S9NWWG3NDXJ67"
     if chain.upper() == "BASE":
         web3 = get_node(Chain.BASE)  # Connect to a Base node
-        api_key = "ARQ6TZ2DIPGNN6H2PRKH1YHV6U486JJIY9"
     """if chain.upper() == 'SCROLL':
         web3 = get_node(Chain.SCROLL) # Connect to a Scroll node
         api_key = 'TPFPXF2MEANHGI8EF8P6PI96YXQM4DAN3H'"""
@@ -109,7 +123,7 @@ def is_valid_ethereum_address(addr):
 
 
 chain = input("Input Chain: ")
-"""api_key = input('Input your API key: ')"""
+api_key = input('Input your API key: ')
 addresses_input = input("Input contract addresses: ")
 checksummed_addresses = []
 contract_addresses = [address.strip() for address in addresses_input.split(",")]
