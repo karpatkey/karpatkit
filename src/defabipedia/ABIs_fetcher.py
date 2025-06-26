@@ -62,10 +62,14 @@ def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> s
                 f"with api_key='{_mask_api_key(api_key)}'"
             )
         # Fallback: any other application-level error
+
         raise RuntimeError(
             f"Etherscan error for {contract_address} on chain {chain_id}: "
             f"{data.get('message')} – {data.get('result')}"
         )
+
+    return data["result"]
+
 
 
 
