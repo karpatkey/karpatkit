@@ -44,13 +44,28 @@ def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> s
     resp.raise_for_status()
     data = resp.json()
 
+    # Etherscan-level errors --------------------------------------------------
+    class InvalidAPIKeyError(RuntimeError):
+        """Raised when Etherscan returns an 'Invalid API Key' error."""
+    
+    def _mask_api_key(key: str, keep: int = 4) -> str:
+        """Return API key masked except first/last *keep* chars."""
+        if len(key) <= keep * 2:
+            return key  # Too short, don't bother
+        return f"{key[:keep]}…{key[-keep:]}"
+
     if data.get("status") != "1":
+        result_msg = (data.get("result") or "").lower()
+        if "invalid api key" in result_msg or "#err2" in result_msg:
+            raise InvalidAPIKeyError(
+                f"Invalid Etherscan API Key (#err2) when calling {url} "
+                f"with api_key='{_mask_api_key(api_key)}'"
+            )
+        # Fallback: any other application-level error
         raise RuntimeError(
             f"Etherscan error for {contract_address} on chain {chain_id}: "
             f"{data.get('message')} – {data.get('result')}"
         )
-
-    return data["result"]
 
 
 
