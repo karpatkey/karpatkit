@@ -1,5 +1,6 @@
 import json
 import re
+from typing import Union
 
 import requests
 from web3 import Web3
@@ -9,12 +10,6 @@ from karpatkit.node import get_node
 
 BASE_URL = "https://api.etherscan.io/v2/api"
 
-
-from typing import Union
-
-import requests
-
-BASE_URL = "https://api.etherscan.io/v2/api"
 
 def _get_chain_id(chain: Union[str, Blockchain]) -> int:
     """
