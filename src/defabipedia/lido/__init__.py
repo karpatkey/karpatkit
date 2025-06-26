@@ -1,4 +1,8 @@
-from ..types import Chain, ContractSpec, parent
+from ..types import Chain, ContractAbi, ContractSpec, parent
+
+
+class AllAbis:
+    trpEscrowProto = ContractAbi(abi_path=parent(__file__) / "trp_escrow_proto.json", name="trpEscrowProto")
 
 
 class EthereumContractSpecs:
@@ -10,11 +14,6 @@ class EthereumContractSpecs:
     )
     unstETH = ContractSpec(
         address="0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1", abi_path=parent(__file__) / "unsteth.json", name="unsteth"
-    )
-    trpEscrowProto = ContractSpec(
-        address="0x484FD04c598A095360DF89bF85AB34c37127AA39",
-        abi_path=parent(__file__) / "trp_escrow_proto.json",
-        name="trpEscrowProto",
     )
 
 
@@ -29,3 +28,4 @@ class GnosisContractSpecs:
 
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+Abis = {Chain.ETHEREUM: AllAbis}
