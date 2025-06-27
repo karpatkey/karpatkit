@@ -282,7 +282,7 @@ def const_call(f):
     if not is_enabled():
         return f.call()
 
-    cache_key = generate_cache_key((f.w3._network_name, f.address, f.function_identifier, f.args, f.kwargs))
+    cache_key = generate_cache_key((f.w3._network_name, f.address, f.abi_element_identifier, f.args, f.kwargs))
     try:
         return get_value(cache_key)
     except KeyError:
