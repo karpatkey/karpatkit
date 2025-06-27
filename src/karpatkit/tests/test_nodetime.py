@@ -17,6 +17,7 @@ expected_block_for = {
     Chain.BASE: Block(number=13_393_498, timestamp=1_713_576_343),
     Chain.POLYGON: Block(number=56_026_448, timestamp=1_713_576_343),
     Chain.BINANCE: Block(number=38_011_803, timestamp=1_713_576_343),
+    Chain.METIS: Block(number=16_693_826, timestamp=1_713_576_344),
 }
 
 latest_block_numbers = {
