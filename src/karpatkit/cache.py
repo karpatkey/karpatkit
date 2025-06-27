@@ -2,9 +2,13 @@ import functools
 import logging
 import os
 from inspect import getcallargs
+from typing import Any
+from typing_extensions import override
 
 import diskcache
 from web3._utils.caching.caching_utils import generate_cache_key
+from web3.middleware import Web3Middleware
+from web3.types import MakeRequestFn, RPCEndpoint, RPCResponse
 
 from .helpers import suppressed_error_codes
 
@@ -68,6 +72,63 @@ def set_value(key, value):
 def del_key(key):
     """Delete a key from the cache"""
     del _cache[key]
+
+class DiskCacheMiddleware(Web3Middleware):
+    """
+    Cache middleware that supports multiple blockchains.
+    It also do not caches if block='latest'.
+    """
+
+
+    @override
+    def wrap_make_request(self, make_request: MakeRequestFn) -> MakeRequestFn:
+        RPC_WHITELIST = {
+            "eth_chainId",
+            "eth_call",
+            "eth_getTransactionReceipt",
+            "eth_getLogs",
+            "eth_getTransactionByHash",
+            "eth_getCode",
+            "eth_getStorageAt",
+            "eth_getBlockByNumber",
+            "debug_traceTransaction",
+            "trace_transaction",
+        }
+        def middleware(method: "RPCEndpoint", params: Any) -> "RPCResponse":
+            method, params = self.request_processor(method, params)
+
+            if not is_enabled():
+                logger.debug("The cache is disabled")
+                return self.response_processor(method, make_request(method, params))
+
+            do_cache = False
+            if method in RPC_WHITELIST and "latest" not in params:
+                do_cache = True
+            if method in {"eth_chainId", "eth_getCode"}:
+                do_cache = True
+            web3 = self._w3
+
+            if do_cache:
+                params_hash = generate_cache_key(params)
+                cache_key = f"{web3._network_name}.{method}.{params_hash}"
+                try:
+                    key, data = get_value(cache_key)
+                except KeyError:
+                    response = self.response_processor(method, make_request(method, params))
+                    # response = make_request(method, params)
+                    if "error" not in response and "result" in response and response["result"] is not None:
+                        set_value(cache_key, ("result", response["result"]))
+                    elif "error" in response:
+                        if response["error"]["code"] in suppressed_error_codes:
+                            set_value(cache_key, ("error", response["error"]))
+                    return response
+                else:
+                    return {"jsonrpc": "2.0", "id": 11, key: data}
+            else:
+                logger.debug(f"Not caching '{method}' with params: '{params}'")
+                return self.response_processor(method, make_request(method, params))
+
+        return middleware
 
 
 def disk_cache_middleware(make_request, web3):

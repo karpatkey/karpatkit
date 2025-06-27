@@ -1,11 +1,13 @@
 import logging
 import os
+from typing import Any
 import warnings
 
 import requests
 from web3 import Web3
-from web3.middleware import ExtraDataToPOAMiddleware
+from web3.middleware import ExtraDataToPOAMiddleware, Web3Middleware
 from web3.providers import HTTPProvider, JSONBaseProvider
+from web3.types import RPCEndpoint
 
 from defabipedia.types import Blockchain, Chain
 
@@ -45,8 +47,11 @@ class MaxLengthHTTPProvider(HTTPProvider):
         request_data = self.encode_rpc_request(method, params)
 
         try:
+            if not self.endpoint_uri:
+                raise ValueError('missing endpoint_uri')
+
             # v7: every HTTPProvider owns a RequestSessionManager that caches one Session
-            session = self._request_session_manager.session
+            session = self._request_session_manager.cache_and_return_session(self.endpoint_uri)
 
             response = session.post(
                 self.endpoint_uri,
@@ -124,26 +129,23 @@ class ProviderManager(JSONBaseProvider):
 def get_web3_provider(provider):
     web3 = Web3(provider)
 
-    class CallCounterMiddleware:
+    class CallCounterMiddleware(Web3Middleware):
         call_count = 0
-
-        def __init__(self, make_request, w3):
-            self.w3 = w3
-            self.make_request = make_request
 
         @classmethod
         def increment(cls):
             cls.call_count += 1
 
-        def __call__(self, method, params):
+        def request_processor(self, method: RPCEndpoint, params: Any) -> Any:
             self.increment()
             logger.debug("Web3 call count: %d", self.call_count)
-            return self.make_request(method, params)
+            return method, params
+
 
     web3.middleware_onion.add(CallCounterMiddleware, "call_counter")
     if cache.is_enabled():
         # Add the cache after the counter so we only count effective calls
-        web3.middleware_onion.add(cache.disk_cache_middleware, "disk_cache")
+        web3.middleware_onion.add(cache.DiskCacheMiddleware, "disk_cache")
     return web3
 
 
