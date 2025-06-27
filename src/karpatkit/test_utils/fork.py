@@ -43,7 +43,7 @@ REMOTE_ETH_NODE_URL = codecs.decode(
     b"u)74-6NNu\xb3\xcc\x0f\nH\n\xcb\xccq4\xd4u\xcd3(53+\xf32\n(\x06\x00Q\x92\x17X",
     "zlib",
 ).decode()
-REMOTE_GC_NODE_URL = "https://rpc.ankr.com/gnosis"
+REMOTE_GC_NODE_URL = "https://rpc.gnosischain.com"
 REMOTE_BASE_NODE_URL = "https://1rpc.io/base"
 REMOTE_OPT_NODE_URL = "https://1rpc.io/op"
 REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
