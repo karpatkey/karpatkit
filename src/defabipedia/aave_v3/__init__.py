@@ -7,6 +7,12 @@ class AllAbis:
 
 
 class EthereumContractSpecs:
+    UIPoolDataProvider = ContractSpec(
+        address="0x3F78BBD206e4D3c504Eb854232EdA7e47E9Fd8FC",
+        abi_path=parent(__file__) / "ui_pool_data_provider.json",
+        name="UIPoolDataProvider",
+    )
+
     ProtocolDataProvider = ContractSpec(
         address="0x7B4EB56E7CD4b454BA8ff71E4518426369a138a3",
         abi_path=parent(__file__) / "protocol_data_provider.json",
