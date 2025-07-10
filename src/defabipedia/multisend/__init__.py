@@ -12,12 +12,24 @@ class EthereumContractSpecs:
         name="MultiSend",
     )
 
+    MultiCall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall.json",
+        name="MultiCall",
+    )
+
 
 class GnosisContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
         abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
+    )
+
+    MultiCall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall.json",
+        name="MultiCall",
     )
 
 
@@ -28,6 +40,12 @@ class OptimismContractSpecs:
         name="MultiSend",
     )
 
+    MultiCall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall.json",
+        name="MultiCall",
+    )
+
 
 class ArbitrumContractSpecs:
     MultiSend = ContractSpec(
@@ -36,12 +54,24 @@ class ArbitrumContractSpecs:
         name="MultiSend",
     )
 
+    MultiCall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall.json",
+        name="MultiCall",
+    )
+
 
 class BaseContractSpecs:
     MultiSend = ContractSpec(
         address="0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526",
         abi_path=parent(__file__) / "multisend.json",
         name="MultiSend",
+    )
+
+    MultiCall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall.json",
+        name="MultiCall",
     )
 
 
