@@ -48,7 +48,7 @@ class MaxLengthHTTPProvider(HTTPProvider):
 
         try:
             if not self.endpoint_uri:
-                raise ValueError('missing endpoint_uri')
+                raise ValueError("missing endpoint_uri")
 
             # v7: every HTTPProvider owns a RequestSessionManager that caches one Session
             session = self._request_session_manager.cache_and_return_session(self.endpoint_uri)
@@ -140,7 +140,6 @@ def get_web3_provider(provider):
             self.increment()
             logger.debug("Web3 call count: %d", self.call_count)
             return method, params
-
 
     web3.middleware_onion.add(CallCounterMiddleware, "call_counter")
     if cache.is_enabled():
