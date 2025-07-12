@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
 from eth_account.signers.local import LocalAccount
+from hexbytes import HexBytes
 from safe_eth.eth import EthereumClient, EthereumNetwork
 from safe_eth.safe import Safe, addresses
-from hexbytes import HexBytes
 from web3 import Web3
 from web3.types import TxParams, TxReceipt
 

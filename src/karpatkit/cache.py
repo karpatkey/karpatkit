@@ -3,9 +3,9 @@ import logging
 import os
 from inspect import getcallargs
 from typing import Any
-from typing_extensions import override
 
 import diskcache
+from typing_extensions import override
 from web3._utils.caching.caching_utils import generate_cache_key
 from web3.middleware import Web3Middleware
 from web3.types import MakeRequestFn, RPCEndpoint, RPCResponse

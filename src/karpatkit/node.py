@@ -1,7 +1,7 @@
 import logging
 import os
-from typing import Any
 import warnings
+from typing import Any
 
 import requests
 from web3 import Web3

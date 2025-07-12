@@ -3,7 +3,6 @@ import datetime
 import pytest
 from hexbytes import HexBytes
 from web3.datastructures import AttributeDict
-from web3.types import LogReceipt
 
 from defabipedia import Chain
 from defabipedia.tokens import EthereumTokenAddr
