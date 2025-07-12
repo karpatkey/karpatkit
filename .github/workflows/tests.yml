@@ -1,0 +1,48 @@
+name: Unittests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "*"
+    tags-ignore:
+      - "*"
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  tests:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup kkit_config.json
+        run: |
+          cat << EOF > kkit_config.json
+          ${{ secrets.CONFIG_JSON }}
+          EOF
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.6.2"
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1.3.1
+
+      - name: Try anvil
+        run: anvil --version
+
+      - name: Run unittests
+        run: |
+          KKIT_ETH_FORK_URL="https://rpc.ankr.com/eth" \
+          KKIT_GC_FORK_URL="https://rpc.ankr.com/gnosis" \
+          KKIT_RUN_LOCAL_NODE=1 make test
