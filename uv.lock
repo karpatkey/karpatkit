@@ -678,6 +678,15 @@ wheels = [
 ]
 
 [[package]]
+name = "icdiff"
+version = "2.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/fa/e4/43341832be5f2bcae71eb3ef08a07aaef9b74f74fe0b3675f62bd12057fe/icdiff-2.0.7.tar.gz", hash = "sha256:f79a318891adbf59a45e3a7694f5e1f18c5407065264637072ac8363b759866f", size = 16394 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/2a/b3178baa75a3ec75a33588252296c82a1332d2b83cd01061539b74bde9dd/icdiff-2.0.7-py3-none-any.whl", hash = "sha256:f05d1b3623223dd1c70f7848da7d699de3d9a2550b902a8234d9026292fb5762", size = 17018 },
+]
+
+[[package]]
 name = "idna"
 version = "3.10"
 source = { registry = "https://pypi.org/simple" }
@@ -710,6 +719,7 @@ dev = [
     { name = "pretty-json" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
+    { name = "pytest-icdiff" },
     { name = "ruff" },
 ]
 
@@ -717,8 +727,8 @@ dev = [
 requires-dist = [
     { name = "diskcache", specifier = ">=5.4.0,<6.0" },
     { name = "requests", specifier = ">=2.31.0,<3.0" },
-    { name = "safe-eth-py", specifier = "==7.5.0" },
-    { name = "web3", specifier = "==7.12.0" },
+    { name = "safe-eth-py", specifier = ">=7.5.0,<8.0" },
+    { name = "web3", specifier = ">=7.12.0,<8.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -726,6 +736,7 @@ dev = [
     { name = "pretty-json", specifier = ">=1.2" },
     { name = "pytest", specifier = ">=7.2.2" },
     { name = "pytest-asyncio", specifier = ">=0.23.6" },
+    { name = "pytest-icdiff", specifier = ">=0.9" },
     { name = "ruff", specifier = ">=0.8.5" },
 ]
 
@@ -911,6 +922,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f9/e2/3e91f31a7d2b083fe6ef3fa267035b518369d9511ffab804f839851d2779/pluggy-1.6.0.tar.gz", hash = "sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3", size = 69412 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", hash = "sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746", size = 20538 },
+]
+
+[[package]]
+name = "pprintpp"
+version = "0.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/06/1a/7737e7a0774da3c3824d654993cf57adc915cb04660212f03406334d8c0b/pprintpp-0.4.0.tar.gz", hash = "sha256:ea826108e2c7f49dc6d66c752973c3fc9749142a798d6b254e1e301cfdbc6403", size = 17995 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4e/d1/e4ed95fdd3ef13b78630280d9e9e240aeb65cc7c544ec57106149c3942fb/pprintpp-0.4.0-py2.py3-none-any.whl", hash = "sha256:b6b4dcdd0c0c0d75e4d7b2f21a9e933e5b2ce62b26e1a54537f9651ae5a5c01d", size = 16952 },
 ]
 
 [[package]]
@@ -1229,6 +1249,20 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/d0/d4/14f53324cb1a6381bef29d698987625d80052bb33932d8e7cbf9b337b17c/pytest_asyncio-1.0.0.tar.gz", hash = "sha256:d15463d13f4456e1ead2594520216b225a16f781e144f8fdf6c5bb4667c48b3f", size = 46960 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/30/05/ce271016e351fddc8399e546f6e23761967ee09c8c568bbfbecb0c150171/pytest_asyncio-1.0.0-py3-none-any.whl", hash = "sha256:4f024da9f1ef945e680dc68610b52550e36590a67fd31bb3b4943979a1f90ef3", size = 15976 },
+]
+
+[[package]]
+name = "pytest-icdiff"
+version = "0.9"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "icdiff" },
+    { name = "pprintpp" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5a/0c/66e1e2590e98f4428e374a3b6448dc086a908d15b1e24b914539d13b7ac4/pytest-icdiff-0.9.tar.gz", hash = "sha256:13aede616202e57fcc882568b64589002ef85438046f012ac30a8d959dac8b75", size = 7110 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e2/e1/cafe1edf7a30be6fa1bbbf43f7af12b34682eadcf19eb6e9f7352062c422/pytest_icdiff-0.9-py3-none-any.whl", hash = "sha256:efee0da3bd1b24ef2d923751c5c547fbb8df0a46795553fba08ef57c3ca03d82", size = 4994 },
 ]
 
 [[package]]

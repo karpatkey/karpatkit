@@ -23,9 +23,9 @@ classifiers = [
 
 dependencies = [
   "diskcache>=5.4.0,<6.0",
-  "web3==7.12.0",
+  "web3>=7.12.0,<8.0",
   "requests>=2.31.0,<3.0",
-  "safe-eth-py==7.5.0",
+  "safe-eth-py>=7.5.0,<8.0"
 ]
 
 [dependency-groups]
@@ -34,6 +34,7 @@ dev = [
     "pytest>=7.2.2",
     "pretty-json>=1.2",
     "ruff>=0.8.5",
+    "pytest-icdiff>=0.9",
 ]
 
 [project.scripts]
