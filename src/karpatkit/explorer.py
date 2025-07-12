@@ -74,7 +74,7 @@ class ChainExplorer(requests.Session):
             self.headers.update(TESTNET_HEADER)
         domain, apikey = EXPLORERS[blockchain]
         self.params["apikey"] = apikey
-        self.url = f"https://{domain}/api"
+        self.url = f"https://{domain}"
 
     def _get(self, **params):
         response = self.request("GET", self.url, params=params)
