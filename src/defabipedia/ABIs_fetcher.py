@@ -24,6 +24,7 @@ def _get_chain_id(chain: str | Blockchain) -> int:
 
     raise ValueError(f"Unsupported chain: {chain}")
 
+
 def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> str:
     """
     Fetch the verified ABI of *contract_address* on the specified chain
@@ -31,14 +32,7 @@ def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> s
     """
     chain_id = _get_chain_id(chain)
 
-    url = (
-        f"{BASE_URL}"
-        f"?chainid={chain_id}"
-        f"&module=contract"
-        f"&action=getabi"
-        f"&address={contract_address}"
-        f"&apikey={api_key}"
-    )
+    url = f"{BASE_URL}?chainid={chain_id}&module=contract&action=getabi&address={contract_address}&apikey={api_key}"
 
     resp = requests.get(url, timeout=10)
     resp.raise_for_status()
@@ -47,7 +41,7 @@ def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> s
     # Etherscan-level errors --------------------------------------------------
     class InvalidAPIKeyError(RuntimeError):
         """Raised when Etherscan returns an 'Invalid API Key' error."""
-    
+
     def _mask_api_key(key: str, keep: int = 4) -> str:
         """Return API key masked except first/last *keep* chars."""
         if len(key) <= keep * 2:
@@ -58,19 +52,15 @@ def fetch_abi(contract_address: str, api_key: str, chain: str | Blockchain) -> s
         result_msg = (data.get("result") or "").lower()
         if "invalid api key" in result_msg or "#err2" in result_msg:
             raise InvalidAPIKeyError(
-                f"Invalid Etherscan API Key (#err2) when calling {url} "
-                f"with api_key='{_mask_api_key(api_key)}'"
+                f"Invalid Etherscan API Key (#err2) when calling {url} with api_key='{_mask_api_key(api_key)}'"
             )
         # Fallback: any other application-level error
 
         raise RuntimeError(
-            f"Etherscan error for {contract_address} on chain {chain_id}: "
-            f"{data.get('message')} – {data.get('result')}"
+            f"Etherscan error for {contract_address} on chain {chain_id}: {data.get('message')} – {data.get('result')}"
         )
 
     return data["result"]
-
-
 
 
 def get_implementation_address(web3, contract_address):
@@ -145,7 +135,7 @@ def is_valid_ethereum_address(addr):
 
 
 chain = input("Input Chain: ")
-api_key = input('Input your API key: ')
+api_key = input("Input your API key: ")
 addresses_input = input("Input contract addresses: ")
 checksummed_addresses = []
 contract_addresses = [address.strip() for address in addresses_input.split(",")]

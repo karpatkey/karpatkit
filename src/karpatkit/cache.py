@@ -73,12 +73,12 @@ def del_key(key):
     """Delete a key from the cache"""
     del _cache[key]
 
+
 class DiskCacheMiddleware(Web3Middleware):
     """
     Cache middleware that supports multiple blockchains.
     It also do not caches if block='latest'.
     """
-
 
     @override
     def wrap_make_request(self, make_request: MakeRequestFn) -> MakeRequestFn:
@@ -94,6 +94,7 @@ class DiskCacheMiddleware(Web3Middleware):
             "debug_traceTransaction",
             "trace_transaction",
         }
+
         def middleware(method: "RPCEndpoint", params: Any) -> "RPCResponse":
             method, params = self.request_processor(method, params)
 

@@ -31,7 +31,7 @@ def suppress_error_codes():
     try:
         yield
     except ValueError as e:
-        if e.args[0]["code"] not in suppressed_error_codes:
+        if isinstance(e.args[0], dict) and e.args[0].get("code", 0) not in suppressed_error_codes:
             raise
 
 
