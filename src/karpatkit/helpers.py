@@ -4,7 +4,7 @@ from contextlib import contextmanager, suppress
 from functools import wraps
 from typing import Any
 
-from web3.exceptions import BadFunctionCallOutput, ContractLogicError
+from web3.exceptions import BadFunctionCallOutput, ContractLogicError, Web3RPCError
 
 from defabipedia.tokens import NATIVE, EthereumTokenAddr, erc20_contract
 
@@ -30,6 +30,9 @@ def get_config():
 def suppress_error_codes():
     try:
         yield
+    except Web3RPCError as e:
+        if isinstance(e.args[0], dict) and e.args[0].get("code", 0) not in suppressed_error_codes:
+            raise
     except ValueError as e:
         if isinstance(e.args[0], dict) and e.args[0].get("code", 0) not in suppressed_error_codes:
             raise
