@@ -166,6 +166,8 @@ class ChainExplorer(requests.Session):
         for key, value in optional_params.items():
             if key in KEYS_WHITELIST and value:
                 self.params[key] = value
+        if not topic.startswith("0x"):
+            topic = "0x" + topic
         response = self._get(
             module="logs",
             action="getLogs",
