@@ -38,6 +38,7 @@ def tz_aware(dt):
 def to_token_amount(
     token_address: str, amount: int | Decimal, blockchain: str, web3: Web3 = None, decimals: bool = True
 ) -> Decimal:
+
     """
     Converts the given amount to the corresponding token amount based on the token's decimals.
 
@@ -238,7 +239,7 @@ def get_symbol(token_address: str, blockchain: str | Blockchain, web3=None) -> s
         return special_addr_mapping[blockchain]
 
     symbol = infer_symbol(web3, blockchain, token_address)
-    if symbol and not isinstance(symbol, str):
+    if not isinstance(symbol, str):
         symbol = symbol.hex()
         symbol = bytes.fromhex(symbol).decode("utf-8").rstrip("\x00")
 
@@ -619,10 +620,7 @@ def get_logs_web3(
     if web3 is None:
         web3 = get_node(blockchain)
 
-    
     topics = [topic if topic.startswith("0x") else "0x" + topic for topic in topics]
-    print(topics)
-
 
     if tx_hash:
         # Get transaction receipt

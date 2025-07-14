@@ -19,6 +19,7 @@ from eth_account.signers.local import LocalAccount
 from web3 import AsyncWeb3, HTTPProvider, Web3
 from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
+from web3.middleware import Web3Middleware
 from web3.providers import AsyncHTTPProvider
 from web3.providers.base import BaseProvider
 
@@ -275,14 +276,12 @@ def _local_node(request, node: LocalNode):
 
     wait_for_port(node.port, timeout=20)
 
-    class LatencyMeasurerMiddleware:
+    class LatencyMeasurerMiddleware(Web3Middleware):
         def __init__(self, make_request, w3):
             self.w3 = w3
             self.make_request = make_request
 
         def __call__(self, method, params):
-            import time
-
             start_time = time.monotonic()
             response = self.make_request(method, params)
             logger.debug("Web3 time spent in %s: %f seconds", method, time.monotonic() - start_time)
