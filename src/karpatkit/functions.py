@@ -52,8 +52,10 @@ def to_token_amount(
     Returns:
         Decimal: The converted token amount.
     """
-    decs = get_decimals(token_address, blockchain=blockchain, web3=web3) if decimals else 0
-    return amount / Decimal(10**decs)
+    if decimals:
+        decs = get_decimals(token_address, blockchain=blockchain, web3=web3) 
+        return amount / Decimal(10**decs)
+    return Decimal(amount)
 
 
 def last_block(blockchain, web3=None):
@@ -341,8 +343,9 @@ def get_impl_1167_0(web3, contract_address, block):
     # OpenZeppelins' EIP-1167 - Example in GC: 0x793fAF861a78B07c0C8c0ed1450D3919F3473226)
     impl_address = Address.ZERO
     bytecode = web3.eth.get_code(contract_address, block_identifier=block).hex()
-    if bytecode[2:22] == "363d3d373d3d3d363d73" and bytecode[62:] == "5af43d82803e903d91602b57fd5bf3":
-        impl_address = Web3.to_checksum_address("0x" + bytecode[22:62])
+    if bytecode.startswith("363d3d373d3d3d363d73") and bytecode.endswith("5af43d82803e903d91602b57fd5bf3"):
+        print(bytecode[20:60])
+        impl_address = Web3.to_checksum_address("0x" + bytecode[20:60])
     return impl_address
 
 
@@ -351,8 +354,8 @@ def get_impl_1167_1(web3, contract_address, block):
     # Examples: mainnet: 0x09cabEC1eAd1c0Ba254B09efb3EE13841712bE14 / GC: 0x7B7DA887E0c18e631e175532C06221761Db30A24
     impl_address = Address.ZERO
     bytecode = web3.eth.get_code(contract_address, block_identifier=block).hex()
-    if bytecode[2:32] == "366000600037611000600036600073" and bytecode[72:] == "5af41558576110006000f3":
-        impl_address = Web3.to_checksum_address("0x" + bytecode[32:72])
+    if bytecode.startswith("366000600037611000600036600073") and bytecode.endswith("5af41558576110006000f3"):
+        impl_address = Web3.to_checksum_address("0x" + bytecode[30:70])
     return impl_address
 
 
