@@ -6,6 +6,7 @@ from contextlib import suppress
 from datetime import datetime
 from decimal import Decimal
 
+from eth_typing import BlockIdentifier
 import requests
 from hexbytes import HexBytes
 from web3 import Web3
@@ -51,8 +52,8 @@ def to_token_amount(
     Returns:
         Decimal: The converted token amount.
     """
-    decimals = get_decimals(token_address, blockchain=blockchain, web3=web3) if decimals else 0
-    return amount / Decimal(10**decimals)
+    decs = get_decimals(token_address, blockchain=blockchain, web3=web3) if decimals else 0
+    return amount / Decimal(10**decs)
 
 
 def last_block(blockchain, web3=None):
@@ -107,7 +108,7 @@ def date_to_block(datestring, blockchain) -> int:
             f"""Could not get block through algorithm on blockchain {blockchain} and datestring {datestring},
             proceeding with API: {e}"""
         )
-        block = timestamp_to_block(timestamp, blockchain)
+        block = timestamp_to_block(int(timestamp), blockchain)
     return block
 
 
@@ -139,9 +140,9 @@ def token_info(token_address, blockchain):
     ETHPLORER_URL = "https://api.ethplorer.io/getTokenInfo/%s?apiKey=%s"
     BLOCKSCOUT_URL = "https://blockscout.com/xdai/mainnet/api?module=token&action=getToken&contractaddress=%s"
 
+    data = None
     if blockchain.lower() == Chain.ETHEREUM:
         data = requests.get(ETHPLORER_URL % (token_address, APIKey.ETHPLORER)).json()
-
     elif blockchain.lower() == Chain.GNOSIS:
         data = requests.get(BLOCKSCOUT_URL % token_address).json()["result"]
 
@@ -149,7 +150,7 @@ def token_info(token_address, blockchain):
 
 
 def balance_of(
-    address: str, contract_address: str, block: int | str, blockchain: str, web3=None, decimals: bool = True
+    address: str, contract_address: str, block: BlockIdentifier, blockchain: str, web3=None, decimals: bool = True
 ) -> Decimal:
     """
     Get the balance of an address for a given contract on a specific block in a blockchain.
@@ -185,7 +186,7 @@ def balance_of(
 
 
 def total_supply(
-    token_address: str, block: int | str, blockchain: str, web3: Web3 = None, decimals: bool = True
+    token_address: str, block: BlockIdentifier, blockchain: str, web3: Web3 = None, decimals: bool = True
 ) -> Decimal:
     """Retrieves the total supply of a token at a specific block."""
     if web3 is None:
@@ -207,12 +208,11 @@ def get_decimals(token_address: str, blockchain: str | Blockchain, web3=None) ->
     token_address = Web3.to_checksum_address(token_address)
 
     if token_address == Address.ZERO or token_address == Address.E:
-        decimals = 18
-    else:
-        token_contract = web3.eth.contract(address=token_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
-        decimals = const_call(token_contract.functions.decimals())
+        return 18
 
-    return decimals
+    token_contract = web3.eth.contract(address=token_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
+    decs = const_call(token_contract.functions.decimals())
+    return decs
 
 
 def get_symbol(token_address: str, blockchain: str | Blockchain, web3=None) -> str:
@@ -233,12 +233,12 @@ def get_symbol(token_address: str, blockchain: str | Blockchain, web3=None) -> s
     }
 
     if token_address in [Address.ZERO, Address.E]:
-        symbol = special_addr_mapping[blockchain]
-    else:
-        symbol = infer_symbol(web3, blockchain, token_address)
-        if not isinstance(symbol, str):
-            symbol = symbol.hex()
-            symbol = bytes.fromhex(symbol).decode("utf-8").rstrip("\x00")
+        return special_addr_mapping[blockchain]
+
+    symbol = infer_symbol(web3, blockchain, token_address)
+    if symbol and not isinstance(symbol, str):
+        symbol = symbol.hex()
+        symbol = bytes.fromhex(symbol).decode("utf-8").rstrip("\x00")
 
     return symbol
 
@@ -281,11 +281,10 @@ def get_contract(contract_address, blockchain, web3=None, abi=None):
     if abi is None:
         abi = ChainExplorer(blockchain).abi_from_address(contract_address)
         return web3.eth.contract(address=contract_address, abi=abi)
-    else:
-        return web3.eth.contract(address=contract_address, abi=abi)
+    return web3.eth.contract(address=contract_address, abi=abi)
 
 
-def get_contract_proxy_abi(contract_address: str, abi_contract_address: str, blockchain: str | Blockchain, web3=None):
+def get_contract_proxy_abi(contract_address: str, abi_contract_address: str, blockchain: Blockchain, web3=None):
     """Retrieves the contract proxy ABI for a given contract address and ABI contract address.
 
     Args:
@@ -514,7 +513,7 @@ def get_data(contract_address, function_name, parameters, blockchain, web3=None,
         contract = get_contract_proxy_abi(contract_address, abi_address, blockchain, web3=web3)
 
     try:
-        return contract.encodeABI(fn_name=function_name, args=parameters)
+        return contract.encode_abi(fn_name=function_name, args=parameters)
     except Exception:
         logger.exception("Exception in get_data")
         return None
@@ -616,6 +615,11 @@ def get_logs_web3(
 
     if web3 is None:
         web3 = get_node(blockchain)
+
+    
+    topics = [topic if topic.startswith("0x") else "0x" + topic for topic in topics]
+    print(topics)
+
 
     if tx_hash:
         # Get transaction receipt

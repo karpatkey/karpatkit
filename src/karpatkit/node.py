@@ -7,7 +7,7 @@ import requests
 from web3 import Web3
 from web3.middleware import ExtraDataToPOAMiddleware, Web3Middleware
 from web3.providers import HTTPProvider, JSONBaseProvider
-from web3.types import RPCEndpoint
+from web3.types import RPCEndpoint, RPCResponse
 
 from defabipedia.types import Blockchain, Chain
 
@@ -88,7 +88,7 @@ class ProviderManager(JSONBaseProvider):
         self.endpoints = endpoints
         self.max_fails_per_provider = max_fails_per_provider
         self.max_executions = max_executions
-        self.providers = []
+        self.providers: list[tuple[HTTPProvider, list[Exception]]] = []
 
         for url in endpoints:
             if "://" not in url:
@@ -98,7 +98,7 @@ class ProviderManager(JSONBaseProvider):
             errors: list[Exception] = []
             self.providers.append((provider, errors))
 
-    def make_request(self, method, params):
+    def make_request(self, method, params) -> RPCResponse:
         for _ in range(self.max_executions):
             for provider, errors in self.providers:
                 if len(errors) > self.max_fails_per_provider:
@@ -116,7 +116,7 @@ class ProviderManager(JSONBaseProvider):
                                 "message": f"eth_getLogs and eth_newFilter are limited to {hex(10000)} blocks range",
                                 "max_block_range": 10000,
                             }
-                        ) from e
+                        ) from e # Ad-hoc parsing: Quicknode nodes return a similar message
                 except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
                     errors.append(e)
                     logger.error("Error when making request: %s", e)
@@ -124,6 +124,7 @@ class ProviderManager(JSONBaseProvider):
                     errors.append(e)
                     logger.exception("Unexpected exception when making request.")
             raise AllProvidersDownError(f"No working provider available. Endpoints {self.endpoints}")
+        raise AllProvidersDownError(f"No working provider available, Max attempts reached")
 
 
 def get_web3_provider(provider):
