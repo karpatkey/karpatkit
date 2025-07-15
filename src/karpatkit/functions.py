@@ -38,7 +38,6 @@ def tz_aware(dt):
 def to_token_amount(
     token_address: str, amount: int | Decimal, blockchain: str, web3: Web3 = None, decimals: bool = True
 ) -> Decimal:
-
     """
     Converts the given amount to the corresponding token amount based on the token's decimals.
 
@@ -54,7 +53,7 @@ def to_token_amount(
         Decimal: The converted token amount.
     """
     if decimals:
-        decs = get_decimals(token_address, blockchain=blockchain, web3=web3) 
+        decs = get_decimals(token_address, blockchain=blockchain, web3=web3)
         return amount / Decimal(10**decs)
     return Decimal(amount)
 
