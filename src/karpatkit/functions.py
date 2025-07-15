@@ -10,7 +10,7 @@ from eth_typing import BlockIdentifier
 import requests
 from hexbytes import HexBytes
 from web3 import Web3
-from web3.exceptions import ABIFunctionNotFound, BadFunctionCallOutput, ContractLogicError
+from web3.exceptions import ABIFunctionNotFound, BadFunctionCallOutput, ContractLogicError, Web3RPCError
 from web3.types import LogReceipt
 
 from defabipedia import Blockchain, Chain
@@ -182,7 +182,7 @@ def balance_of(
         token_contract = web3.eth.contract(address=contract_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
         try:  # noqa: SIM105
             balance = token_contract.functions.balanceOf(address).call(block_identifier=block)
-        except ContractLogicError:
+        except (ContractLogicError, BadFunctionCallOutput):
             pass
 
     return to_token_amount(contract_address, balance, blockchain, web3, decimals)
@@ -641,9 +641,13 @@ def get_logs_web3(
                     if logs[n]["blockNumber"] > block_end:
                         logs = logs[:n]
                         break
-        except ValueError as error:
+        except (ValueError, Web3RPCError) as error:
             # Handle ValueError by adjusting the block range and retrying
             error_info = error.args[0]
+            try:
+                error_info = json.loads(error_info.replace("'", '"'))
+            except:
+                pass
             if error_info["code"] == -32005:  # error code in infura
                 block_interval = int(error_info["data"]["to"], 16) - int(error_info["data"]["from"], 16)
             elif "max_block_range" in error_info:  # error code in Quicknode, see ProviderManager class
@@ -653,6 +657,8 @@ def get_logs_web3(
                 block_interval = blocks[1] - blocks[0]
             elif error_info["code"] == -32600:  # error code in anker: "block range is too wide"
                 block_interval = 3000
+            elif error_info["code"] == -32614:
+                block_interval = int(re.findall(r"\d+", error_info["message"].replace(",", ""))[0] or 10000)
             else:
                 raise ValueError(error_info) from error
             # Log the error and the new block range
