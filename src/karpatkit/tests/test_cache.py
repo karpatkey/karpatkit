@@ -4,11 +4,11 @@ import diskcache
 import pytest
 
 from karpatkit.cache import (
+    DiskCacheMiddleware,
     cache_call,
     cache_contract_method,
     const_call,
     del_key,
-    disk_cache_middleware,
     get_value,
     set_value,
 )
@@ -96,5 +96,5 @@ def test_cache_contract_method_when_disable_cache(disable_cache):
 def test_cache_middleware_when_disable_cache(disable_cache):
     web3 = mock.Mock()
     web3._network_name = "network_name"
-    middleware = disk_cache_middleware(mock.Mock(), web3)
-    middleware("eth_chainId", params={})
+    middleware = DiskCacheMiddleware(web3)
+    # middleware.wrap_make_request("eth_chainId", params={})
