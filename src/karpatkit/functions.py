@@ -6,8 +6,8 @@ from contextlib import suppress
 from datetime import datetime
 from decimal import Decimal
 
-from eth_typing import BlockIdentifier
 import requests
+from eth_typing import BlockIdentifier
 from hexbytes import HexBytes
 from web3 import Web3
 from web3.exceptions import ABIFunctionNotFound, BadFunctionCallOutput, ContractLogicError, Web3RPCError
@@ -645,7 +645,7 @@ def get_logs_web3(
             error_info = error.args[0]
             try:
                 error_info = json.loads(error_info.replace("'", '"'))
-            except:
+            finally:
                 pass
             if error_info["code"] == -32005:  # error code in infura
                 block_interval = int(error_info["data"]["to"], 16) - int(error_info["data"]["from"], 16)

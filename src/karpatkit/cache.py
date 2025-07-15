@@ -1,15 +1,15 @@
+import asyncio
 import functools
 import logging
 import os
-import asyncio
+from collections.abc import Callable
 from inspect import getcallargs
-from typing import Any, Callable, Tuple, Union
+from typing import Any
 
 import diskcache
-from typing_extensions import override
 from web3._utils.caching.caching_utils import generate_cache_key
 from web3.middleware import Web3Middleware
-from web3.types import AsyncMakeBatchRequestFn, AsyncMakeRequestFn, MakeRequestFn, RPCEndpoint, RPCResponse
+from web3.types import AsyncMakeRequestFn, RPCEndpoint, RPCResponse
 
 from .helpers import suppressed_error_codes
 
@@ -75,7 +75,7 @@ def del_key(key):
     del _cache[key]
 
 
-async def async_get_value(key: str) -> Tuple[str, Any]:
+async def async_get_value(key: str) -> tuple[str, Any]:
     """Get a value from the cache asynchronously.
 
     Returns:
@@ -88,7 +88,7 @@ async def async_get_value(key: str) -> Tuple[str, Any]:
     return await loop.run_in_executor(None, get_value, key)
 
 
-async def async_set_value(key: str, value: Tuple[str, Any]) -> None:
+async def async_set_value(key: str, value: tuple[str, Any]) -> None:
     """Set a value to the cache asynchronously."""
     loop = asyncio.get_running_loop()
     await loop.run_in_executor(None, set_value, key, value)

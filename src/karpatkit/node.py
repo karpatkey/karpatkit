@@ -124,7 +124,7 @@ class ProviderManager(JSONBaseProvider):
                     errors.append(e)
                     logger.exception("Unexpected exception when making request.")
             raise AllProvidersDownError(f"No working provider available. Endpoints {self.endpoints}")
-        raise AllProvidersDownError(f"No working provider available, Max attempts reached")
+        raise AllProvidersDownError("No working provider available, Max attempts reached")
 
 
 def get_web3_provider(provider):
