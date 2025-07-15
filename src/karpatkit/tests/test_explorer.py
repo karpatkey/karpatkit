@@ -77,7 +77,7 @@ def test_get_logs():
     blockend = 16671547
     vault_address = 0xBA12222222228D8BA445958A75A0704D566BF2C8
 
-    swap_event = Web3.keccak(text="Swap(bytes32,address,address,uint256,uint256)").hex()
+    swap_event = Web3.keccak(text="Swap(bytes32,address,address,uint256,uint256)").to_0x_hex()
     pool_id = "0x5c6ee304399dbdb9c8ef030ab642b10820db8f56000200000000000000000014"
 
     logs = ChainExplorer(Chain.ETHEREUM).get_logs(

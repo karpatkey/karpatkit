@@ -116,7 +116,7 @@ class ProviderManager(JSONBaseProvider):
                                 "message": f"eth_getLogs and eth_newFilter are limited to {hex(10000)} blocks range",
                                 "max_block_range": 10000,
                             }
-                        ) from e # Ad-hoc parsing: Quicknode nodes return a similar message
+                        ) from e  # Ad-hoc parsing: Quicknode nodes return a similar message
                 except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
                     errors.append(e)
                     logger.error("Error when making request: %s", e)
