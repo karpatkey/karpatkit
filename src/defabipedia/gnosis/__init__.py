@@ -1,12 +1,13 @@
 from ..types import Chain, ContractSpec, parent
 
+
 class EthereumContractSpecs:
     amb_eth_xdai = ContractSpec(
         address="0x4C36d2919e407f0Cc2Ee3c993ccF8ac26d9CE64e",
         abi_path=parent(__file__) / "amb_eth_xdai.json",
         name="amb_eth_xdai",
     )
-    
+
 
 class GnosisContractSpecs:
     sDAI = ContractSpec(
@@ -17,7 +18,6 @@ class GnosisContractSpecs:
         abi_path=parent(__file__) / "usdc.json",
         name="usdc",
     )
-
 
 
 ContractSpecs = {Chain.GNOSIS: GnosisContractSpecs, Chain.ETHEREUM: EthereumContractSpecs}
