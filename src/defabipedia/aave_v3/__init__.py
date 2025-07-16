@@ -7,6 +7,12 @@ class AllAbis:
 
 
 class EthereumContractSpecs:
+    UIPoolDataProvider = ContractSpec(
+        address="0x3F78BBD206e4D3c504Eb854232EdA7e47E9Fd8FC",
+        abi_path=parent(__file__) / "ui_pool_data_provider.json",
+        name="UIPoolDataProvider",
+    )
+
     ProtocolDataProvider = ContractSpec(
         address="0x7B4EB56E7CD4b454BA8ff71E4518426369a138a3",
         abi_path=parent(__file__) / "protocol_data_provider.json",
@@ -92,6 +98,11 @@ class EthereumContractSpecs:
         address="0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f", abi_path=parent(__file__) / "GHO.json", name="GHO"
     )
 
+    AAVE_oracle = ContractSpec(
+        address="0x54586bE62E3c3580375aE3723C145253060Ca0C2",
+        abi_path=parent(__file__) / "AAVE_oracle.json",
+        name="AaveOracle",
+    )
 
 class GnosisContractSpecs:
     ProtocolDataProvider = ContractSpec(
