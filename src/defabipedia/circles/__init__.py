@@ -1,4 +1,4 @@
-from defabipedia.types import Chain, ContractAbi, ContractSpec, parent
+from defabipedia.types import Chain, ContractSpec, parent
 
 
 class EthereumContractSpecs:
