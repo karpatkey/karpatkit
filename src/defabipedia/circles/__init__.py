@@ -1,5 +1,6 @@
 from defabipedia.types import Chain, ContractAbi, ContractSpec, parent
 
+
 class EthereumContractSpecs:
     TokenMessengerv1 = ContractSpec(
         address="0xBd3fa81B58Ba92a82136038B25aDec7066af3155",
@@ -11,6 +12,7 @@ class EthereumContractSpecs:
         abi_path=parent(__file__) / "message_transmitter.json",
         name="MessageTransmitter",
     )
+
 
 class ArbitrumContractSpecs:
     TokenMessengerv1 = ContractSpec(
@@ -24,6 +26,7 @@ class ArbitrumContractSpecs:
         name="MessageTransmitter",
     )
 
+
 class BaseContractSpecs:
     TokenMessengerv1 = ContractSpec(
         address="0x1682Ae6375C4E4A97e4B583BC394c861A46D8962",
@@ -36,6 +39,7 @@ class BaseContractSpecs:
         name="MessageTransmitter",
     )
 
+
 class OptimismContractSpecs:
     TokenMessengerv1 = ContractSpec(
         address="0x2B4069517957735bE00ceE0fadAE88a26365528f",
@@ -47,6 +51,7 @@ class OptimismContractSpecs:
         abi_path=parent(__file__) / "message_transmitter.json",
         name="MessageTransmitter",
     )
+
 
 ContractSpecs = {
     Chain.ETHEREUM: EthereumContractSpecs,
