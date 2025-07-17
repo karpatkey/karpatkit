@@ -280,7 +280,6 @@ def _local_node(request, node: LocalNode):
         def __init__(self, w3):
             self.w3 = w3
 
-
     node.w3.middleware_onion.add(LatencyMeasurerMiddleware, "latency_middleware")
     node.reset_state()
     return node
@@ -383,7 +382,6 @@ class RecordMiddleware(Web3Middleware):
         cls.interactions = []
 
 
-
 class ReplayAndAssertMiddleware(Web3Middleware):
     interactions = None
 
@@ -393,7 +391,6 @@ class ReplayAndAssertMiddleware(Web3Middleware):
 
     def __init__(self, w3):
         self.w3 = w3
-
 
 
 class DoNothingWeb3Provider(BaseProvider):

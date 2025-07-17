@@ -1,18 +1,21 @@
 from dataclasses import dataclass
+
 from eth_account.signers.local import LocalAccount
 from eth_typing import ChecksumAddress
 from hexbytes import HexBytes
+from safe_eth.eth import EthereumClient, EthereumNetwork
+from safe_eth.safe.addresses import MASTER_COPIES, PROXY_FACTORIES
+from safe_eth.safe.safe import SafeV141
+from safe_eth.safe.safe_creator import SafeCreator
 from web3 import Web3
 from web3.types import TxParams, TxReceipt
-from safe_eth.eth import EthereumClient, EthereumNetwork
-from safe_eth.safe.safe import SafeV141
-from safe_eth.safe.safe_creator import SafeCreator 
-from safe_eth.safe.addresses import MASTER_COPIES, PROXY_FACTORIES
+
 from defabipedia.types import Chain
-from karpatkit.constants import Address
+
 
 class SafeExecutionFailure(Exception):
     pass
+
 
 @dataclass
 class TxResult:
@@ -20,23 +23,26 @@ class TxResult:
     tx_params: TxParams
     receipt: TxReceipt
 
+
 class SimpleEthereumClient(EthereumClient):
     def __init__(self, w3: Web3):
         self.w3 = w3
 
+
 class SimpleSafe(SafeV141):
     """A simple Safe with one signer to be used in tests"""
-    
+
     def __new__(cls, address: ChecksumAddress, w3: Web3, signer_key: str):
         instance = super().__new__(cls, address, SimpleEthereumClient(w3))
         return instance
-    
+
     def __init__(self, address: ChecksumAddress, w3: Web3, signer_key: str):
         self.signer_key = signer_key
         super().__init__(address, SimpleEthereumClient(w3))
 
     def send(self, txs) -> TxResult:
         from roles_royce.utils import multi_or_one  # TODO: refactor out from here
+
         tx = multi_or_one(txs, Chain.get_blockchain_from_web3(self.w3))
         safe_tx = self.build_multisig_tx(
             to=tx.contract_address,
