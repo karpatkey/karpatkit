@@ -40,7 +40,7 @@ class SimpleSafe(SafeV141):
         self.signer_key = signer_key
         super().__init__(address, SimpleEthereumClient(w3))
 
-    def send(self, txs) -> TxResult:
+    def send(self, txs, gas: dict = None) -> TxResult:
         from roles_royce.utils import multi_or_one  # TODO: refactor out from here
 
         tx = multi_or_one(txs, Chain.get_blockchain_from_web3(self.w3))
@@ -49,6 +49,9 @@ class SimpleSafe(SafeV141):
             value=tx.value,
             data=tx.data,
             operation=tx.operation,
+            safe_tx_gas=gas.get("safe_tx_gas", 0) if gas else 0,
+            base_gas=gas.get("base_gas", 0) if gas else 0,
+            gas_price=gas.get("gas_price", 0) if gas else 0,
         )
         safe_tx.sign(self.signer_key)
         tx_hash, *_ = safe_tx.execute(self.signer_key)
