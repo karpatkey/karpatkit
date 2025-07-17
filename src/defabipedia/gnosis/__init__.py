@@ -1,4 +1,8 @@
-from ..types import Chain, ContractSpec, parent
+from ..types import Chain, ContractAbi, ContractSpec, parent
+
+
+class GnosisAbis:
+    asset_gno = ContractAbi(abi_path=parent(__file__) / "asset_gno.json", name="asset_gno")
 
 
 class EthereumContractSpecs:
@@ -13,11 +17,9 @@ class GnosisContractSpecs:
     sDAI = ContractSpec(
         address="0xaf204776c7245bF4147c2612BF6e5972Ee483701", abi_path=parent(__file__) / "sdai.json", name="sdai"
     )
-    usdc = ContractSpec(
-        address="0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
-        abi_path=parent(__file__) / "usdc.json",
-        name="usdc",
-    )
 
 
 ContractSpecs = {Chain.GNOSIS: GnosisContractSpecs, Chain.ETHEREUM: EthereumContractSpecs}
+Abis = {
+    Chain.GNOSIS: GnosisAbis,
+}
