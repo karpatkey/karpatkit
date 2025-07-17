@@ -277,8 +277,14 @@ def _local_node(request, node: LocalNode):
     wait_for_port(node.port, timeout=20)
 
     class LatencyMeasurerMiddleware(Web3Middleware):
-        def __init__(self, w3):
-            self.w3 = w3
+        def wrap_make_request(self, make_request):
+            def middleware(method, params):
+                start_time = time.monotonic()
+                response = make_request(method, params)
+                logger.debug("Web3 time spent in %s: %f seconds", method, time.monotonic() - start_time)
+                return response
+
+            return middleware
 
     node.w3.middleware_onion.add(LatencyMeasurerMiddleware, "latency_middleware")
     node.reset_state()
@@ -397,9 +403,12 @@ class DoNothingWeb3Provider(BaseProvider):
     def __init__(self, chain_id):
         self.chain_id = chain_id
 
-    def make_request(self, method, params):
-        if method == "eth_chainId":
-            return {"jsonrpc": "2.0", "id": 1, "result": hex(self.chain_id)}
+    def wrap_make_request(self, _make_request):
+        def middleware(method, _params):
+            if method == "eth_chainId":
+                return {"jsonrpc": "2.0", "id": 1, "result": hex(self.chain_id)}
+
+        return middleware
 
 
 class DoNothingLocalNode:
