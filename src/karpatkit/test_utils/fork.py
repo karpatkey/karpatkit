@@ -387,9 +387,21 @@ class RecordMiddleware(Web3Middleware):
     def clear_interactions(cls):
         cls.interactions = []
 
+    def wrap_make_request(self, make_request):
+        def middleware(method, params):
+            self.interactions.append({"request": {"method": method, "params": list(params)}})
+            response = make_request(method, params)
+
+            del response["jsonrpc"]
+            del response["id"]
+            self.interactions.append({"response": response})
+            return response
+
+        return middleware
+
 
 class ReplayAndAssertMiddleware(Web3Middleware):
-    interactions = None
+    interactions = []
 
     @classmethod
     def set_interactions(cls, interactions: list):
@@ -397,6 +409,20 @@ class ReplayAndAssertMiddleware(Web3Middleware):
 
     def __init__(self, w3):
         self.w3 = w3
+
+    def wrap_make_request(self, make_request):
+        def middleware(method, params):
+            recorded_request = self.interactions.pop()
+            assert "request" in recorded_request
+            assert method == recorded_request["request"]["method"]
+
+            recorded_response = self.interactions.pop()
+            assert "response" in recorded_response
+            recorded_response["response"]["jsonrpc"] = "2.0"
+            recorded_response["response"]["id"] = 69
+            return recorded_response["response"]
+
+        return middleware
 
 
 class DoNothingWeb3Provider(BaseProvider):
