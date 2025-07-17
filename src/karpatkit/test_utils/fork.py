@@ -277,15 +277,9 @@ def _local_node(request, node: LocalNode):
     wait_for_port(node.port, timeout=20)
 
     class LatencyMeasurerMiddleware(Web3Middleware):
-        def __init__(self, make_request, w3):
+        def __init__(self, w3):
             self.w3 = w3
-            self.make_request = make_request
 
-        def __call__(self, method, params):
-            start_time = time.monotonic()
-            response = self.make_request(method, params)
-            logger.debug("Web3 time spent in %s: %f seconds", method, time.monotonic() - start_time)
-            return response
 
     node.w3.middleware_onion.add(LatencyMeasurerMiddleware, "latency_middleware")
     node.reset_state()
@@ -378,49 +372,28 @@ def accounts() -> list[LocalAccount]:
     return TEST_ACCOUNTS
 
 
-class RecordMiddleware:
+class RecordMiddleware(Web3Middleware):
     interactions = []
 
-    def __init__(self, make_request, w3):
+    def __init__(self, w3):
         self.w3 = w3
-        self.make_request = make_request
 
     @classmethod
     def clear_interactions(cls):
         cls.interactions = []
 
-    def __call__(self, method, params, reentrant=False):
-        self.interactions.append({"request": {"method": method, "params": list(params)}})
-        response = self.make_request(method, params)
-
-        del response["jsonrpc"]
-        del response["id"]
-        self.interactions.append({"response": response})
-        return response
 
 
-class ReplayAndAssertMiddleware:
+class ReplayAndAssertMiddleware(Web3Middleware):
     interactions = None
 
     @classmethod
     def set_interactions(cls, interactions: list):
-        cls.interactions = interactions
-        cls.interactions.reverse()
+        cls.interactions = list(reversed(interactions))
 
-    def __init__(self, make_request, w3):
+    def __init__(self, w3):
         self.w3 = w3
-        self.make_request = make_request
 
-    def __call__(self, method, params):
-        recorded_request = self.interactions.pop()
-        assert "request" in recorded_request
-        assert method == recorded_request["request"]["method"]
-
-        recorded_response = self.interactions.pop()
-        assert "response" in recorded_response
-        recorded_response["response"]["jsonrpc"] = "2.0"
-        recorded_response["response"]["id"] = 69
-        return recorded_response["response"]
 
 
 class DoNothingWeb3Provider(BaseProvider):
