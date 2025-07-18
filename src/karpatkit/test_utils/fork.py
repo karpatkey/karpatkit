@@ -392,8 +392,6 @@ class RecordMiddleware(Web3Middleware):
             self.interactions.append({"request": {"method": method, "params": list(params)}})
             response = make_request(method, params)
 
-            del response["jsonrpc"]
-            del response["id"]
             self.interactions.append({"response": response})
             return response
 
@@ -429,12 +427,13 @@ class DoNothingWeb3Provider(BaseProvider):
     def __init__(self, chain_id):
         self.chain_id = chain_id
 
-    def wrap_make_request(self, _make_request):
-        def middleware(method, _params):
-            if method == "eth_chainId":
-                return {"jsonrpc": "2.0", "id": 1, "result": hex(self.chain_id)}
+    def make_request(self, method, params):
+        if method == "eth_chainId":
+            return {"jsonrpc": "2.0", "id": 1, "result": hex(self.chain_id)}
 
-        return middleware
+    @property
+    def _is_batching(self) -> bool:
+        return False
 
 
 class DoNothingLocalNode:
