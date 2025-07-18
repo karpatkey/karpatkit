@@ -399,8 +399,6 @@ class RecordMiddleware(Web3Middleware):
 
 
 class ReplayAndAssertMiddleware(Web3Middleware):
-    interactions = []
-
     @classmethod
     def set_interactions(cls, interactions: list):
         cls.interactions = list(reversed(interactions))
@@ -410,11 +408,11 @@ class ReplayAndAssertMiddleware(Web3Middleware):
 
     def wrap_make_request(self, make_request):
         def middleware(method, params):
-            recorded_request = self.interactions.pop()
+            recorded_request = self.__class__.interactions.pop()
             assert "request" in recorded_request
             assert method == recorded_request["request"]["method"]
 
-            recorded_response = self.interactions.pop()
+            recorded_response = self.__class__.interactions.pop()
             assert "response" in recorded_response
             recorded_response["response"]["jsonrpc"] = "2.0"
             recorded_response["response"]["id"] = 69
