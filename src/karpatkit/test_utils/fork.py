@@ -389,10 +389,10 @@ class RecordMiddleware(Web3Middleware):
 
     def wrap_make_request(self, make_request):
         def middleware(method, params):
-            self.interactions.append({"request": {"method": method, "params": list(params)}})
+            self.__class__.interactions.append({"request": {"method": method, "params": list(params)}})
             response = make_request(method, params)
 
-            self.interactions.append({"response": response})
+            self.__class__.interactions.append({"response": response})
             return response
 
         return middleware
@@ -408,6 +408,9 @@ class ReplayAndAssertMiddleware(Web3Middleware):
 
     def wrap_make_request(self, make_request):
         def middleware(method, params):
+            if [] == self.__class__.interactions:
+                raise ValueError("No interactions recorded")
+
             recorded_request = self.__class__.interactions.pop()
             assert "request" in recorded_request
             assert method == recorded_request["request"]["method"]
