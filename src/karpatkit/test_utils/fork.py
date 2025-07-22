@@ -19,7 +19,8 @@ from eth_account.signers.local import LocalAccount
 from web3 import AsyncWeb3, HTTPProvider, Web3
 from web3._utils.encoding import Web3JsonEncoder
 from web3.exceptions import ContractLogicError
-from web3.providers.async_rpc import AsyncHTTPProvider
+from web3.middleware import Web3Middleware
+from web3.providers import AsyncHTTPProvider
 from web3.providers.base import BaseProvider
 
 from defabipedia import Blockchain, Chain
@@ -43,7 +44,7 @@ REMOTE_ETH_NODE_URL = codecs.decode(
     b"u)74-6NNu\xb3\xcc\x0f\nH\n\xcb\xccq4\xd4u\xcd3(53+\xf32\n(\x06\x00Q\x92\x17X",
     "zlib",
 ).decode()
-REMOTE_GC_NODE_URL = "https://rpc.ankr.com/gnosis"
+REMOTE_GC_NODE_URL = "https://rpc.gnosischain.com"
 REMOTE_BASE_NODE_URL = "https://1rpc.io/base"
 REMOTE_OPT_NODE_URL = "https://1rpc.io/op"
 REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
@@ -275,18 +276,15 @@ def _local_node(request, node: LocalNode):
 
     wait_for_port(node.port, timeout=20)
 
-    class LatencyMeasurerMiddleware:
-        def __init__(self, make_request, w3):
-            self.w3 = w3
-            self.make_request = make_request
+    class LatencyMeasurerMiddleware(Web3Middleware):
+        def wrap_make_request(self, make_request):
+            def middleware(method, params):
+                start_time = time.monotonic()
+                response = make_request(method, params)
+                logger.debug("Web3 time spent in %s: %f seconds", method, time.monotonic() - start_time)
+                return response
 
-        def __call__(self, method, params):
-            import time
-
-            start_time = time.monotonic()
-            response = self.make_request(method, params)
-            logger.debug("Web3 time spent in %s: %f seconds", method, time.monotonic() - start_time)
-            return response
+            return middleware
 
     node.w3.middleware_onion.add(LatencyMeasurerMiddleware, "latency_middleware")
     node.reset_state()
@@ -379,49 +377,51 @@ def accounts() -> list[LocalAccount]:
     return TEST_ACCOUNTS
 
 
-class RecordMiddleware:
+class RecordMiddleware(Web3Middleware):
     interactions = []
 
-    def __init__(self, make_request, w3):
+    def __init__(self, w3):
         self.w3 = w3
-        self.make_request = make_request
 
     @classmethod
     def clear_interactions(cls):
         cls.interactions = []
 
-    def __call__(self, method, params, reentrant=False):
-        self.interactions.append({"request": {"method": method, "params": list(params)}})
-        response = self.make_request(method, params)
+    def wrap_make_request(self, make_request):
+        def middleware(method, params):
+            self.__class__.interactions.append({"request": {"method": method, "params": list(params)}})
+            response = make_request(method, params)
 
-        del response["jsonrpc"]
-        del response["id"]
-        self.interactions.append({"response": response})
-        return response
+            self.__class__.interactions.append({"response": response})
+            return response
+
+        return middleware
 
 
-class ReplayAndAssertMiddleware:
-    interactions = None
-
+class ReplayAndAssertMiddleware(Web3Middleware):
     @classmethod
     def set_interactions(cls, interactions: list):
-        cls.interactions = interactions
-        cls.interactions.reverse()
+        cls.interactions = list(reversed(interactions))
 
-    def __init__(self, make_request, w3):
+    def __init__(self, w3):
         self.w3 = w3
-        self.make_request = make_request
 
-    def __call__(self, method, params):
-        recorded_request = self.interactions.pop()
-        assert "request" in recorded_request
-        assert method == recorded_request["request"]["method"]
+    def wrap_make_request(self, make_request):
+        def middleware(method, params):
+            if [] == self.__class__.interactions:
+                raise ValueError("No interactions recorded")
 
-        recorded_response = self.interactions.pop()
-        assert "response" in recorded_response
-        recorded_response["response"]["jsonrpc"] = "2.0"
-        recorded_response["response"]["id"] = 69
-        return recorded_response["response"]
+            recorded_request = self.__class__.interactions.pop()
+            assert "request" in recorded_request
+            assert method == recorded_request["request"]["method"]
+
+            recorded_response = self.__class__.interactions.pop()
+            assert "response" in recorded_response
+            recorded_response["response"]["jsonrpc"] = "2.0"
+            recorded_response["response"]["id"] = 69
+            return recorded_response["response"]
+
+        return middleware
 
 
 class DoNothingWeb3Provider(BaseProvider):
@@ -431,6 +431,10 @@ class DoNothingWeb3Provider(BaseProvider):
     def make_request(self, method, params):
         if method == "eth_chainId":
             return {"jsonrpc": "2.0", "id": 1, "result": hex(self.chain_id)}
+
+    @property
+    def _is_batching(self) -> bool:
+        return False
 
 
 class DoNothingLocalNode:

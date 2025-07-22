@@ -1,10 +1,15 @@
+import asyncio
 import functools
 import logging
 import os
+from collections.abc import Callable
 from inspect import getcallargs
+from typing import Any
 
 import diskcache
-from web3.middleware.cache import generate_cache_key
+from web3._utils.caching.caching_utils import generate_cache_key
+from web3.middleware import Web3Middleware
+from web3.types import AsyncMakeRequestFn, RPCEndpoint, RPCResponse
 
 from .helpers import suppressed_error_codes
 
@@ -70,56 +75,112 @@ def del_key(key):
     del _cache[key]
 
 
-def disk_cache_middleware(make_request, web3):
+async def async_get_value(key: str) -> tuple[str, Any]:
+    """Get a value from the cache asynchronously.
+
+    Returns:
+        A tuple of (key, value) from the cache.
+
+    Raises:
+        KeyError: The key doesn't exist in the cache or there is no value associated with that key.
     """
-    Cache middleware that supports multiple blockchains.
-    It also do not caches if block='latest'.
+    loop = asyncio.get_running_loop()
+    return await loop.run_in_executor(None, get_value, key)
+
+
+async def async_set_value(key: str, value: tuple[str, Any]) -> None:
+    """Set a value to the cache asynchronously."""
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, set_value, key, value)
+
+
+class DiskCacheMiddleware(Web3Middleware):
+    """
+    Cache middleware that supports multiple blockchains with both sync and async operations.
+    It does not cache if block='latest'.
     """
 
-    RPC_WHITELIST = {
-        "eth_chainId",
-        "eth_call",
-        "eth_getTransactionReceipt",
-        "eth_getLogs",
-        "eth_getTransactionByHash",
-        "eth_getCode",
-        "eth_getStorageAt",
-        "eth_getBlockByNumber",
-        "debug_traceTransaction",
-        "trace_transaction",
-    }
-
-    def middleware(method, params):
-        if not is_enabled():
-            logger.debug("The cache is disabled")
-            return make_request(method, params)
-
-        do_cache = False
+    def _should_cache(self, method: RPCEndpoint, params: Any) -> bool:
+        """Determine if the request should be cached."""
+        RPC_WHITELIST = {
+            "eth_chainId",
+            "eth_call",
+            "eth_getTransactionReceipt",
+            "eth_getLogs",
+            "eth_getTransactionByHash",
+            "eth_getCode",
+            "eth_getStorageAt",
+            "eth_getBlockByNumber",
+            "debug_traceTransaction",
+            "trace_transaction",
+        }
         if method in RPC_WHITELIST and "latest" not in params:
-            do_cache = True
+            return True
         if method in {"eth_chainId", "eth_getCode"}:
-            do_cache = True
+            return True
+        return False
 
-        if do_cache:
-            params_hash = generate_cache_key(params)
-            cache_key = f"{web3._network_name}.{method}.{params_hash}"
-            try:
-                key, data = get_value(cache_key)
-            except KeyError:
-                response = make_request(method, params)
-                if "error" not in response and "result" in response and response["result"] is not None:
-                    set_value(cache_key, ("result", response["result"]))
-                elif "error" in response:
-                    if response["error"]["code"] in suppressed_error_codes:
-                        set_value(cache_key, ("error", response["error"]))
-                return response
+    def wrap_make_request(
+        self, make_request: Callable[[RPCEndpoint, Any], RPCResponse]
+    ) -> Callable[[RPCEndpoint, Any], RPCResponse]:
+        """Synchronous middleware for Web3 requests."""
+
+        def middleware(method: RPCEndpoint, params: Any) -> RPCResponse:
+            method, params = self.request_processor(method, params)
+
+            if not is_enabled():
+                logger.debug("The cache is disabled")
+                return self.response_processor(method, make_request(method, params))
+
+            if self._should_cache(method, params):
+                params_hash = generate_cache_key(params)
+                cache_key = f"{self._w3._network_name}.{method}.{params_hash}"
+                try:
+                    key, data = get_value(cache_key)
+                    return {"jsonrpc": "2.0", "id": 11, key: data}
+                except KeyError:
+                    response = self.response_processor(method, make_request(method, params))
+                    if "error" not in response and "result" in response and response["result"] is not None:
+                        set_value(cache_key, ("result", response["result"]))
+                    elif "error" in response:
+                        if response["error"]["code"] in suppressed_error_codes:
+                            set_value(cache_key, ("error", response["error"]))
+                    return response
             else:
-                return {"jsonrpc": "2.0", "id": 11, key: data}
-        else:
-            logger.debug(f"Not caching '{method}' with params: '{params}'")
-            return make_request(method, params)
+                logger.debug(f"Not caching '{method}' with params: '{params}'")
+                return self.response_processor(method, make_request(method, params))
 
-    return middleware
+        return middleware
+
+    async def async_wrap_make_request(self, make_request: AsyncMakeRequestFn):
+        """Asynchronous middleware for Web3 requests."""
+
+        async def middleware(method: RPCEndpoint, params: Any) -> RPCResponse:
+            method, params = self.request_processor(method, params)
+
+            if not is_enabled():
+                logger.debug("The cache is disabled")
+                return self.response_processor(method, await make_request(method, params))
+
+            if self._should_cache(method, params):
+                params_hash = generate_cache_key(params)
+                cache_key = f"{self._w3._network_name}.{method}.{params_hash}"
+                try:
+                    key, data = await async_get_value(cache_key)
+                    return {"jsonrpc": "2.0", "id": 11, key: data}
+                except KeyError:
+                    response = await self.async_response_processor(method, await make_request(method, params))
+                    if "error" not in response and "result" in response and response["result"] is not None:
+                        await async_set_value(cache_key, ("result", response["result"]))
+                    elif "error" in response:
+                        if response["error"]["code"] in suppressed_error_codes:
+                            await async_set_value(cache_key, ("error", response["error"]))
+                    return response
+            else:
+                logger.debug(f"Not caching '{method}' with params: '{params}'")
+                return self.response_processor(method, await make_request(method, params))
+
+        return middleware
 
 
 def cache_contract_method(exclude_args=None, validator=None):
@@ -221,7 +282,7 @@ def const_call(f):
     if not is_enabled():
         return f.call()
 
-    cache_key = generate_cache_key((f.w3._network_name, f.address, f.function_identifier, f.args, f.kwargs))
+    cache_key = generate_cache_key((f.w3._network_name, f.address, f.abi_element_identifier, f.args, f.kwargs))
     try:
         return get_value(cache_key)
     except KeyError:

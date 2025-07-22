@@ -7,9 +7,10 @@ from datetime import datetime
 from decimal import Decimal
 
 import requests
+from eth_typing import BlockIdentifier
 from hexbytes import HexBytes
 from web3 import Web3
-from web3.exceptions import ABIFunctionNotFound, BadFunctionCallOutput, ContractLogicError
+from web3.exceptions import ABIFunctionNotFound, BadFunctionCallOutput, ContractLogicError, Web3RPCError
 from web3.types import LogReceipt
 
 from defabipedia import Blockchain, Chain
@@ -51,8 +52,10 @@ def to_token_amount(
     Returns:
         Decimal: The converted token amount.
     """
-    decimals = get_decimals(token_address, blockchain=blockchain, web3=web3) if decimals else 0
-    return amount / Decimal(10**decimals)
+    if decimals:
+        decs = get_decimals(token_address, blockchain=blockchain, web3=web3)
+        return amount / Decimal(10**decs)
+    return Decimal(amount)
 
 
 def last_block(blockchain, web3=None):
@@ -107,7 +110,7 @@ def date_to_block(datestring, blockchain) -> int:
             f"""Could not get block through algorithm on blockchain {blockchain} and datestring {datestring},
             proceeding with API: {e}"""
         )
-        block = timestamp_to_block(timestamp, blockchain)
+        block = timestamp_to_block(int(timestamp), blockchain)
     return block
 
 
@@ -139,9 +142,9 @@ def token_info(token_address, blockchain):
     ETHPLORER_URL = "https://api.ethplorer.io/getTokenInfo/%s?apiKey=%s"
     BLOCKSCOUT_URL = "https://blockscout.com/xdai/mainnet/api?module=token&action=getToken&contractaddress=%s"
 
+    data = None
     if blockchain.lower() == Chain.ETHEREUM:
         data = requests.get(ETHPLORER_URL % (token_address, APIKey.ETHPLORER)).json()
-
     elif blockchain.lower() == Chain.GNOSIS:
         data = requests.get(BLOCKSCOUT_URL % token_address).json()["result"]
 
@@ -149,7 +152,7 @@ def token_info(token_address, blockchain):
 
 
 def balance_of(
-    address: str, contract_address: str, block: int | str, blockchain: str, web3=None, decimals: bool = True
+    address: str, contract_address: str, block: BlockIdentifier, blockchain: str, web3=None, decimals: bool = True
 ) -> Decimal:
     """
     Get the balance of an address for a given contract on a specific block in a blockchain.
@@ -178,14 +181,14 @@ def balance_of(
         token_contract = web3.eth.contract(address=contract_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
         try:  # noqa: SIM105
             balance = token_contract.functions.balanceOf(address).call(block_identifier=block)
-        except ContractLogicError:
+        except (ContractLogicError, BadFunctionCallOutput):
             pass
 
     return to_token_amount(contract_address, balance, blockchain, web3, decimals)
 
 
 def total_supply(
-    token_address: str, block: int | str, blockchain: str, web3: Web3 = None, decimals: bool = True
+    token_address: str, block: BlockIdentifier, blockchain: str, web3: Web3 = None, decimals: bool = True
 ) -> Decimal:
     """Retrieves the total supply of a token at a specific block."""
     if web3 is None:
@@ -207,12 +210,11 @@ def get_decimals(token_address: str, blockchain: str | Blockchain, web3=None) ->
     token_address = Web3.to_checksum_address(token_address)
 
     if token_address == Address.ZERO or token_address == Address.E:
-        decimals = 18
-    else:
-        token_contract = web3.eth.contract(address=token_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
-        decimals = const_call(token_contract.functions.decimals())
+        return 18
 
-    return decimals
+    token_contract = web3.eth.contract(address=token_address, abi=json.loads(ABI_TOKEN_SIMPLIFIED))
+    decs = const_call(token_contract.functions.decimals())
+    return decs
 
 
 def get_symbol(token_address: str, blockchain: str | Blockchain, web3=None) -> str:
@@ -233,12 +235,12 @@ def get_symbol(token_address: str, blockchain: str | Blockchain, web3=None) -> s
     }
 
     if token_address in [Address.ZERO, Address.E]:
-        symbol = special_addr_mapping[blockchain]
-    else:
-        symbol = infer_symbol(web3, blockchain, token_address)
-        if not isinstance(symbol, str):
-            symbol = symbol.hex()
-            symbol = bytes.fromhex(symbol).decode("utf-8").rstrip("\x00")
+        return special_addr_mapping[blockchain]
+
+    symbol = infer_symbol(web3, blockchain, token_address)
+    if not isinstance(symbol, str):
+        symbol = symbol.hex()
+        symbol = bytes.fromhex(symbol).decode("utf-8").rstrip("\x00")
 
     return symbol
 
@@ -281,11 +283,10 @@ def get_contract(contract_address, blockchain, web3=None, abi=None):
     if abi is None:
         abi = ChainExplorer(blockchain).abi_from_address(contract_address)
         return web3.eth.contract(address=contract_address, abi=abi)
-    else:
-        return web3.eth.contract(address=contract_address, abi=abi)
+    return web3.eth.contract(address=contract_address, abi=abi)
 
 
-def get_contract_proxy_abi(contract_address: str, abi_contract_address: str, blockchain: str | Blockchain, web3=None):
+def get_contract_proxy_abi(contract_address: str, abi_contract_address: str, blockchain: Blockchain, web3=None):
     """Retrieves the contract proxy ABI for a given contract address and ABI contract address.
 
     Args:
@@ -342,8 +343,9 @@ def get_impl_1167_0(web3, contract_address, block):
     # OpenZeppelins' EIP-1167 - Example in GC: 0x793fAF861a78B07c0C8c0ed1450D3919F3473226)
     impl_address = Address.ZERO
     bytecode = web3.eth.get_code(contract_address, block_identifier=block).hex()
-    if bytecode[2:22] == "363d3d373d3d3d363d73" and bytecode[62:] == "5af43d82803e903d91602b57fd5bf3":
-        impl_address = Web3.to_checksum_address("0x" + bytecode[22:62])
+    if bytecode.startswith("363d3d373d3d3d363d73") and bytecode.endswith("5af43d82803e903d91602b57fd5bf3"):
+        print(bytecode[20:60])
+        impl_address = Web3.to_checksum_address("0x" + bytecode[20:60])
     return impl_address
 
 
@@ -352,8 +354,8 @@ def get_impl_1167_1(web3, contract_address, block):
     # Examples: mainnet: 0x09cabEC1eAd1c0Ba254B09efb3EE13841712bE14 / GC: 0x7B7DA887E0c18e631e175532C06221761Db30A24
     impl_address = Address.ZERO
     bytecode = web3.eth.get_code(contract_address, block_identifier=block).hex()
-    if bytecode[2:32] == "366000600037611000600036600073" and bytecode[72:] == "5af41558576110006000f3":
-        impl_address = Web3.to_checksum_address("0x" + bytecode[32:72])
+    if bytecode.startswith("366000600037611000600036600073") and bytecode.endswith("5af41558576110006000f3"):
+        impl_address = Web3.to_checksum_address("0x" + bytecode[30:70])
     return impl_address
 
 
@@ -514,7 +516,7 @@ def get_data(contract_address, function_name, parameters, blockchain, web3=None,
         contract = get_contract_proxy_abi(contract_address, abi_address, blockchain, web3=web3)
 
     try:
-        return contract.encodeABI(fn_name=function_name, args=parameters)
+        return contract.encode_abi(fn_name=function_name, args=parameters)
     except Exception:
         logger.exception("Exception in get_data")
         return None
@@ -617,6 +619,8 @@ def get_logs_web3(
     if web3 is None:
         web3 = get_node(blockchain)
 
+    topics = [topic if topic.startswith("0x") else "0x" + topic for topic in topics]
+
     if tx_hash:
         # Get transaction receipt
         tx_receipt = web3.eth.get_transaction_receipt(tx_hash)
@@ -636,9 +640,13 @@ def get_logs_web3(
                     if logs[n]["blockNumber"] > block_end:
                         logs = logs[:n]
                         break
-        except ValueError as error:
+        except (ValueError, Web3RPCError) as error:
             # Handle ValueError by adjusting the block range and retrying
             error_info = error.args[0]
+            try:
+                error_info = json.loads(error_info.replace("'", '"'))
+            finally:
+                pass
             if error_info["code"] == -32005:  # error code in infura
                 block_interval = int(error_info["data"]["to"], 16) - int(error_info["data"]["from"], 16)
             elif "max_block_range" in error_info:  # error code in Quicknode, see ProviderManager class
@@ -648,6 +656,8 @@ def get_logs_web3(
                 block_interval = blocks[1] - blocks[0]
             elif error_info["code"] == -32600:  # error code in anker: "block range is too wide"
                 block_interval = 3000
+            elif error_info["code"] == -32614:
+                block_interval = int(re.findall(r"\d+", error_info["message"].replace(",", ""))[0] or 10000)
             else:
                 raise ValueError(error_info) from error
             # Log the error and the new block range

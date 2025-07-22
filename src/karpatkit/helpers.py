@@ -4,7 +4,7 @@ from contextlib import contextmanager, suppress
 from functools import wraps
 from typing import Any
 
-from web3.exceptions import BadFunctionCallOutput, ContractLogicError
+from web3.exceptions import BadFunctionCallOutput, ContractLogicError, Web3RPCError
 
 from defabipedia.tokens import NATIVE, EthereumTokenAddr, erc20_contract
 
@@ -15,23 +15,38 @@ class ConfigError(Exception):
     pass
 
 
+_CONFIG = None
+
+
 def get_config():
+    global _CONFIG
     config_path = os.environ.get("KKIT_CFG") or os.environ.get("CONFIG_PATH") or "kkit_config.json"
+
+    if _CONFIG:
+        return _CONFIG
+
+    json_config = os.environ.get("KKIT_CFG_JSON")
+    if json_config:
+        _CONFIG = json.loads(json_config)
+        return _CONFIG
 
     if config_path and os.path.exists(config_path):
         with open(config_path) as json_file:
-            config = json.load(json_file)
+            _CONFIG = json.load(json_file)
     else:
         raise ConfigError("Config file is missing. Use KKIT_CFG env variable to specify a config file.")
-    return config
+    return _CONFIG
 
 
 @contextmanager
 def suppress_error_codes():
     try:
         yield
+    except Web3RPCError as e:
+        if isinstance(e.args[0], dict) and e.args[0].get("code", 0) not in suppressed_error_codes:
+            raise
     except ValueError as e:
-        if e.args[0]["code"] not in suppressed_error_codes:
+        if isinstance(e.args[0], dict) and e.args[0].get("code", 0) not in suppressed_error_codes:
             raise
 
 

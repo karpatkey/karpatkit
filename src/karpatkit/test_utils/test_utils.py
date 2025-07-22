@@ -11,6 +11,9 @@ def test_to_hex_32_bytes():
 
 
 def test_create_safe_gnosis(local_node_gc_replay, accounts):
+    w3 = local_node_gc_replay.w3
+    block = 41133494
+    local_node_gc_replay.set_block(block)
     owner = accounts[0]
-    safe = create_simple_safe(local_node_gc_replay.w3, owner)
+    safe = create_simple_safe(w3, owner)
     assert safe.retrieve_owners() == [owner.address]

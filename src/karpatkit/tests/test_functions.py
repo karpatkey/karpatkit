@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 from hexbytes import HexBytes
-from web3.types import LogReceipt
+from web3.datastructures import AttributeDict
 
 from defabipedia import Chain
 from defabipedia.tokens import EthereumTokenAddr
@@ -153,7 +153,7 @@ def test_get_logs_web3():
         block_end=18934090,
     )
     assert logs == [
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x89D3D732da8bf0f88659Cf3738E5E44e553f9ED7",
                 "topics": [
@@ -161,15 +161,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000849d52316331967b6ff1198e5e32a0eb168d039d"),
                 ],
                 "data": HexBytes("0x0000000000000000000000000000000000000000000000760a1e7fad40af8556"),
+                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "blockNumber": 18934050,
+                "blockTimestamp": "0x6596a83f",
                 "transactionHash": HexBytes("0x1b99e432cfd9ba2411a49aa9e5544e7c02829c55c75d2dd9739d67917ef7188c"),
                 "transactionIndex": 82,
-                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "logIndex": 180,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x9E1104962D1019913269d8Db409c12456F362Df6",
                 "topics": [
@@ -177,15 +178,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000849d52316331967b6ff1198e5e32a0eb168d039d"),
                 ],
                 "data": HexBytes("0x0000000000000000000000000000000000000000000004cd9efc472cbadc0f2b"),
+                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "blockNumber": 18934050,
+                "blockTimestamp": "0x6596a83f",
                 "transactionHash": HexBytes("0x1b99e432cfd9ba2411a49aa9e5544e7c02829c55c75d2dd9739d67917ef7188c"),
                 "transactionIndex": 82,
-                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "logIndex": 182,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xDd1fE5AD401D4777cE89959b7fa587e569Bf125D",
                 "topics": [
@@ -193,15 +195,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000849d52316331967b6ff1198e5e32a0eb168d039d"),
                 ],
                 "data": HexBytes("0x00000000000000000000000000000000000000000000004170b6c0de2336f900"),
+                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "blockNumber": 18934050,
+                "blockTimestamp": "0x6596a83f",
                 "transactionHash": HexBytes("0x1b99e432cfd9ba2411a49aa9e5544e7c02829c55c75d2dd9739d67917ef7188c"),
                 "transactionIndex": 82,
-                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "logIndex": 185,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xf66a72886749c96b18526E8E124cC2e18b7c72D2",
                 "topics": [
@@ -209,15 +212,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000849d52316331967b6ff1198e5e32a0eb168d039d"),
                 ],
                 "data": HexBytes("0x00000000000000000000000000000000000000000000009d24cca03587c0ddf4"),
+                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "blockNumber": 18934050,
+                "blockTimestamp": "0x6596a83f",
                 "transactionHash": HexBytes("0x1b99e432cfd9ba2411a49aa9e5544e7c02829c55c75d2dd9739d67917ef7188c"),
                 "transactionIndex": 82,
-                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "logIndex": 187,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xAc16927429c5c7Af63dD75BC9d8a58c63FfD0147",
                 "topics": [
@@ -225,15 +229,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000849d52316331967b6ff1198e5e32a0eb168d039d"),
                 ],
                 "data": HexBytes("0x0000000000000000000000000000000000000000000004c06c8e072010b99a09"),
+                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "blockNumber": 18934050,
+                "blockTimestamp": "0x6596a83f",
                 "transactionHash": HexBytes("0x1b99e432cfd9ba2411a49aa9e5544e7c02829c55c75d2dd9739d67917ef7188c"),
                 "transactionIndex": 82,
-                "blockHash": HexBytes("0x838560dea6b9c14f855d39411930ad377aaf0e1d6f96db1439c3c6523de3dfd7"),
                 "logIndex": 189,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x6f4bb9E23CA970681F3CABD0D52Fc36f8dfD8F91",
                 "topics": [
@@ -241,15 +246,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000a61de053e64a19c3f8d372a6a868f8c31a90e45e"),
                 ],
                 "data": HexBytes("0x0000000000000000000000000000000000000000000000000000019011041e36"),
+                "blockHash": HexBytes("0xb7b423cb9dc15ff646680fb5a839e9144f786d8218a24c9d13317262587672f0"),
                 "blockNumber": 18934053,
+                "blockTimestamp": "0x6596a863",
                 "transactionHash": HexBytes("0x6dea357095f0caa3d17c87c874b545704196ca8865e871f947570bda94f2ef8c"),
                 "transactionIndex": 107,
-                "blockHash": HexBytes("0xb7b423cb9dc15ff646680fb5a839e9144f786d8218a24c9d13317262587672f0"),
                 "logIndex": 202,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x19F3C877eA278e61fE1304770dbE5D78521792D2",
                 "topics": [
@@ -257,15 +263,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000346f1d297c98c28574742b067b67a80cda2dc0d9"),
                 ],
                 "data": HexBytes("0x0000000000000000000000000000000000000000000001606d4eb1eb30ed12ee"),
+                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "blockNumber": 18934074,
+                "blockTimestamp": "0x6596a95f",
                 "transactionHash": HexBytes("0xbafd32001dc6fe53444a8c694c663f50cf6af3246506e1eef9ec4e6086126f82"),
                 "transactionIndex": 86,
-                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "logIndex": 187,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
                 "topics": [
@@ -273,15 +280,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000aa0c3f5f7dfd688c6e646f66cd2a6b66acdbe434"),
                 ],
                 "data": HexBytes("0x000000000000000000000000000000000000000000000053a4e3ccac6b079708"),
+                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "blockNumber": 18934074,
+                "blockTimestamp": "0x6596a95f",
                 "transactionHash": HexBytes("0x2ad00c5426cb7724a8a4ce86290cee1a066b74642ca48113ec690c72b16d8367"),
                 "transactionIndex": 122,
-                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "logIndex": 252,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA",
                 "topics": [
@@ -289,15 +297,16 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000aa0c3f5f7dfd688c6e646f66cd2a6b66acdbe434"),
                 ],
                 "data": HexBytes("0x00000000000000000000000000000000000000000000004927aec1fd73a4c2c4"),
+                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "blockNumber": 18934074,
+                "blockTimestamp": "0x6596a95f",
                 "transactionHash": HexBytes("0x2ad00c5426cb7724a8a4ce86290cee1a066b74642ca48113ec690c72b16d8367"),
                 "transactionIndex": 122,
-                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "logIndex": 254,
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x449f2fd99174e1785CF2A1c79E665Fec3dD1DdC6",
                 "topics": [
@@ -305,10 +314,11 @@ def test_get_logs_web3():
                     HexBytes("0x000000000000000000000000aa0c3f5f7dfd688c6e646f66cd2a6b66acdbe434"),
                 ],
                 "data": HexBytes("0x000000000000000000000000000000000000000000000009cf68d0927740abe8"),
+                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "blockNumber": 18934074,
+                "blockTimestamp": "0x6596a95f",
                 "transactionHash": HexBytes("0x2ad00c5426cb7724a8a4ce86290cee1a066b74642ca48113ec690c72b16d8367"),
                 "transactionIndex": 122,
-                "blockHash": HexBytes("0x82d495cf561d834614627b108ec052bfbe16f8a8744c72c135ed471e8ee3b2b3"),
                 "logIndex": 256,
                 "removed": False,
             }
@@ -322,7 +332,7 @@ def test_get_logs_web3():
     )
 
     assert logs_2 == [
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x89D3D732da8bf0f88659Cf3738E5E44e553f9ED7",
                 "topics": [
@@ -338,7 +348,7 @@ def test_get_logs_web3():
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0x9E1104962D1019913269d8Db409c12456F362Df6",
                 "topics": [
@@ -354,7 +364,7 @@ def test_get_logs_web3():
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xDd1fE5AD401D4777cE89959b7fa587e569Bf125D",
                 "topics": [
@@ -370,7 +380,7 @@ def test_get_logs_web3():
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xf66a72886749c96b18526E8E124cC2e18b7c72D2",
                 "topics": [
@@ -386,7 +396,7 @@ def test_get_logs_web3():
                 "removed": False,
             }
         ),
-        LogReceipt(
+        AttributeDict(
             {
                 "address": "0xAc16927429c5c7Af63dD75BC9d8a58c63FfD0147",
                 "topics": [
