@@ -19,7 +19,6 @@ from karpatkit.node import get_node
 logger = logging.getLogger(__name__)
 
 max_iterations = 30  # times
-latest_block_number_margin = 30  # backward blocks from the latest block
 
 
 @dataclass(frozen=True)
@@ -104,7 +103,7 @@ def get_block(blockchain: Blockchain, block_number: int) -> Block:
 
 def get_latest_block_number(blockchain: Blockchain) -> int:
     node = get_node(blockchain)
-    return node.eth.get_block("latest").number - latest_block_number_margin
+    return node.eth.get_block("latest").number
 
 
 def get_latest_block(blockchain: Blockchain) -> Block:
