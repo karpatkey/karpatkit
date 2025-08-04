@@ -51,6 +51,8 @@ source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "_version.py"
+template = "__version__ = \"{version}\\n\""
+
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/karpatkit", "src/defabipedia"]
