@@ -1,4 +1,9 @@
-from ..types import Chain, ContractSpec, parent
+from ..types import Chain, ContractAbi, ContractSpec, parent
+
+
+class AllAbis:
+    morpho_vault_v1 = ContractAbi(abi_path=parent(__file__) / "morpho_vault_v1.json", name="morpho_vault_v1")
+    morpho_vault_v2 = ContractAbi(abi_path=parent(__file__) / "morpho_vault_v2.json", name="morpho_vault_v2")
 
 
 class EthereumContractSpecs:
