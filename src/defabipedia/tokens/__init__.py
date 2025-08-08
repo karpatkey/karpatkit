@@ -108,7 +108,6 @@ class EthereumTokenAddr:
     USDtb = "0xC139190F447e929f090Edeb554D95AbB8b18aC1C"
     EURC = "0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c"
 
-    
 
 class GnosisTokenAddr:
     AGVE = "0x3a97704a1b25F08aa230ae53B352e2e72ef52843"
