@@ -43,3 +43,8 @@ class BaseContractSpecs:
 
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs}
+
+Abis = {
+    Chain.ETHEREUM: AllAbis,
+    Chain.BASE: AllAbis,
+}
