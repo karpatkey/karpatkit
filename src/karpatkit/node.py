@@ -185,6 +185,6 @@ def get_node(blockchain: Blockchain | str, block=None):
     web3 = get_web3_provider(providers)
     web3._network_name = str(blockchain)  # TODO: remove this. Use Chains.get_blockchain_from_web3()
 
-    if blockchain in [Chain.AVALANCHE, Chain.POLYGON, Chain.BINANCE, Chain.METIS, Chain.OPTIMISM]:
+    if blockchain in [Chain.AVALANCHE, Chain.POLYGON, Chain.BINANCE, Chain.METIS, Chain.OPTIMISM, Chain.LINEA]:
         web3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
     return web3
