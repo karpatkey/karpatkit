@@ -36,7 +36,7 @@ class APIUrl(Constants):
     OPTIMISTICETHERSCAN = "api.etherscan.io/v2/api?chainid=10"
     ARBISCAN = "api.etherscan.io/v2/api?chainid=42161"
     BASESCAN = "api.etherscan.io/v2/api?chainid=8453"
-    LINEASCAN = "api.etherscan.build/v2/api?chainid=59144"
+    LINEASCAN = "api.etherscan.io/v2/api?chainid=59144"
     METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/api"
     ZAPPER = "api.zapper.fi/api"
     ETHPLORER = "api.ethplorer.io/api"
