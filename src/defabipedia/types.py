@@ -42,6 +42,7 @@ class Chain:
     GNOSIS = Blockchain("gnosis", 0x64)
     ARBITRUM = Blockchain("arbitrum", 0xA4B1)
     OPTIMISM = Blockchain("optimism", 0xA)
+    LINEA = Blockchain("linea", 0xE708)
     ROPSTEN = Blockchain("ropsten", 0x3)
     GOERLI = Blockchain("goerli", 0x5)
     KOVAN = Blockchain("kovan", 0x45)
