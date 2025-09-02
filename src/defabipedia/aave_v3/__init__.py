@@ -104,6 +104,7 @@ class EthereumContractSpecs:
         name="AaveOracle",
     )
 
+
 class GnosisContractSpecs:
     ProtocolDataProvider = ContractSpec(
         address="0x501B4c19dd9C2e06E94dA7b6D5Ed4ddA013EC741",
