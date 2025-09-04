@@ -236,7 +236,7 @@ def run_anvil(url, block, port):
 
     node = SimpleDaemonRunner(
         cmd=f"anvil --accounts 15 -f '{url}' --fork-block-number {block} --port {port} "
-        f"--hardfork latest --timeout 30000",
+        f"--timeout 30000",
         popen_kwargs={"stdout": log, "stderr": log},
     )
 
