@@ -78,9 +78,15 @@ class GnosisContractSpecs:
     )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs}
+ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs,
+                 Chain.ARBITRUM: ArbitrumContractSpecs, Chain.OPTIMISM: OptimismContractSpecs,
+                 Chain.GNOSIS: GnosisContractSpecs
+                 }
 
 Abis = {
     Chain.ETHEREUM: AllAbis,
     Chain.BASE: AllAbis,
+    Chain.ARBITRUM: AllAbis,
+    Chain.OPTIMISM: AllAbis,
+    Chain.GNOSIS: AllAbis,
 }
