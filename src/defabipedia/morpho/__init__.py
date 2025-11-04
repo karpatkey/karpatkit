@@ -41,6 +41,42 @@ class BaseContractSpecs:
         name="adaptative_Curve_IRM",
     )
 
+class ArbitrumContractSpecs:
+    morpho_blue = ContractSpec(
+        address="0x6c247b1F6182318877311737BaC0844bAa518F5e",
+        abi_path=parent(__file__) / "morpho_blue.json",
+        name="morpho_blue",
+    )
+    adaptative_Curve_IRM = ContractSpec(
+        address="0x66F30587FB8D4206918deb78ecA7d5eBbafD06DA",
+        abi_path=parent(__file__) / "adaptative_Curve_IRM.json",
+        name="adaptative_Curve_IRM",
+    )
+
+class OptimismContractSpecs:
+    morpho_blue = ContractSpec(
+        address="0xce95AfbB8EA029495c66020883F87aaE8864AF92",
+        abi_path=parent(__file__) / "morpho_blue.json",
+        name="morpho_blue",
+    )
+    adaptative_Curve_IRM = ContractSpec(
+        address="0x8cD70A8F399428456b29546BC5dBe10ab6a06ef6",
+        abi_path=parent(__file__) / "adaptative_Curve_IRM.json",
+        name="adaptative_Curve_IRM",
+    )
+
+class GnosisContractSpecs:
+    morpho_blue = ContractSpec(
+        address="0xB74D4dd451E250bC325AFF0556D717e4E2351c66",
+        abi_path=parent(__file__) / "morpho_blue.json",
+        name="morpho_blue",
+    )
+    adaptative_Curve_IRM = ContractSpec(
+        address="0xae529333703C34b8976BaB9D04AF3f0B9Cff05c5",
+        abi_path=parent(__file__) / "adaptative_Curve_IRM.json",
+        name="adaptative_Curve_IRM",
+    )
+
 
 ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs}
 
