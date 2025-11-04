@@ -1,7 +1,6 @@
 from defabipedia.types import Chain, ContractSpec, parent
 
 
-
 class EthereumContractSpecs:
     Multicall = ContractSpec(
         address="0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441",
