@@ -27,11 +27,10 @@ class OptimismContractSpecs:
 
 class ArbitrumContractSpecs:
     Multicall = ContractSpec(
-        address="0xcA11bde05977b3631167028862bE2a173976CA11", #multicall2 instead of multicall but fine
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",  # multicall2 instead of multicall but fine
         abi_path=parent(__file__) / "multicall3.json",
         name="multical3",
     )
-
 
 
 ContractSpecs = {
@@ -40,4 +39,3 @@ ContractSpecs = {
     Chain.OPTIMISM: OptimismContractSpecs,
     Chain.ARBITRUM: ArbitrumContractSpecs,
 }
-
