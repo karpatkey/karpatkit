@@ -15,6 +15,7 @@ class APIKey(Constants):
     ARBISCAN = apikeys_cfg.get("etherscan", None)
     BASESCAN = apikeys_cfg.get("etherscan", None)
     LINEASCAN = apikeys_cfg.get("etherscan", None)
+    ZKSYNC = apikeys_cfg.get("etherscan", None)
     METISEXPLORER = apikeys_cfg.get("metisexplorer", None)
     ZAPPER = apikeys_cfg.get("zapper", None)
     ETHPLORER = apikeys_cfg.get("ethplorer", None)
@@ -38,6 +39,7 @@ class APIUrl(Constants):
     BASESCAN = "api.etherscan.io/v2/api?chainid=8453"
     LINEASCAN = "api.etherscan.io/v2/api?chainid=59144"
     METISEXPLORER = "api.routescan.io/v2/network/mainnet/evm/1088/etherscan/api"
+    ZKSYNC = "api.etherscan.io/v2/api?chainid=324"
     ZAPPER = "api.zapper.fi/api"
     ETHPLORER = "api.ethplorer.io/api"
     ROPSTEN = "api-ropsten.etherscan.io/api"

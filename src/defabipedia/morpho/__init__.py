@@ -41,6 +41,7 @@ class BaseContractSpecs:
         name="adaptative_Curve_IRM",
     )
 
+
 class ArbitrumContractSpecs:
     morpho_blue = ContractSpec(
         address="0x6c247b1F6182318877311737BaC0844bAa518F5e",
@@ -53,6 +54,7 @@ class ArbitrumContractSpecs:
         name="adaptative_Curve_IRM",
     )
 
+
 class OptimismContractSpecs:
     morpho_blue = ContractSpec(
         address="0xce95AfbB8EA029495c66020883F87aaE8864AF92",
@@ -64,6 +66,7 @@ class OptimismContractSpecs:
         abi_path=parent(__file__) / "adaptative_Curve_IRM.json",
         name="adaptative_Curve_IRM",
     )
+
 
 class GnosisContractSpecs:
     morpho_blue = ContractSpec(
@@ -78,10 +81,13 @@ class GnosisContractSpecs:
     )
 
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.BASE: BaseContractSpecs,
-                 Chain.ARBITRUM: ArbitrumContractSpecs, Chain.OPTIMISM: OptimismContractSpecs,
-                 Chain.GNOSIS: GnosisContractSpecs
-                 }
+ContractSpecs = {
+    Chain.ETHEREUM: EthereumContractSpecs,
+    Chain.BASE: BaseContractSpecs,
+    Chain.ARBITRUM: ArbitrumContractSpecs,
+    Chain.OPTIMISM: OptimismContractSpecs,
+    Chain.GNOSIS: GnosisContractSpecs,
+}
 
 Abis = {
     Chain.ETHEREUM: AllAbis,
