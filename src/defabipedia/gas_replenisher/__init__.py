@@ -1,4 +1,4 @@
-from ..types import Chain, ContractAbi, ContractSpec, parent
+from ..types import Chain, ContractAbi, parent
 
 
 class AllAbis:
