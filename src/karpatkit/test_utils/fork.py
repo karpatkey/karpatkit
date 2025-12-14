@@ -308,7 +308,7 @@ def create_simple_safe(w3: Web3, owner: LocalAccount) -> SimpleSafe:
     return safe
 
 
-def top_up_address(w3: Web3, address: str, amount: int) -> None:
+def top_up_address(w3: Web3, address: str, amount: float) -> None:
     """Top up an address with ETH"""
     if amount > (w3.eth.get_balance(SCRAPE_ACCOUNT.address) * 1e18) * 0.99:
         raise ValueError("Not enough ETH in the faucet account")
