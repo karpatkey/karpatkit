@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 
-from web3 import Web3, AsyncWeb3
+from web3 import AsyncWeb3, Web3
 
 __all__ = ["Blockchain", "Chain", "parent", "ContractSpec", "ContractAbi", "ContractAddress", "StrEnum"]
 
