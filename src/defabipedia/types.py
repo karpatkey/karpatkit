@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 
-from web3 import Web3
+from web3 import AsyncWeb3, Web3
 
 __all__ = ["Blockchain", "Chain", "parent", "ContractSpec", "ContractAbi", "ContractAddress", "StrEnum"]
 
@@ -77,6 +77,10 @@ class Chain:
     @classmethod
     def get_blockchain_from_web3(cls, w3: Web3) -> Blockchain:
         return cls.get_blockchain_by_chain_id(w3.eth.chain_id)
+
+    @classmethod
+    async def get_blockchain_from_web3_async(cls, w3: AsyncWeb3) -> Blockchain:
+        return cls.get_blockchain_by_chain_id(await w3.eth.chain_id)
 
 
 class ContractAbi:
