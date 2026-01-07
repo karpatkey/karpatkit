@@ -1,0 +1,194 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      { "name": "safe_", "type": "address" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "SAFE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+
+  {
+    "type": "function",
+    "name": "AAVE_POOL",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "WETH",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "WEETH",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "WSTETH",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MORPHO",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "KYBER_ROUTER_V2",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+
+  {
+    "type": "function",
+    "name": "unwind",
+    "inputs": [
+      { "name": "collateralAsset", "type": "address" },
+      { "name": "repayAmount", "type": "uint256" },
+      { "name": "collateralToSwap", "type": "uint256" },
+      { "name": "minWethFromSwap", "type": "uint256" },
+      { "name": "router", "type": "address" },
+      { "name": "swapCalldata", "type": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "onMorphoFlashLoan",
+    "inputs": [
+      { "name": "assets", "type": "uint256" },
+      { "name": "data", "type": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "cleanupApprovals",
+    "inputs": [
+      { "name": "collateralAsset", "type": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "sweep",
+    "inputs": [
+      { "name": "token", "type": "address" },
+      { "name": "to", "type": "address" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "event",
+    "name": "Step",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "name": "id", "type": "uint8" },
+      { "indexed": false, "name": "a", "type": "uint256" },
+      { "indexed": false, "name": "b", "type": "uint256" },
+      { "indexed": false, "name": "addr", "type": "address" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "UnwindRequested",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "name": "collateralAsset", "type": "address" },
+      { "indexed": false, "name": "repayAmount", "type": "uint256" },
+      { "indexed": false, "name": "collateralToSwap", "type": "uint256" },
+      { "indexed": false, "name": "minWethFromSwap", "type": "uint256" },
+      { "indexed": false, "name": "router", "type": "address" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "AaveRepaid",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "name": "assets", "type": "uint256" },
+      { "indexed": false, "name": "repaid", "type": "uint256" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "CollateralPulled",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "name": "aToken", "type": "address" },
+      { "indexed": false, "name": "aTokenAmount", "type": "uint256" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "CollateralWithdrawn",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "name": "collateralAsset", "type": "address" },
+      { "indexed": false, "name": "amount", "type": "uint256" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "KyberSwapped",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "name": "wethBefore", "type": "uint256" },
+      { "indexed": false, "name": "wethAfter", "type": "uint256" },
+      { "indexed": false, "name": "got", "type": "uint256" },
+      { "indexed": false, "name": "minOut", "type": "uint256" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "MorphoApproved",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "name": "assets", "type": "uint256" }
+    ]
+  },
+
+  {
+    "type": "event",
+    "name": "LeftoversSent",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "name": "leftoverWeth", "type": "uint256" },
+      { "indexed": false, "name": "leftoverCollateral", "type": "uint256" }
+    ]
+  }
+]

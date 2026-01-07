@@ -1,0 +1,88 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [{ "name": "safe_", "type": "address" }],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "SAFE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address" }],
+    "stateMutability": "view"
+  },
+
+  { "type": "function", "name": "AAVE_POOL", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "WETH", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "WEETH", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "ETHERFI_DEPOSIT_ADAPTER", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "STETH", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "WSTETH", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+  { "type": "function", "name": "MORPHO", "inputs": [], "outputs": [{ "name": "", "type": "address" }], "stateMutability": "view" },
+
+  {
+    "type": "function",
+    "name": "openPosition",
+    "inputs": [
+      { "name": "user", "type": "address" },
+      { "name": "inputWeth", "type": "uint256" },
+      { "name": "flashWeth", "type": "uint256" },
+      { "name": "referral", "type": "address" },
+      { "name": "collateralAsset", "type": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "onMorphoFlashLoan",
+    "inputs": [
+      { "name": "assets", "type": "uint256" },
+      { "name": "data", "type": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "sweep",
+    "inputs": [
+      { "name": "token", "type": "address" },
+      { "name": "to", "type": "address" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "function",
+    "name": "sweepETH",
+    "inputs": [
+      { "name": "to", "type": "address" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+
+  {
+    "type": "receive",
+    "stateMutability": "payable"
+  },
+
+  {
+    "type": "event",
+    "name": "Step",
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "name": "id", "type": "uint8" },
+      { "indexed": false, "name": "a", "type": "uint256" },
+      { "indexed": false, "name": "b", "type": "uint256" },
+      { "indexed": false, "name": "addr", "type": "address" }
+    ]
+  }
+]
