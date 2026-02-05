@@ -4,6 +4,16 @@ from defabipedia.types import Chain, ContractAbi, ContractSpec, parent
 class AllAbis:
     PriceOracle = ContractAbi(abi_path=parent(__file__) / "price_oracle.json", name="price_oracle")
     aToken = ContractAbi(abi_path=parent(__file__) / "atoken.json", name="aToken")
+    LendingPoolV3 = ContractAbi(abi_path=parent(__file__) / "lending_pool_v3.json", name="lending_pool_v3")
+    Protocol_data_provider = ContractAbi(
+        abi_path=parent(__file__) / "protocol_data_provider.json", name="protocol_data_provider"
+    )
+    protocol_address_provider = ContractAbi(
+        abi_path=parent(__file__) / "protocol_address_provider.json", name="protocol_address_provider"
+    )
+    variableDebt = ContractAbi(abi_path=parent(__file__) / "variableDebt.json", name="variableDebt")
+    variableDebtNative = ContractAbi(abi_path=parent(__file__) / "variableDebtNative.json", name="variableDebtNative")
+    stableDebtNative = ContractAbi(abi_path=parent(__file__) / "stableDebtNative.json", name="stableDebtNative")
 
 
 class EthereumContractSpecs:
