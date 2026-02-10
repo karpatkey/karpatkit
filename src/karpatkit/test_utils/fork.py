@@ -259,20 +259,20 @@ class LocalNode:
         fork_unlock_account(self.w3, address)
 
     def set_block(self, block: int):
-    """Set the local node to a specific block and wait until reset has applied."""
-    fork_reset_state(self.w3, url=self.fork_cfg.upstream_url, block=block)
+        """Set the local node to a specific block and wait until reset has applied."""
+        fork_reset_state(self.w3, url=self.fork_cfg.upstream_url, block=block)
 
-    # Wait until anvil is actually on that block
-    deadline = time.time() + 20
-    while time.time() < deadline:
-        try:
-            if self.w3.eth.block_number == block:
-                return
-        except Exception:
-            pass
-        time.sleep(0.2)
+        # Wait until anvil is actually on that block
+        deadline = time.time() + 20
+        while time.time() < deadline:
+            try:
+                if self.w3.eth.block_number == block:
+                    return
+            except Exception:
+                pass
+            time.sleep(0.2)
 
-    raise RuntimeError(f"Fork reset did not reach block {block}, current={self.w3.eth.block_number}")
+        raise RuntimeError(f"Fork reset did not reach block {block}, current={self.w3.eth.block_number}")
 
 
 def _local_node(request, node: LocalNode):
