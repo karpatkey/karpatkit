@@ -232,7 +232,7 @@
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "targetLtv",
+                "name": "targetLTV",
                 "type": "uint256"
             },
             {
@@ -563,7 +563,7 @@
                 "type": "bool"
             }
         ],
-        "name": "getLtvBounds",
+        "name": "getLTVBounds",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -607,7 +607,7 @@
                 "type": "bool"
             }
         ],
-        "name": "getLtvBoundsFromHealthFactor",
+        "name": "getLTVBoundsFromHealthFactor",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -651,7 +651,7 @@
                 "type": "bool"
             }
         ],
-        "name": "getLtvBoundsFromLeverageFactor",
+        "name": "getLTVBoundsFromLeverageFactor",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -691,7 +691,7 @@
             },
             {
                 "internalType": "uint256",
-                "name": "targetLtv",
+                "name": "targetLTV",
                 "type": "uint256"
             },
             {
@@ -735,7 +735,7 @@
             },
             {
                 "internalType": "uint256",
-                "name": "targetLtv",
+                "name": "targetLTV",
                 "type": "uint256"
             },
             {
@@ -744,11 +744,11 @@
                 "type": "bool"
             }
         ],
-        "name": "getProjectedLtv",
+        "name": "getProjectedLTV",
         "outputs": [
             {
                 "internalType": "uint256",
-                "name": "projectedLtv",
+                "name": "projectedLTV",
                 "type": "uint256"
             }
         ],
@@ -798,7 +798,7 @@
             },
             {
                 "internalType": "uint256",
-                "name": "targetLtv",
+                "name": "targetLTV",
                 "type": "uint256"
             },
             {
