@@ -1,0 +1,878 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "available",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "required",
+                "type": "uint256"
+            }
+        ],
+        "name": "AaveInsufficientBorrowableLiquidity",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "EthSweepFailed",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "assets",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            }
+        ],
+        "name": "FlashAmountMismatch",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "available",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "required",
+                "type": "uint256"
+            }
+        ],
+        "name": "InsufficientWethBalance",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            }
+        ],
+        "name": "InvalidAToken",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "leverage",
+                "type": "uint256"
+            }
+        ],
+        "name": "LeverageFactorMustBeAboveOne",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "available",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "required",
+                "type": "uint256"
+            }
+        ],
+        "name": "MorphoInsufficientWETHBalance",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "NotDelegateCall",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "caller",
+                "type": "address"
+            }
+        ],
+        "name": "OnlyMorpho",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            }
+        ],
+        "name": "SafeERC20FailedOperation",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amountOut",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "minAmountOut",
+                "type": "uint256"
+            }
+        ],
+        "name": "SlippageExceeded",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            }
+        ],
+        "name": "UnsupportedCollateral",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ZeroRecipient",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "aTokenAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "minWethFromSwap",
+                "type": "uint256"
+            }
+        ],
+        "name": "DeleverageAavePositionExecuted",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "leverage",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "eModeActive",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "activateEModeIfInactive",
+                "type": "bool"
+            }
+        ],
+        "name": "LeverageAavePositionExecuted",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "asset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "collateralAsset",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "aavePoolAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "aToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "repayAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "aTokenAmount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "minWethFromSwap",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "swapCalldata",
+                        "type": "bytes"
+                    }
+                ],
+                "internalType": "struct DeleverageAaveParams",
+                "name": "deleverageParams",
+                "type": "tuple"
+            }
+        ],
+        "name": "callFlashLoanDeleverage",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "asset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "inputWeth",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "collateralAsset",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "aavePoolAddress",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct LeverageAaveParams",
+                "name": "leverageParams",
+                "type": "tuple"
+            }
+        ],
+        "name": "callFlashLoanLeverage",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repayAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "aTokenAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "minWethFromSwap",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes",
+                "name": "swapCalldata",
+                "type": "bytes"
+            }
+        ],
+        "name": "deleverageAavePosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getCurrentHF",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "healthFactor",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            }
+        ],
+        "name": "getCurrentIsolatedLeveragedLLTV",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "lltv",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            }
+        ],
+        "name": "getCurrentIsolatedLeveragedLTV",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "ltv",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getCurrentLLTV",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "lltv",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getCurrentLTV",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "ltv",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getLTVBounds",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "ltvLowerBound",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ltvUpperBound",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getLTVBoundsFromHealthFactor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "ltvLowerBound",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ltvUpperBound",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getLTVBoundsFromLeverageFactor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "ltvLowerBound",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "ltvUpperBound",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getProjectedHealthFactor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "projectedHealthFactor",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getProjectedLTV",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "projectedLTV",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "isEModeActive",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "isEModeActive_",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "activateEModeIfInactive",
+                "type": "bool"
+            }
+        ],
+        "name": "leverageAavePosition",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "assets",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes",
+                "name": "data",
+                "type": "bytes"
+            }
+        ],
+        "name": "onMorphoFlashLoan",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "sweep",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "sweepETH",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+]
