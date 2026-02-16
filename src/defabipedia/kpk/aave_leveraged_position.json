@@ -21,6 +21,70 @@
         "type": "error"
     },
     {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "available",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "required",
+                "type": "uint256"
+            }
+        ],
+        "name": "AaveInsufficientSupplyCap",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "availableCollateral",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "requestedCollateral",
+                "type": "uint256"
+            }
+        ],
+        "name": "CollateralAmountToWithdrawExceedsSupplied",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "currentIsolatedLeverageLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            }
+        ],
+        "name": "DeleveragingTargetLTVNotBelowCurrentLTV",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "deleveragingLTVUpperBound",
+                "type": "uint256"
+            }
+        ],
+        "name": "DeleveragingTargetLTVNotBelowUpperBound",
+        "type": "error"
+    },
+    {
         "inputs": [],
         "name": "EthSweepFailed",
         "type": "error"
@@ -45,16 +109,16 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "available",
+                "name": "expectedAmountIn",
                 "type": "uint256"
             },
             {
                 "internalType": "uint256",
-                "name": "required",
+                "name": "actualAmountIn",
                 "type": "uint256"
             }
         ],
-        "name": "InsufficientWethBalance",
+        "name": "IncorrectAmountInInSwapCallData",
         "type": "error"
     },
     {
@@ -82,6 +146,38 @@
             }
         ],
         "name": "LeverageFactorMustBeAboveOne",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
+            }
+        ],
+        "name": "MaxSwapPriceImpactAboveOne",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amountIn",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "minAmountOutExpected",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amountOutReceived",
+                "type": "uint256"
+            }
+        ],
+        "name": "MaxSwapPriceImpactExceeded",
         "type": "error"
     },
     {
@@ -128,19 +224,19 @@
         "type": "error"
     },
     {
+        "inputs": [],
+        "name": "SwapFailed",
+        "type": "error"
+    },
+    {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "amountOut",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "minAmountOut",
-                "type": "uint256"
+                "internalType": "bytes",
+                "name": "reason",
+                "type": "bytes"
             }
         ],
-        "name": "SlippageExceeded",
+        "name": "SwapFailedWithReason",
         "type": "error"
     },
     {
@@ -183,23 +279,66 @@
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "repayAmount",
+                "name": "collateralAmountToWithdraw",
                 "type": "uint256"
             },
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "aTokenAmount",
+                "name": "maxSwapPriceImpact",
                 "type": "uint256"
             },
             {
                 "indexed": false,
-                "internalType": "uint256",
-                "name": "minWethFromSwap",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "swapTarget",
+                "type": "address"
             }
         ],
         "name": "DeleverageAavePositionExecuted",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "collateralAmountToWithdraw",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "swapTarget",
+                "type": "address"
+            }
+        ],
+        "name": "DeleverageAavePositionFromLTVExecuted",
         "type": "event"
     },
     {
@@ -273,7 +412,7 @@
                 "components": [
                     {
                         "internalType": "address",
-                        "name": "collateralAsset",
+                        "name": "user",
                         "type": "address"
                     },
                     {
@@ -283,28 +422,33 @@
                     },
                     {
                         "internalType": "address",
-                        "name": "user",
+                        "name": "collateralAsset",
                         "type": "address"
                     },
                     {
                         "internalType": "address",
-                        "name": "aToken",
+                        "name": "aTokenAddress",
                         "type": "address"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "repayAmount",
+                        "name": "collateralAmountToWithdraw",
                         "type": "uint256"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "aTokenAmount",
+                        "name": "wethAmountToFlashBorrow",
                         "type": "uint256"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "minWethFromSwap",
+                        "name": "maxSwapPriceImpact",
                         "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "swapTarget",
+                        "type": "address"
                     },
                     {
                         "internalType": "bytes",
@@ -342,9 +486,9 @@
                         "type": "address"
                     },
                     {
-                        "internalType": "uint256",
-                        "name": "inputWeth",
-                        "type": "uint256"
+                        "internalType": "address",
+                        "name": "aavePoolAddress",
+                        "type": "address"
                     },
                     {
                         "internalType": "address",
@@ -352,9 +496,9 @@
                         "type": "address"
                     },
                     {
-                        "internalType": "address",
-                        "name": "aavePoolAddress",
-                        "type": "address"
+                        "internalType": "uint256",
+                        "name": "inputWeth",
+                        "type": "uint256"
                     }
                 ],
                 "internalType": "struct LeverageAaveParams",
@@ -381,18 +525,18 @@
             },
             {
                 "internalType": "uint256",
-                "name": "repayAmount",
+                "name": "collateralAmountToWithdraw",
                 "type": "uint256"
             },
             {
                 "internalType": "uint256",
-                "name": "aTokenAmount",
+                "name": "maxSwapPriceImpact",
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
-                "name": "minWethFromSwap",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "swapTarget",
+                "type": "address"
             },
             {
                 "internalType": "bytes",
@@ -400,7 +544,45 @@
                 "type": "bytes"
             }
         ],
-        "name": "deleverageAavePosition",
+        "name": "deleverageAavePositionFromCollateral",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "swapTarget",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes",
+                "name": "swapCalldata",
+                "type": "bytes"
+            }
+        ],
+        "name": "deleverageAavePositionFromLTV",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -554,22 +736,51 @@
             },
             {
                 "internalType": "uint256",
-                "name": "inputWeth",
+                "name": "targetLTV",
                 "type": "uint256"
             },
             {
-                "internalType": "bool",
-                "name": "eMode",
-                "type": "bool"
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
             }
         ],
-        "name": "getLTVBounds",
+        "name": "getDeleveragingCollateralToWithdrawForTargetLTV",
         "outputs": [
             {
                 "internalType": "uint256",
-                "name": "ltvLowerBound",
+                "name": "collateralAmountToWithdraw",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
             },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
+            }
+        ],
+        "name": "getDeleveragingLTVUpperBound",
+        "outputs": [
             {
                 "internalType": "uint256",
                 "name": "ltvUpperBound",
@@ -607,7 +818,7 @@
                 "type": "bool"
             }
         ],
-        "name": "getLTVBoundsFromHealthFactor",
+        "name": "getLeveragingLTVBounds",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -639,55 +850,6 @@
                 "internalType": "address",
                 "name": "collateralAsset",
                 "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "inputWeth",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bool",
-                "name": "eMode",
-                "type": "bool"
-            }
-        ],
-        "name": "getLTVBoundsFromLeverageFactor",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "ltvLowerBound",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "ltvUpperBound",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "aavePoolAddress",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "collateralAsset",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "inputWeth",
-                "type": "uint256"
             },
             {
                 "internalType": "uint256",
@@ -695,12 +857,12 @@
                 "type": "uint256"
             },
             {
-                "internalType": "bool",
-                "name": "eMode",
-                "type": "bool"
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
             }
         ],
-        "name": "getProjectedHealthFactor",
+        "name": "getProjectedHealthFactorAfterDeleveraging",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -744,7 +906,90 @@
                 "type": "bool"
             }
         ],
-        "name": "getProjectedLTV",
+        "name": "getProjectedHealthFactorAfterLeveraging",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "projectedHealthFactor",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maxSwapPriceImpact",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProjectedLTVAfterDeleveraging",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "projectedLTV",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "aavePoolAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "collateralAsset",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inputWeth",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "targetLTV",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "eMode",
+                "type": "bool"
+            }
+        ],
+        "name": "getProjectedLTVAfterLeveraging",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -826,47 +1071,6 @@
             }
         ],
         "name": "onMorphoFlashLoan",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "sweep",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "sweepETH",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
