@@ -1,6 +1,18 @@
 import os
 
 def rename_files(directory, name_mapping):
+    """
+    Renames files in the specified directory based on the provided name mapping.
+
+    Parameters:
+        directory (str): The path to the directory containing the files to rename.
+        name_mapping (dict): A dictionary where keys are the current filenames and values are the new filenames.
+
+    This function iterates over the items in `name_mapping`, constructs full file paths, and renames the files if 
+    they exist in the specified directory. It prints a message for each successful rename and a warning if a file 
+    is not found.
+    """
+
     for old_name, new_name in name_mapping.items():
         old_file_path = os.path.join(directory, old_name)
         new_file_path = os.path.join(directory, new_name)
@@ -11,7 +23,8 @@ def rename_files(directory, name_mapping):
         else:
             print(f'File not found: {old_name}')
 
-directory = '/your/path/to/jsons' # Change this to the directory where the files are located
+# Directory where the files are located. Change this to your target directory path.
+directory = '/your/path/to/jsons'
 name_mapping = {
     'oldname.json': 'newname.json',
     'oldname2.json': 'newname2.json'}
