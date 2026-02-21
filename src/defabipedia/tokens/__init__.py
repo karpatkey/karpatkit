@@ -19,6 +19,9 @@ NATIVE = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"  # Native asset convention
 
 class Abis:
     ERC20 = ContractAbi(abi=ERC20_ABI, name="erc20")
+    ERC721 = ContractAbi(abi_path=parent(__file__) / "erc721.json", name="erc721")
+    ERC1155 = ContractAbi(abi_path=parent(__file__) / "erc1155.json", name="erc1155")
+    ERC4626 = ContractAbi(abi_path=parent(__file__) / "erc4626.json", name="erc4626")
 
 
 class EthereumTokenAddr:
