@@ -90,7 +90,7 @@ arb_fork_cfg = ForkConfig(
 xlayer_fork_cfg = ForkConfig(
     upstream_url=os.environ.get("KKIT_XLAYER_FORK_URL", REMOTE_XLAYER_NODE_URL),
     local_port=8551,
-    default_block=24_000_000,
+    default_block=56708243,
     blockchain=Chain.XLAYER,
 )
 
