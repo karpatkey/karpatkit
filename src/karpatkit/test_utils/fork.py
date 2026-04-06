@@ -48,6 +48,7 @@ REMOTE_GC_NODE_URL = "https://rpc.gnosischain.com"
 REMOTE_BASE_NODE_URL = "https://1rpc.io/base"
 REMOTE_OPT_NODE_URL = "https://1rpc.io/op"
 REMOTE_ARB_NODE_URL = "https://arb1.arbitrum.io/rpc"
+REMOTE_XLAYER_NODE_URL = "https://rpc.xlayer.tech"
 
 RUN_LOCAL_NODE = os.environ.get("KKIT_RUN_LOCAL_NODE", False)
 
@@ -86,12 +87,20 @@ arb_fork_cfg = ForkConfig(
     blockchain=Chain.ARBITRUM,
 )
 
+xlayer_fork_cfg = ForkConfig(
+    upstream_url=os.environ.get("KKIT_XLAYER_FORK_URL", REMOTE_XLAYER_NODE_URL),
+    local_port=8551,
+    default_block=56708243,
+    blockchain=Chain.XLAYER,
+)
+
 fork_configs = {
     Chain.ETHEREUM: eth_fork_cfg,
     Chain.GNOSIS: gc_fork_cfg,
     Chain.BASE: base_fork_cfg,
     Chain.OPTIMISM: opt_fork_cfg,
     Chain.ARBITRUM: arb_fork_cfg,
+    Chain.XLAYER: xlayer_fork_cfg,
 }
 
 
@@ -373,6 +382,13 @@ def local_node_arb(request) -> LocalNode:
 
 
 @pytest.fixture(scope="session")
+def local_node_xlayer(request) -> LocalNode:
+    node = LocalNode(xlayer_fork_cfg)
+    _local_node(request, node)
+    return node
+
+
+@pytest.fixture(scope="session")
 def accounts() -> list[LocalAccount]:
     return TEST_ACCOUNTS
 
@@ -511,3 +527,8 @@ def local_node_opt_replay(local_node_opt, request) -> LocalNode:
 @pytest.fixture()
 def local_node_arb_replay(local_node_arb, request) -> LocalNode:
     yield from _local_node_replay(local_node_arb, request)
+
+
+@pytest.fixture()
+def local_node_xlayer_replay(local_node_xlayer, request) -> LocalNode:
+    yield from _local_node_replay(local_node_xlayer, request)
