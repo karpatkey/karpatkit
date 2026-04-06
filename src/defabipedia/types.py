@@ -50,6 +50,7 @@ class Chain:
     METIS = Blockchain("metis", 0x440)
     COSMOS = Blockchain("cosmos", 0xF0C74)
     ZKSYNC = Blockchain("zksync", 0x144)
+    XLAYER = Blockchain("xlayer", 0xC4)
 
     # Look up indexes
     _by_id = {}
