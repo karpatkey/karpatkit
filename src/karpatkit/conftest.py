@@ -11,5 +11,5 @@ from .test_utils.fork import (  # noqa: F401
     local_node_opt,
     local_node_opt_replay,
     local_node_xlayer,
-    local_node_xlayer_replay
+    local_node_xlayer_replay,
 )
