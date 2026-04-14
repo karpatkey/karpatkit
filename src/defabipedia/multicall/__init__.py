@@ -41,10 +41,19 @@ class BaseContractSpecs:
     )
 
 
+class XlayerContractSpecs:
+    Multicall = ContractSpec(
+        address="0xcA11bde05977b3631167028862bE2a173976CA11",
+        abi_path=parent(__file__) / "multicall3.json",
+        name="multicall3",
+    )
+
+
 ContractSpecs = {
     Chain.ETHEREUM: EthereumContractSpecs,
     Chain.GNOSIS: GnosisContractSpecs,
     Chain.OPTIMISM: OptimismContractSpecs,
     Chain.ARBITRUM: ArbitrumContractSpecs,
     Chain.BASE: BaseContractSpecs,
+    Chain.XLAYER: XlayerContractSpecs,
 }

@@ -16,6 +16,7 @@ class APIKey(Constants):
     BASESCAN = apikeys_cfg.get("etherscan", None)
     LINEASCAN = apikeys_cfg.get("etherscan", None)
     ZKSYNC = apikeys_cfg.get("etherscan", None)
+    XLAYERSCAN = apikeys_cfg.get("etherscan", None)
     METISEXPLORER = apikeys_cfg.get("metisexplorer", None)
     ZAPPER = apikeys_cfg.get("zapper", None)
     ETHPLORER = apikeys_cfg.get("ethplorer", None)
