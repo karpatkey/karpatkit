@@ -24,7 +24,13 @@ class GnosisContractSpecs:
         name="eur_price_feed",
     )
 
+class ArbitrumContractSpecs:
+    WethUsdPriceFeed = ContractSpec(
+        address="0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612",
+        abi_path=parent(__file__) / "price_feed.json",
+        name="weth_usd_price_feed",
+    )
 
-ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs}
+ContractSpecs = {Chain.ETHEREUM: EthereumContractSpecs, Chain.GNOSIS: GnosisContractSpecs, Chain.ARBITRUM: ArbitrumContractSpecs}
 
-Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis}
+Abis = {Chain.ETHEREUM: AllAbis, Chain.GNOSIS: AllAbis, Chain.ARBITRUM: AllAbis}
